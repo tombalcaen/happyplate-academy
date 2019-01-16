@@ -2,7 +2,7 @@
   <div class="user-course-content">
     <!--NAV-->
     <div class="user-course-navbar">      
-      <div class="user-course-navbar navbar navbar-fixed-top">
+      <div class="user-course-navbar navbar navbar-fixed-top bg-info">
         <div class="navbar-left">
           <a class="toggle-sidebar" (click)="toggleSidebar()" href="#">
             <i class="fas fa-bars text-white"></i>
@@ -21,7 +21,7 @@
         <div class="row">
           <div class="col-12">
             <div class="text-center py-5">
-              <h1>1. The setting: framework and main flow (1m)</h1>
+              <h1>{{subject}}</h1> <!--1. The setting: framework and main flow (1m)-->
             </div>
           </div>
         </div>
@@ -29,12 +29,7 @@
         <div class="row">
           <div class="col-12 col-md-10 offset-md-1">
             <div class="course-content-text">
-              <div>
-                  Hi, thanks for checking out this course. I wish you good luck on your entrepreneurial journey. 
-
-                  This course consists of 4 lessons, each of them deals with one of 4 vital questions about your business that you must be able to answer. This will help you to start your business and to being able to maintain and grow it.  Together they will form a strong business plan that will allow you to grow further.                   
-                  Each lesson has a theoretical background giving you the information needed to understand:
-              </div>
+              <div #el [innerHtml]="text"></div>
             </div>
           </div>
         </div>
