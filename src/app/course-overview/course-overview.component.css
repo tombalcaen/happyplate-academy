@@ -1,0 +1,47 @@
+.user-course-item-image{
+    background-image: url("../../assets/339675-PAVV19-269.jpg")
+}
+
+.img{
+    position: relative;
+    max-width: 450px;
+    height: 100%;
+    margin: 0 auto;
+    display: block;
+    border-radius: 8px;
+    background-position: center center;
+    background-size: cover;
+}
+
+.course-item-description{
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.break{
+    width: 75px;
+    height: 2px;
+    background-color: #cdd6dc;
+}
+
+.btn{
+    font-size: 1rem !important;
+    line-height: 2rem !important;
+    padding: 1rem 1.5rem !important;
+    -webkit-transition-duration: 0.35s !important;
+    transition-duration: 0.35s !important;
+}
+
+.create{
+    color: white;
+    text-decoration: none;
+}
+
+a.disabled {
+    color: gray;
+    cursor: not-allowed;  
+    opacity: 0.3;  
+}
+

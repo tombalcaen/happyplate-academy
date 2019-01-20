@@ -5,6 +5,7 @@ const config = require('../config/database');
 const lessonsSchema = mongoose.Schema({
     uid: {type: String},
     name: {type: String, required: true},    
+    body: {type: String, required: true}
 });
 
 // const GroceryList = module.exports = mongoose.model('groceryList', groceryListSchema);
@@ -13,6 +14,15 @@ const lessons = module.exports = mongoose.model('lessons', lessonsSchema);
 module.exports.getLessons = function(chId,callback){
     console.log("idddddd: " + chId)
     lessons.find({chId: chId},callback)
+}
+
+module.exports.addLesson = function(lesson,callback){
+
+    console.log("lesson modules add lesson");
+
+    console.log(lesson)
+
+    lesson.save(callback);
 }
 
 // module.exports.addList = function(list,callback){    

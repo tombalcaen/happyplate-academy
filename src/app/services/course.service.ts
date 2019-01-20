@@ -16,9 +16,14 @@ export class CourseService {
     return this._http.get(environment.connection_uri + "lesson",{params:{chId: chId}});
   }
 
-  getChaptersForCourse(): Observable<any>{
+  getChaptersForCourse(cId): Observable<any>{
     console.log("get chaptersfor course")
-    return this._http.get(environment.connection_uri + "chapter")
+    return this._http.get(environment.connection_uri + "chapter",{params:{cId: cId}})
+  }
+
+  getCourses(): Observable<any>{
+    console.log("get all courses");
+    return this._http.get(environment.connection_uri + "course");
   }
 
 }

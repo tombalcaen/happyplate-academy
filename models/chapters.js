@@ -19,7 +19,10 @@ module.exports.getChapters = function(callback){
     chapters.find({},callback)
 }
 
-module.exports.getChaptersForCid = function(courseId,callback){    
+module.exports.getChaptersForCid = function(courseId,callback){  
+    
+    console.log("come on")
+
     // chapters.findById({courseId},callback);
     // var findData = function (userInput, callback) {   
     // chapters.find({cId: courseId}).exec(function (err, result) {            
@@ -31,12 +34,7 @@ module.exports.getChaptersForCid = function(courseId,callback){
     //     });
     // })
 
-    chapters.find({cId: courseId})
-    .populate('lessons') // multiple path names in one requires mongoose >= 3.6
-    .exec(function(err, usersDocuments) {
-        console.log(usersDocuments)
-        // handle err
-        // usersDocuments formatted as desired
-    });
+    chapters.find({cId: courseId},callback)
+    .populate('lessons');
         
 }

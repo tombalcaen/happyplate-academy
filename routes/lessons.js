@@ -13,6 +13,26 @@ router.get('/lesson',(req,res,next)=>{
     })
 })
 
+router.post('/lesson/create',(req,res,next)=>{
+  let newLesson = new LessonsList({
+    name: req.body.name,
+    body: req.body.body
+  })
+
+  LessonsList.addLesson(newLesson, (err, Lesson)=>{
+
+    console.log("lesson routes addlesson")
+
+    if(err){
+      console.log(err)
+      res.json({success: false, message: "Failed to create new lesson"})
+    } else {
+      console.log(Lesson)
+      res.json({success: true, message: "Lesson created!"});
+    }
+  })
+})
+
 // router.post('/',(req,res,next)=>{   
 //     let newList = new GroceryList({
 //         uid: req.body.uid,

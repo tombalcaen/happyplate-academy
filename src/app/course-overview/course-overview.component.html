@@ -1,0 +1,27 @@
+<div class="user-courses-navbar">      
+  <div class="user-courses-navbar navbar navbar-fixed-top bg-info">    
+    <div class="navbar-brand text-white">
+      happy plate academy
+    </div>
+    <div class="navbar-right">
+      <a class="create" routerLink='/create-lesson'>creeër les</a>
+    </div>    
+  </div>
+</div>
+<ul class="container user-courses pt-5" style="height: calc(100vh - 70px); overflow-y: scroll;">
+  <li *ngFor="let course of courses" class="row justify-content-center user-course-item pt-5 pb-4">
+    <div class="col-sm-5">
+      <a class="user-course-item-image img"></a>
+    </div>
+    <div class="col-sm-5">
+      <div>
+        <h2 class="mt-0 mb-4">{{course.name}}</h2>
+        <p class="course-item-description">{{course.descr}}</p>
+        <div class="break my-4"></div>
+        <a *ngIf="course.status == 'active'" [routerLink]="['/course', course._id]" class="btn btn-info" style="color: white;">Bekijk cursus</a>
+        <a *ngIf="course.status != 'active'" [routerLink]="['/course', course._id]" class="btn btn-info disabled" style="color: white;" >Wordt verwacht</a>
+        <strong class="text-info ml-2">Gratis!</strong>
+      </div>
+    </div>
+  </li>
+</ul>

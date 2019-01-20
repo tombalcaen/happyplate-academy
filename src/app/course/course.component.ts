@@ -2,6 +2,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { Observable, observable } from 'rxjs';
 
 import {CourseService} from '../services/course.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-course',
@@ -20,10 +21,12 @@ export class CourseComponent implements OnInit {
     // this.innerWidth = window.innerWidth;
   }
   
-  constructor(private _courseService: CourseService) { }
+  constructor(private _courseService: CourseService,
+              private _route: ActivatedRoute) { }
 
   text: any;
   subject: any;
+  cId: string = "";
 
   ngOnInit() {    
     if (window.innerWidth < 1024) {
@@ -32,8 +35,8 @@ export class CourseComponent implements OnInit {
       this.blnSidebar = true;
     }
 
-    this.getposts();
-    console.log(this.sections)
+    this.cId = this._route.snapshot.paramMap.get('id');
+    this.getposts(this.cId);    
   }
 
   blnSidebar: boolean;
@@ -53,41 +56,38 @@ export class CourseComponent implements OnInit {
   }
 
   activatePost(a,i){    
-    if(this.sections[this.a] && this.sections[this.a].posts){
-      this.sections[this.a].posts[this.i].active = false;
+    if(this.sections[this.a] && this.sections[this.a].lessons){
+      this.sections[this.a].lessons[this.i].active = false;
       this.a = a;
       this.i = i;
-      this.sections[a].posts[i].active = true;
-      this.sections[a].posts[i].viewed = true;
+      this.sections[a].lessons[i].active = true;
+      this.sections[a].lessons[i].viewed = true;
     }
     this.getpost(a,i);
   }
 
-  getposts(){
+  getposts(cId){
     this.sections = [];
-    this._courseService.getChaptersForCourse().subscribe((data)=>{      
-      data.map((d)=>{        
-        this.sections.push({id: d._id,sub: d.name,posts:[]})        
-        this._courseService.getLessons(d._id).subscribe((lessons)=>{          
-          lessons.map((lesson)=>{                        
-            this.sections.find((ch)=>{return ch.id = lesson.chId})
-            // this.sections.find((ch)=>{
-            //   console.log(ch.id + " " + lesson.chId)              
-            //   return ch.id = lesson.chId
-            // }).posts.push({subject: lesson.name, active: false, viewed: false, body: lesson.body})            
-          })                    
+    this._courseService.getChaptersForCourse(cId).subscribe((data)=>{            
+      this.sections = data;
+      
+      this.sections.map((ch)=>{
+        ch.lessons.map((less)=>{
+          less.viewed = false;
+          less.active = false; 
+          this.activatePost(0,0);
         })
-      })   
+      })
     })
   }
 
   getpost(a,i){
-    this.subject = this.sections[a].posts[i].subject;
-    this.text = this.sections[a].posts[i].body;
+    this.subject = this.sections[a].lessons[i].name;
+    this.text = this.sections[a].lessons[i].body;
   }
 
   nextLesson(){
-    if(this.sections[this.a].posts.length - 1 == this.i){      
+    if(this.sections[this.a].lessons.length - 1 == this.i){      
       this.activatePost(this.a + 1,0);
     } else {      
       this.activatePost(this.a,this.i + 1);
@@ -96,7 +96,7 @@ export class CourseComponent implements OnInit {
 
   previousLesson(){
     if(this.i == 0){
-      this.activatePost(this.a - 1,this.sections[this.a - 1].posts.length - 1);
+      this.activatePost(this.a - 1,this.sections[this.a - 1].lessons.length - 1);
     } else {
       this.activatePost(this.a,this.i - 1);
     }

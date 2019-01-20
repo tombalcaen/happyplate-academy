@@ -4,7 +4,7 @@
     <div class="user-course-navbar">      
       <div class="user-course-navbar navbar navbar-fixed-top bg-info">
         <div class="navbar-left">
-          <a class="toggle-sidebar" (click)="toggleSidebar()" href="#">
+          <a class="toggle-sidebar" (click)="toggleSidebar()">
             <i class="fas fa-bars text-white"></i>
           </a>
         </div>
@@ -26,7 +26,7 @@
           </div>
         </div>
         <!-- BODY -->
-        <div class="row">
+        <div class="row" style="min-height: 50vh;">
           <div class="col-12 col-md-10 offset-md-1">
             <div class="course-content-text">
               <div #el [innerHtml]="text"></div>
@@ -38,7 +38,7 @@
           <div class="col-12 col-md-10 offset-md-1 py-5">
             <div>              
               <a *ngIf="a != 0 || i != 0" class="btn btn-info" (click)="previousLesson()" style="width: 100px; color: white; float: left;">Previous</a>
-              <a *ngIf="a != sections.length - 1 || i != sections[sections.length - 1].posts.length - 1" class="btn btn-info" (click)="nextLesson()" style="width: 100px; color: white; float: right;">Next</a>
+              <a *ngIf="a != sections.length - 1 || i != sections[sections.length - 1].lessons.length - 1" class="btn btn-info" (click)="nextLesson()" style="width: 100px; color: white; float: right;">Next</a>
             </div>
           </div>
         </div>
@@ -53,10 +53,10 @@
     <div class="sidebar-section-list">
       <div *ngFor="let section of sections; let a = index;" class="sidebar-section">
         <div class="sidebar-section-name">
-          <a>{{section.sub}}</a>
+          <a>{{section.name}}</a>
         </div>
-        <div *ngFor="let post of section.posts; let i = index;" class="section-block">
-          <a [class.active]="post.active" [class.viewed]="post.viewed" (click)="activatePost(a,i)" href="#"><i class="far fa-file-alt mr-1"></i><span>{{post.subject}}</span></a>
+        <div *ngFor="let lesson of section.lessons; let i = index;" class="section-block">
+          <a [class.active]="lesson.active" [class.viewed]="lesson.viewed" (click)="activatePost(a,i)"><i class="far fa-file-alt mr-1"></i><span>{{lesson.name}}</span></a>
         </div>
       </div>
     </div>

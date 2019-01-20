@@ -2,10 +2,15 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import {CourseComponent} from './course/course.component';
+import {CourseOverviewComponent} from './course-overview/course-overview.component';
+import {CreateLessonComponent} from './create-lesson/create-lesson.component';
 
 const routes: Routes = [
-  //{ path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: '',  component: CourseComponent },
+  { path: '', redirectTo: 'courses', pathMatch: 'full' },
+  { path: 'courses',  component: CourseOverviewComponent },
+  { path: 'course/:id',  component: CourseComponent },
+  { path: 'create-lesson',  component: CreateLessonComponent },
+  
   // { path: 'login',  component: LoginComponent },
   // { path: 'emailverify',  component: EmailVerifyComponent },
   // { path: 'register',  component: RegisterComponent },

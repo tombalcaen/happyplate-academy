@@ -14,11 +14,16 @@ const ChaptersList = require("../models/chapters");
 // })
 
 router.get('/',(req,res,next)=>{
+
+    console.log(req.query.cId)
+
     console.log("in route chapters")
-    ChaptersList.getChaptersForCid("5c3b009e1c9d4400005321f5",(err,items)=>{
-        if(err){
+    ChaptersList.getChaptersForCid(req.query.cId,(err,items)=>{
+        if(err){            
             res.json({success: false, message: "failed to get chapters."})
         } else {
+            console.log("return to sender")
+            console.log(items)
             res.json(items)
         }
     })
