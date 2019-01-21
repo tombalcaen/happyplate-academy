@@ -17,9 +17,6 @@ export class LessonService {
   constructor(private _http: HttpClient) { }
 
   createLesson(lesson): Promise<void | Lesson>{
-
-    console.log(lesson)
-
     return this._http.post(environment.connection_uri + 'lesson/create/', lesson)
     .toPromise()
     .then(response => response as Lesson)

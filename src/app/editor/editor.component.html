@@ -1,0 +1,189 @@
+<div class="editor" [class.sidebar-active]="blnSidebar">
+  <div class="editor-content">
+    <!--NAV-->
+    <div class="editor-navbar">      
+      <div class="editor-navbar navbar navbar-fixed-top bg-info">
+        <div class="navbar-left">
+          <a class="toggle-sidebar" (click)="toggleSidebar()" style="vertical-align: middle;">
+            <i class="fas fa-bars text-white"></i>
+          </a>
+          <div class="tile-hover text-center" style="">
+            <a class="add-tile dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-plus text-white" style="margin-top: 1px;"></i>
+            </a>
+
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" (click)="toggleCreate('course')">creeër cursus</a>
+              <a class="dropdown-item" (click)="toggleCreate('chapter')">creeër hoofdstuk</a>              
+            </div>
+
+          </div>
+        </div>
+        <div class="navbar-brand text-white">
+          happy plate academy
+        </div>
+        <div class="navbar-right"></div>
+      </div>
+    </div>
+    <!--CONTENT-->
+    <div class="course-content">
+      
+      <div *ngIf="blnCreateCourse" class="container add-course-container">
+        <div class="row py-5 justify-content-center">
+          <div class="col-12 col-md-8" style="padding: 0; border: 1px solid #e0e0e0;">
+            <div class="title-container p-3" style="border-bottom: 1px solid #e0e0e0; height: 60px;">
+              <h3>Add new course</h3>
+            </div>
+            <div class="py-3">
+              <div class="py-1 px-2">
+                <div class="course-title py-1">
+                  <h5 style="color: #aeb2b8;">naam:</h5>                  
+                </div>
+                <div class="input-group input-group-lg course-description">
+                  <input type="text" [(ngModel)]="course_title" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">
+                </div>
+              </div>
+              <div class="pt-3 pb-1 px-2">
+                <div class="course-title py-1">
+                  <h5 style="color: #aeb2b8;">Beschrijving:</h5>                  
+                </div>
+                <div class="input-group input-group-lg course-description">
+                  <!-- <input type="text" [(ngModel)]="" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;"> -->
+                  <textarea class="form-control" [(ngModel)]="course_description" name="" rows="5" style="background-color: #fbfbfd;"></textarea>
+                </div>
+              </div>
+              <div class="pt-3 pb-1 px-2">
+                <a class="btn btn-info" (click)="createCourse()" style="color: white;">Create</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="blnCreateChapter" class="container add-chapter-container">
+        <div class="row py-5 justify-content-center">
+          <div class="col-12 col-md-8" style="padding: 0; border: 1px solid #e0e0e0;">
+            <div class="title-container p-3" style="border-bottom: 1px solid #e0e0e0; height: 60px;">
+              <h3>Add new chapter</h3>
+            </div>
+            <div class="py-3">
+              <div class="py-1 px-2">
+                <div class="course-title py-1">
+                  <h5 style="color: #aeb2b8;">naam:</h5>                  
+                </div>
+                <div class="input-group input-group-lg course-description">
+                  <input type="text" [(ngModel)]="chapter_title" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">
+                </div>
+              </div>            
+              <div class="pt-3 pb-1 px-2">
+                <a class="btn btn-info" (click)="createChapter()" style="color: white;">Create</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="blnLessons" class="container">
+        <div class="row p-3" style="border-bottom: 1px solid #e0e0e0;">
+          <h2>{{active_chapter_title}}</h2>
+          <button class="button button-delete ml-auto" [class.disabled]='!blnDisabled' (click)="deleteChapter()" [disabled]="!blnDisabled"><i class="fas fa-trash"></i></button>
+        </div>
+        <ul class="row justify-content-center lessons-container" style="padding: 0;">
+          <li class="col-md-8 my-3 lessons-item" *ngFor="let lesson of lessons" style="padding: 0; list-style: none; border: 1px solid #e0e0e0; border-radius: 3px;">
+            <div class="">
+              <div class="p-3" style="">
+                <div style="display: inline-block;"><h3>{{lesson.name}}</h3></div>
+                <div style="display: inline-block; float: right;"><a routerLink='/create-lesson'><i class="fas fa-edit" style="color: #aeb2b8; cursor: pointer;"></i></a></div>
+              </div>
+              <div class="p-2" style="background-color: #fbfbfd;">
+                <span>Last updated: 20 hours ago</span>
+              </div>
+            </div>            
+          </li>
+        </ul>
+      </div>
+
+      <div *ngIf="blnCourseOverview" class="container">
+        <div class="row p-3" style="border-bottom: 1px solid #e0e0e0;">
+          <h2>{{active_course_title}}</h2>
+          <button class="button button-edit ml-auto" [class.disabled]='!blnDisabled' (click)="toggleDisabled(blnDisabled)" [disabled]="!blnDisabled">wijzig</button>
+          <button class="button button-delete ml-2" [class.disabled]='!blnDisabled' (click)="deleteCourse()" [disabled]="!blnDisabled"><i class="fas fa-trash"></i></button>
+        </div>
+        <div class="py-3">
+          <div class="py-1 px-2">
+            <div class="course-title py-1">
+              <h5 style="color: #aeb2b8;">naam:</h5>
+            </div>
+            <div class="input-group input-group-lg course-description">
+              <input type="text" [(ngModel)]="active_course.name" class="create-lesson-title form-control disabled" aria-label="titel" aria-describedby="inputGroup-sizing-lg" [disabled]=blnDisabled style="background-color: #fbfbfd;">
+            </div>
+          </div>            
+          <div class="pt-3 pb-1 px-2">
+            <div class="course-title py-1">
+              <h5 style="color: #aeb2b8;">Beschrijving:</h5>                  
+            </div>
+            <div class="input-group input-group-lg course-description">              
+              <textarea class="form-control disabled" [(ngModel)]="active_course.descr" name="" rows="5" style="background-color: #fbfbfd;" [disabled]=blnDisabled></textarea>
+            </div>
+          </div>  
+          <div class="pt-3 pb-1 pl-2 pr-5" style="display: inline-block;">
+            <div class="course-title py-1">
+              <h5 style="color: #aeb2b8;">prijs:</h5>
+            </div>
+            <div>{{active_course.price}}</div>
+          </div>
+          <div class="pt-3 pb-1 px-5" style="display: inline-block;">
+            <div class="course-title py-1">
+              <h5 style="color: #aeb2b8;">gepubliceerd:</h5>
+            </div>
+            <div>{{active_course.status}}</div>
+          </div>
+          <div *ngIf="!blnDisabled" class="pt-3 pb-1 px-2">
+            <a class="button button-save" (click)="saveCourse()" style="color: white;">opslaan</a>
+            <a class="cancel mx-3" (click)="cancel()">cancel</a>
+          </div>
+        </div>                      
+      </div>
+
+    </div>
+  </div>
+
+  <div class="editor-sidebar">
+    <div class="editor-sidebar-header hidden-xs px-3 py-4 text-center">
+      <h3>Editor</h3>
+    </div>
+    <div class="sidebar-section-list">
+      <div class="input-group py-3">
+        <select class="custom-select course-select" (change)="changeCourse($event.target.value)" id="courseSelect" aria-label="Course select">
+          <option *ngFor="let course of courses" value="course._id" [value]="course._id"><i class="fas fa-book">{{course.name}}</i></option>          
+        </select>        
+      </div>
+      <div class="sidebar-course-chapters">
+        <ul cdkDropList class="chapter-list" (cdkDropListDropped)="drop($event)">
+            <li *ngFor="let section of sections; let a = index" (click)="checkChapter(a)" class="chapter-item my-2" [class.activated]="section.active" cdkDrag>
+              <div class="chapter-item-container py-3 pl-3">
+                <i class="chapter-item-icon fas fa-folder"></i>
+                <span class="chapter-item-name pl-2">{{section.name}}</span>
+                <i class="chapter-item-drag fas fa-arrows-alt-v"></i>
+              </div>
+            </li>
+            <li (click)="toggleCreate('chapter')" class="chapter-item my-2">
+              <div class="chapter-item-container py-3 pl-3">
+                <i class="chapter-item-icon fas fa-plus"></i>
+                <span class="chapter-item-name pl-2">creeër hoofdstuk</span>                
+              </div>
+            </li>
+          </ul>
+        
+      </div>
+      <!-- <div *ngFor="let section of sections; let a = index;" class="sidebar-section">
+        <div class="sidebar-section-name">
+          <a>{{section.name}}</a>
+        </div>
+        <div *ngFor="let lesson of section.lessons; let i = index;" class="section-block">
+          <a [class.active]="lesson.active" [class.viewed]="lesson.viewed" (click)="activatePost(a,i)"><i class="far fa-file-alt mr-1"></i><span>{{lesson.name}}</span></a>
+        </div>
+      </div> -->
+    </div>
+  </div>
+</div>

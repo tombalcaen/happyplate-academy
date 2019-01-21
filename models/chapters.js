@@ -6,6 +6,7 @@ const lessonModel = require('../models/lessons');
 const chaptersSchema = mongoose.Schema({
     uid: {type: String},
     name: {type: String, required: true},
+    cId: {type: String},
     n: {type: Number},
     created: {type: String},
     last_edit: {type: String},
@@ -20,21 +21,10 @@ module.exports.getChapters = function(callback){
 }
 
 module.exports.getChaptersForCid = function(courseId,callback){  
-    
-    console.log("come on")
-
-    // chapters.findById({courseId},callback);
-    // var findData = function (userInput, callback) {   
-    // chapters.find({cId: courseId}).exec(function (err, result) {            
-    //     result.map((r)=>{
-    //         console.log(r._id)            
-    //         lessonModel.l getLessons(r._id,(result2)=>{
-    //             console.log(result2)
-    //         })                      
-    //     });
-    // })
-
     chapters.find({cId: courseId},callback)
-    .populate('lessons');
-        
+    .populate('lessons');        
+}
+
+module.exports.createChapter = function(chapter,callback){    
+    chapter.save(callback)
 }

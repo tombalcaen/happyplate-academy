@@ -11,77 +11,95 @@
 <div class="create-lesson-content">
   <div class="container">
     <div class="row py-5">
-      <div><h5>titel:</h5></div>
-      <div class="input-group input-group-lg">         
-        <input type="text" [(ngModel)]="title" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg">
-      </div>      
-    </div>
-    <div class="row py-3">
-      <div class="container textEditor">
-        <div class="row justify-content-center">
-          <div class="textEditor-controls">
-            <ul class="textEditor-control-list">
-              <li>
-                <div class="textEditor-item">
-                  <button class="button fas fa-bold" [class.active]="blnBold" (click)="bold($event)" [class.disabled]="!blnBoldSupport" [disabled]="!blnBoldSupport"></button>
-                </div>
-              </li>
-              <li>
-                <div class="textEditor-item">
-                  <button class="button fas fa-italic" (click)="italic($event)"></button>
-                </div>
-              </li>
-              <li>
-                <div class="textEditor-item">
-                  <button class="button fas fa-underline" (click)="underline($event)"></button>
-                </div>
-              </li>
-              <li>
-                <div class="textEditor-item">
-                  <button class="button fas fa-heading" (click)="onHeader1($event)">1</button>
-                </div>
-              </li>
-              <li>
-                <div class="textEditor-item">
-                  <button class="button fas fa-heading" (click)="onHeader2($event)">2</button>
-                </div>
-              </li>
-              <li>
-                <div class="textEditor-item">
-                  <button class="button fas fa-heading" (click)="onHeader3($event)">3</button>
-                </div>
-              </li>
-              <li>
-                <div class="textEditor-item">
-                  <button class="button fas fa-highlighter" (click)="highlight($event)"></button>
-                </div>
-              </li>
-              <li>
-                <div class="textEditor-item">
-                  <button class="button fas fa-align-center" (click)="justifyCenter($event)"></button>
-                </div>
-              </li>
-              <li>
-                <div class="textEditor-item">
-                  <button class="button fas fa-align-left" (click)="justifyLeft($event)"></button>
-                </div>
-              </li>
-              <li>
-                <div class="textEditor-item">
-                  <button class="button fas fa-align-right" (click)="justifyRight($event)"></button>
-                </div>
-              </li>
-            </ul>
+      <div class="col-12 col-md-4">        
+        <div class="py-1">
+          <h5>Titel:</h5>
+          <div><p style="color: #e0e0e0;">De titel toont de naam van deze les.</p></div>        
+        </div>
+      </div>
+      <div class="col-12 col-md-8">
+        <div class="py-1">
+          <div><h5>Titel:</h5></div>
+          <div class="input-group input-group-lg">         
+            <input type="text" [(ngModel)]="title" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg">
           </div>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div #el1 class="col-12 textEditor-textArea" (blur)="onBlur(el1.innerHTML)" contenteditable="true" style="overflow-y: scroll"></div>      <!---->
-    </div>   
-    <div class="row py-3">
-      <a class="btn btn-info" (click)="save()" style="color: white;">Save</a>      
-      <span *ngIf="last_saved != '' && last_saved != null" class="px-5 pt-3">Last saved: {{last_saved}}</span>
+      <div class="col-12 col-md-4">
+        <div class="pt-5 py-md-5">
+          <h5>Body:</h5>
+          <div><p style="color: #e0e0e0;">Hier schrijft u de inhoud van de cursus.</p></div>        
+        </div>
+      </div>
+      <div class="col-12 col-md-8">        
+        <div class="row py-3">
+          <div class="container textEditor">
+            <div class="row justify-content-center">
+              <div class="textEditor-controls">
+                <ul class="textEditor-control-list">
+                  <li>
+                    <div class="textEditor-item">
+                      <button class="button fas fa-bold" [class.active]="blnBold" (click)="bold($event)" [class.disabled]="!blnBoldSupport" [disabled]="!blnBoldSupport"></button>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="textEditor-item">
+                      <button class="button fas fa-italic" (click)="italic($event)"></button>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="textEditor-item">
+                      <button class="button fas fa-underline" (click)="underline($event)"></button>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="textEditor-item">
+                      <button class="button fas fa-heading" (click)="onHeader1($event)">1</button>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="textEditor-item">
+                      <button class="button fas fa-heading" (click)="onHeader2($event)">2</button>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="textEditor-item">
+                      <button class="button fas fa-heading" (click)="onHeader3($event)">3</button>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="textEditor-item">
+                      <button class="button fas fa-highlighter" (click)="highlight($event)"></button>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="textEditor-item">
+                      <button class="button fas fa-align-center" (click)="justifyCenter($event)"></button>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="textEditor-item">
+                      <button class="button fas fa-align-left" (click)="justifyLeft($event)"></button>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="textEditor-item">
+                      <button class="button fas fa-align-right" (click)="justifyRight($event)"></button>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div #el1 class="col-12 textEditor-textArea" (blur)="onBlur(el1.innerHTML)" contenteditable="true" style="overflow-y: scroll"></div>      <!---->
+        </div>   
+        <div class="row py-3">
+          <a class="btn btn-info" (click)="save()" style="color: white;">Save</a>      
+          <span *ngIf="last_saved != '' && last_saved != null" class="px-5 pt-3">Last saved: {{last_saved}}</span>
+        </div>
+      </div>
     </div> 
   <div>
 </div>

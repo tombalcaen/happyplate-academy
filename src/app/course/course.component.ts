@@ -36,7 +36,7 @@ export class CourseComponent implements OnInit {
     }
 
     this.cId = this._route.snapshot.paramMap.get('id');
-    this.getposts(this.cId);    
+    this.getposts(this.cId);
   }
 
   blnSidebar: boolean;

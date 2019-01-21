@@ -13,4 +13,54 @@ router.get('/',(req,res,next)=>{
     })
 })
 
+router.post('/create',(req,res,next)=>{
+    
+    let newCourse = new CoursesList({
+        name: req.body.name,
+        descr: req.body.descr,
+        price: req.body.price,
+        status: req.body.status
+    })
+    
+    CoursesList.createCourse(newCourse, (err, Course)=>{        
+        console.log(Course)
+        if(err){
+            res.json({success: false, message: "Failed to add new item."})
+        } else {
+            res.json({success: true, message: "Item added!"});
+        }
+      });
+})
+
+router.post('/update',(req,res,next)=>{
+
+    let updateCourse = new CoursesList({
+        _id: req.body._id,
+        name: req.body.name,
+        descr: req.body.descr,
+        price: req.body.price,
+        status: req.body.status
+    })
+
+    CoursesList.updateCourse(updateCourse, (err, Course)=>{        
+        if(err){
+            res.json({success: false, message: "Failed to update course."})
+        } else {
+            res.json({success: true, message: "Item updated!"});
+        }
+    })
+})
+
+router.delete('/delete',(req,res,next)=>{
+    console.log("delete")
+    console.log(req.query)
+    CoursesList.deleteCourse(req.query._id,(err,item)=>{
+        if(err){
+            res.json({success: false, message: "could not delete course."})
+        } else {
+            res.json({success: true, message: "Items deleted!"})
+        }
+    })    
+})
+
 module.exports = router;
