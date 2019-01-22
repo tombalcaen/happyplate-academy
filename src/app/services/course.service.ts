@@ -29,10 +29,6 @@ export class CourseService {
 
   constructor(private _http: HttpClient) { }
 
-  getLessons(chId): Observable<any>{    
-    return this._http.get(environment.connection_uri + "lesson",{params:{chId: chId}});
-  }
-
   getCourses(): Observable<any>{
     return this._http.get(environment.connection_uri + "course");
   }
@@ -54,8 +50,9 @@ export class CourseService {
     return this._http.get(environment.connection_uri + "chapter",{params:{cId: cId}})
   }
 
-  createChapter(chapter: Chapter): Observable<any>{ 
-    return this._http.post(environment.connection_uri + "chapter/create", chapter)
+  pushLessonInChapter(lesson): Observable<any>{
+    console.log("in push lesson to chapter")
+    return this._http.post(environment.connection_uri + "chapter/pushlesson", lesson);
   }
 
   // createInventory(newItem): Promise<void | Item>{    
