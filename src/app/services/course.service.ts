@@ -50,10 +50,10 @@ export class CourseService {
     return this._http.get(environment.connection_uri + "chapter",{params:{cId: cId}})
   }
 
-  pushLessonInChapter(lesson): Observable<any>{
-    console.log("in push lesson to chapter")
-    return this._http.post(environment.connection_uri + "chapter/pushlesson", lesson);
-  }
+  // pushLessonInChapter(lesson): Observable<any>{
+  //   console.log("in push lesson to chapter")
+  //   return this._http.post(environment.connection_uri + "chapter/pushlesson", lesson);
+  // }
 
   // createInventory(newItem): Promise<void | Item>{    
   //   return this._http.post(environment.connection_uri + 'inventory/', newItem)
