@@ -28,6 +28,7 @@
     <!--CONTENT-->
     <div class="course-content">
       
+      <!-- create course -->
       <div *ngIf="blnCreateCourse" class="container add-course-container">
         <div class="row py-5 justify-content-center">
           <div class="col-12 col-md-8" style="padding: 0; border: 1px solid #e0e0e0;">
@@ -60,6 +61,7 @@
         </div>
       </div>
 
+      <!-- create chapter -->
       <div *ngIf="blnCreateChapter" class="container add-chapter-container">
         <div class="row py-5 justify-content-center">
           <div class="col-12 col-md-8" style="padding: 0; border: 1px solid #e0e0e0;">
@@ -83,26 +85,65 @@
         </div>
       </div>
 
+      <!-- edit chapter -->
+      <div *ngIf="blnEditChapter" class="container add-chapter-container">        
+        <div class="row py-5 justify-content-center">
+          <div class="col-12 col-md-8" style="padding: 0; border: 1px solid #e0e0e0;">
+            <div class="title-container p-3" style="border-bottom: 1px solid #e0e0e0; height: 60px;">
+              <h3>Edit chapter</h3>
+            </div>
+            <div class="py-3">
+              <div class="py-1 px-2">
+                <div class="course-title py-1">
+                  <h5 style="color: #aeb2b8;">naam:</h5>                  
+                </div>
+                <div class="input-group input-group-lg course-description">
+                  <input type="text" [(ngModel)]="active_chapter_title" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">
+                </div>
+              </div>            
+              <div class="pt-3 pb-1 px-2">
+                <a class="btn btn-info" (click)="editChapter()" style="color: white;">Bewerk</a>
+              </div>
+            </div>
+          </div>
+        </div>        
+      </div>
+
+      <!--chapter details-->
       <div *ngIf="blnLessons" class="container">
         <div class="row p-3" style="border-bottom: 1px solid #e0e0e0;">
           <h2>{{active_chapter_title}}</h2>
-          <button class="button button-delete ml-auto" [class.disabled]='!blnDisabled' (click)="deleteChapter()" [disabled]="!blnDisabled"><i class="fas fa-trash"></i></button>
+          <button class="button button-edit ml-auto" (click)="toggleEdit('chapter')">wijzig</button>
+          <button class="button button-delete ml-2" [class.disabled]='!blnDisabled' (click)="deleteChapter()" [disabled]="!blnDisabled"><i class="fas fa-trash"></i></button>
         </div>
         <ul class="row justify-content-center lessons-container" style="padding: 0;">
-          <li class="col-md-8 my-3 lessons-item" *ngFor="let lesson of lessons" style="padding: 0; list-style: none; border: 1px solid #e0e0e0; border-radius: 3px;">
+          <li class="col-md-8 my-3 lessons-item create-item">
+            <a [routerLink]="['/create-lesson',active_chapter_id]" class="">
+              <div class="p-3 text-center" style="">
+                <div style="display: inline-block"><i class="fas fa-plus"></i></div>
+                <div class="mx-3" style="display: inline-block;"><h3 class="m-0">creeër nieuwe les</h3></div>                
+              </div>              
+            </a>
+          </li>
+          <li class="col-md-8 my-3 lessons-item" *ngFor="let lesson of lessons">
             <div class="">
               <div class="p-3" style="">
                 <div style="display: inline-block;"><h3>{{lesson.name}}</h3></div>
-                <div style="display: inline-block; float: right;"><a routerLink='/create-lesson'><i class="fas fa-edit" style="color: #aeb2b8; cursor: pointer;"></i></a></div>
+                <div style="display: inline-block; float: right;">
+                  <a class="px-2"><i class="fas fa-eye" [class.published]="true" style="color: #aeb2b8;"></i></a>
+                  <a class="px-2" [routerLink]="['/edit-lesson',lesson._id]"><i class="fas fa-edit" style="color: #aeb2b8; cursor: pointer;"></i></a>
+                  <a class="px-2" (click)="deleteLesson(lesson._id)" style="cursor: pointer;"><i class="fas fa-trash" style="color: rgb(255, 102, 102);"></i></a>
+                </div>
               </div>
               <div class="p-2" style="background-color: #fbfbfd;">
-                <span>Last updated: 20 hours ago</span>
+                <span>Last updated: {{lesson.last_edit}}</span>
               </div>
             </div>            
-          </li>
+          </li>          
         </ul>
       </div>
 
+      <!-- course details -->
       <div *ngIf="blnCourseOverview" class="container">
         <div class="row p-3" style="border-bottom: 1px solid #e0e0e0;">
           <h2>{{active_course_title}}</h2>
@@ -164,7 +205,7 @@
               <div class="chapter-item-container py-3 pl-3">
                 <i class="chapter-item-icon fas fa-folder"></i>
                 <span class="chapter-item-name pl-2">{{section.name}}</span>
-                <i class="chapter-item-drag fas fa-arrows-alt-v"></i>
+                <i class="chapter-item-drag fas fa-arrows-alt-v" cdkDragHandle></i>
               </div>
             </li>
             <li (click)="toggleCreate('chapter')" class="chapter-item my-2">

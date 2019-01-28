@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
+const moment = require("moment/moment");
+
 const LessonsList = require("../models/lessons");
 // const GroceryList = require("../models/groceryList");
 
-router.get('/lesson',(req,res,next)=>{    
-    LessonsList.getLessons(req.query.chId,(err, items)=>{        
+router.get('/',(req,res,next)=>{    
+    LessonsList.getLessons(req.query._id,(err, items)=>{        
     if(err){
         res.json({success: false, message: "failed to get lesson."})
       } else {
@@ -13,77 +15,29 @@ router.get('/lesson',(req,res,next)=>{
     })
 })
 
-router.post('/lesson/create',(req,res,next)=>{
+router.post('/create',(req,res,next)=>{
   let newLesson = new LessonsList({
+    chId: req.body.chId,
     name: req.body.name,
-    body: req.body.body
+    body: req.body.body,
+    files: req.body.files,
+    created: +moment(),
+    last_edit: +moment(),
   })
 
   LessonsList.addLesson(newLesson, (err, Lesson)=>{
-
-    console.log("lesson routes addlesson")
-
-    if(err){
-      console.log(err)
+    if(err){      
       res.json({success: false, message: "Failed to create new lesson"})
-    } else {
-      console.log(Lesson)
-      res.json({success: true, message: "Lesson created!"});
+    } else {      
+      res.json({success: true, message: "Lesson created!", lesson: Lesson});
     }
   })
 })
 
-// router.post('/',(req,res,next)=>{   
-//     let newList = new GroceryList({
-//         uid: req.body.uid,
-//         name: req.body.name,        
-//     });
-
-//     GroceryList.addList(newList, (err, List)=>{
-//         if(err){
-//             res.json({success: false, message: "Failed to add new list."})
-//         } else {
-//             res.json({success: true, message: "List added!"});
-//         }
-//       });
-// })
-
-// router.delete('/',(req,res,next)=>{    
-//     var test = req.query.items.split(",").map((data)=>{
-//         return data;         
-//     })
-
-//     GroceryList.deleteList(test,(err,Item)=>{ 
-//         if(err){
-//             res.json({success: false, message: "could not delete lists."})
-//         } else {
-//             res.json({success: true, message: "List deleted!"})
-//         }
-//     })
-// })
-
-// router.post('/deleteAll',(req,res,next)=>{    
-//     let uid = req.body.uid;
-
-//     GroceryList.deleteAllForUid(uid,(err,Item)=>{ 
-//         if(err){
-//             res.json({success: false, message: "could not delete all."})
-//         } else {
-//             res.json({success: true, message: "List deleted!"})
-//         }
-//     })
-// })
-
-// router.post('/generate',(req,res,next)=>{
-//     let uid = req.body.uid;
-
-//     GroceryList.generateBasket(uid,(err,Item)=>{
-//         if(err){            
-//             res.json({success: false, message: "error when generating basket."})
-//         } else {            
-//             res.json({success: true, message: "basked generated!"})    
-//         }            
-//     })
-// });
+router.delete('/delete',(req,res,next)=>{
+  console.log("delete")
+  console.log(req.query)
+  
+})
 
 module.exports = router;

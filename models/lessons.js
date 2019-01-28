@@ -2,27 +2,31 @@
 const mongoose = require('mongoose');
 const config = require('../config/database');
 
+const ChaptersList = require("../models/chapters");
+
 const lessonsSchema = mongoose.Schema({
     uid: {type: String},
+    chId: {type: String},
     name: {type: String, required: true},    
-    body: {type: String, required: true}
+    body: {type: String, required: true},
+    files: {type: Array},
+    created: {type: String},
+    last_edit: {type: String}
 });
 
 // const GroceryList = module.exports = mongoose.model('groceryList', groceryListSchema);
 const lessons = module.exports = mongoose.model('lessons', lessonsSchema);
 
-module.exports.getLessons = function(chId,callback){
-    console.log("idddddd: " + chId)
-    lessons.find({chId: chId},callback)
+module.exports.getLessons = function(_id,callback){    
+    lessons.findById({_id: mongoose.Types.ObjectId(_id)},callback)
 }
 
-module.exports.addLesson = function(lesson,callback){
+module.exports.addLesson = function(lesson,callback){    
+    lesson.save(callback);    
+}
 
-    console.log("lesson modules add lesson");
-
-    console.log(lesson)
-
-    lesson.save(callback);
+module.exports.deleteLesson = function(_id,callback){ 
+    lessons.deleteOne({_id: mongoose.Types.ObjectId(_id)},callback);
 }
 
 // module.exports.addList = function(list,callback){    

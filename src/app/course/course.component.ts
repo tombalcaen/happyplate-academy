@@ -1,8 +1,10 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { Observable, observable } from 'rxjs';
 
 import {CourseService} from '../services/course.service';
 import { ActivatedRoute } from '@angular/router';
+import { LessonService } from '../services/lesson.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-course',
@@ -10,7 +12,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./course.component.css']
 })
 export class CourseComponent implements OnInit {
-
+  @ViewChild('scrollcontent') myDiv: ElementRef;
+  @ViewChild('el') el:ElementRef;
   @HostListener('window:resize', ['$event'])
   onResize(event) {    
     if (window.innerWidth < 1024) {
@@ -22,11 +25,14 @@ export class CourseComponent implements OnInit {
   }
   
   constructor(private _courseService: CourseService,
-              private _route: ActivatedRoute) { }
+              private _lesson: LessonService,
+              private _route: ActivatedRoute,
+              private sanitizer : DomSanitizer) { }
 
   text: any;
   subject: any;
   cId: string = "";
+  progress: number = 0;
 
   ngOnInit() {    
     if (window.innerWidth < 1024) {
@@ -51,12 +57,18 @@ export class CourseComponent implements OnInit {
   //             {sub: "What are you going to do",posts:[{subject:"eerst post",active: false, viewed: false}, {subject:"tweede subject",active: false, viewed: false}, {subject:"derde subject",active: false, viewed: false}, {subject:"vierde subject",active: false, viewed: false}]}
   //         ]
 
+  checkScrollposition(event){
+    let total1 = event.target.scrollHeight - event.target.clientHeight;
+    this.progress = event.target.scrollTop/total1*100;
+  }
+
   toggleSidebar(){
     this.blnSidebar?this.blnSidebar = false:this.blnSidebar = true;
   }
 
   activatePost(a,i){    
     if(this.sections[this.a] && this.sections[this.a].lessons){
+      
       this.sections[this.a].lessons[this.i].active = false;
       this.a = a;
       this.i = i;
@@ -68,14 +80,17 @@ export class CourseComponent implements OnInit {
 
   getposts(cId){
     this.sections = [];
+    let n = 0;
     this._courseService.getChaptersForCourse(cId).subscribe((data)=>{            
-      this.sections = data;
       
+      this.sections = data;      
       this.sections.map((ch)=>{
         ch.lessons.map((less)=>{
+          console.log(less)
+          n++;
           less.viewed = false;
           less.active = false; 
-          this.activatePost(0,0);
+          if(n===1)this.activatePost(0,0);
         })
       })
     })
@@ -84,6 +99,44 @@ export class CourseComponent implements OnInit {
   getpost(a,i){
     this.subject = this.sections[a].lessons[i].name;
     this.text = this.sections[a].lessons[i].body;
+
+    console.log(this.sections[a].lessons[i].files)
+
+    this.sections[a].lessons[i].files.map((file)=>{
+      this._lesson.getImage(file).subscribe((f)=>{     
+        // let reader = new FileReader();   
+        // console.log(reader.readAsDataURL(f))
+        // //let base64data = f.toString('base64');
+        // // let mySrc = this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64,' + base64data);
+        // console.log(f)
+        // // let a = reader.readAsText(f)
+        // console.log(a)
+        // this.text = "<img src='data:image/png;base64,"+ reader.readAsDataURL(f) +"'>"; // src=data:image/png;base64,"
+        let imgNode = document.createElement("img");
+
+        let img = new Image;
+        img.src = URL.createObjectURL(f);        
+        
+        let reader = new FileReader();
+    
+        reader.readAsDataURL(f);
+        reader.onload = (_event) => { 
+          imgNode.src = reader.result.toString(); 
+        }
+        
+        this.el.nativeElement.appendChild(imgNode)
+
+
+
+        console.log(this.text)
+      })
+    })
+
+    
+    // this._lesson.getImage(this.sections[a].lessons[i].files[0]).subscribe((img)=>{
+    //   console.log(img)
+    // })
+
   }
 
   nextLesson(){

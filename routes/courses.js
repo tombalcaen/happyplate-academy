@@ -24,6 +24,9 @@ router.post('/create',(req,res,next)=>{
     
     CoursesList.createCourse(newCourse, (err, Course)=>{        
         console.log(Course)
+
+        console.log(err.message)
+
         if(err){
             res.json({success: false, message: "Failed to add new item."})
         } else {
@@ -37,12 +40,10 @@ router.post('/update',(req,res,next)=>{
     let updateCourse = new CoursesList({
         _id: req.body._id,
         name: req.body.name,
-        descr: req.body.descr,
-        price: req.body.price,
-        status: req.body.status
+        last_edit: req.body.last_edit
     })
 
-    CoursesList.updateCourse(updateCourse, (err, Course)=>{        
+    CoursesList.updateCourse(updateCourse, (err, Course)=>{
         if(err){
             res.json({success: false, message: "Failed to update course."})
         } else {
@@ -51,9 +52,7 @@ router.post('/update',(req,res,next)=>{
     })
 })
 
-router.delete('/delete',(req,res,next)=>{
-    console.log("delete")
-    console.log(req.query)
+router.delete('/delete',(req,res,next)=>{    
     CoursesList.deleteCourse(req.query._id,(err,item)=>{
         if(err){
             res.json({success: false, message: "could not delete course."})

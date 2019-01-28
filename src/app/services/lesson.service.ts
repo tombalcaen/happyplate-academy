@@ -6,6 +6,7 @@ import {environment} from "../../environments/environment";
 import { CourseService } from "../services/course.service"
 import { ChapterService } from './chapter.service';
 import { Observable } from 'rxjs';
+import { stringify } from '@angular/compiler/src/util';
 
 interface Lesson {
   _id?: string;
@@ -44,6 +45,27 @@ export class LessonService {
   deleteLesson(id): Observable<any>{
     console.log("deletelesson")
     return this._http.delete(environment.connection_uri + 'lesson/delete?_id=' + id);            
+  }
+
+  findFiles():Observable<any>{
+    return this._http.get(environment.connection_uri + 'files');
+  }
+
+  findFile(filename):Observable<any>{
+    return this._http.get(environment.connection_uri + 'files/?filename=' + filename);
+  }
+
+  getImage(filename):Observable<any>{
+    console.log(filename)
+    return this._http.get(environment.connection_uri + 'image',{responseType: 'blob', params:{filename: filename}});
+    // return this._http.get(environment.connection_uri + 'image',{params:{filename: filename}});
+    // return this._http.get(environment.connection_uri + 'images');
+    
+  }
+
+  uploadFile(payload): Promise<any>{     
+    return this._http.post(environment.connection_uri + 'upload', payload)
+                      .toPromise();
   }
 
   private handleError (error: any) {

@@ -2,6 +2,11 @@ const express = require("express");
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const mongodb = require('mongodb');
+const multer = require('multer');
+const crypto = require('crypto');
+const path = require('path');
+const Grid = require('gridfs-stream');
+const GridFsStorage = require('multer-gridfs-storage');
 // const passport = require('passport');
 var db;
 const courses = require('./routes/courses');
@@ -10,18 +15,51 @@ const lessons = require('./routes/lessons');
 
 const config = require('./config/database');
 
-const app = express();
-
 //mongodb middleware
-mongoose.connect(config.uri, {useNewUrlParser: true});
+const connect = mongoose.connect(config.uri, {useNewUrlParser: true});
+// const connect = mongoose.createConnection(config.uri);
 
+// connect.on('connected',()=>{
 mongoose.connection.on('connected',()=>{
   console.log("Database connection ready");
 });
 
+// let gfs;
+// connect.once('open',()=>{
+mongoose.connection.once('open',()=>{
+    console.log("- connection open -");
+    gfs = Grid(mongoose.connection.db,mongoose.mongo);
+    // gfs = Grid(connect.db,mongoose.mongo);
+    // gfs.collection('uploads');
+})
+
+//create storage engine
+const storage = new GridFsStorage({
+    db: connect
+    // url: config.uri,
+    // file: (req, file) => { 
+    //   return new Promise((resolve, reject) => {        
+    //     crypto.randomBytes(16, (err, buf) => {
+    //       if (err) {
+    //         return reject(err);
+    //       }
+    //       const filename = buf.toString('hex') + path.extname(file.originalname);
+    //       const fileInfo = {
+    //         filename: filename,            
+    //       };
+    //       resolve(fileInfo);
+    //     });
+    //   });
+    // }
+  });
+  const upload = multer({ storage });
+
+// connect.on('error',(err)=>{
 mongoose.connection.on('error',(err)=>{
   console.log("database error: " + err)
 })
+
+const app = express();
 
 //enable cors middleware
 var allowCrossDomain = function(req, res, next) {
@@ -49,7 +87,7 @@ app.use(express.static(distDir));
 //routes middelware
 app.use('/course', courses);
 app.use('/chapter', chapters);
-app.use('/', lessons);
+app.use('/lesson', lessons);
 
 var server = app.listen(process.env.PORT || 3000,()=>{
     console.log("App now running on port", server.address().port);
@@ -77,6 +115,76 @@ function handleError(res, reason, message, code) {
     console.log("ERROR: " + reason);
     res.status(code || 500).json({"error": message});
 }
+
+app.get('/files/delete', (req,res)=>{
+    gfs.db.collection('fa' + '.chunks').remove({_id:"5c4aec75205e3907cf8daae2"}, (err,files)=>{
+        if(err){
+            return res.json({err: 'error occured.'})
+        }
+        else return res.json(files);
+    })
+})
+
+
+app.get('/files', (req,res)=>{
+    gfs.files.find().toArray((err,files)=>{
+        //check if files exist
+        if(!files || files.length == 0){
+            return (res.status(404).json({err: 'no files exist'}))
+        } 
+        return res.json(files);
+    });
+})
+
+app.get('/files/:filename', (req,res)=>{ 
+    gfs.findOne({filename: req.params.filename},(err,file)=>{
+        //check if files exist
+        if(!file || file.length == 0){
+            return (res.status(404).json({err: 'no file exist'}))
+        } 
+        return res.json(file);
+    });
+})
+
+app.get('/image', (req,res)=>{    
+    gfs.findOne({filename: req.query.filename},(err,file)=>{
+        //check if files exist
+        if(!file || file.length == 0){
+            return (res.status(404).json({err: 'no file exist'}))
+        } 
+        //check if img
+        if(file.contentType == "image/png" || file.contentType == "image/jpeg"){
+            //read output to browser            
+            const readstream = gfs.createReadStream(file.filename)
+            // res.contentType("blob");
+            readstream.pipe(res)
+        } else {
+            res.status(404).json({err: 'not an image'})
+        }
+    });
+})
+
+// app.get('/images', (req, res)=>{
+//     gfs.files.find().toArray((err,files)=>{
+//         //check if files exist
+//         if(!files || files.length == 0){
+//             res.render('index', {files : false});
+//         }  else {
+//             files.map((file)=>{
+//                 if(file.contentType == "image/png" || file.contentType == "image/jpeg"){
+//                     file.isImage = true;
+//                 } else {
+//                     file.isImage = false;
+//                 }
+//             });
+//             res.render('index', {files : files});
+//         }        
+//     });
+// })
+
+app.post('/upload',upload.array('file'),(req,res,next)=>{    
+    res.json({file: req.files, body: req.body})
+})
 
 /*
 app.get('/inventory',(req,res)=>{    

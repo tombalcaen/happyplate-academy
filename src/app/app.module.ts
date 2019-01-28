@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http'
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +14,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { CourseOverviewComponent } from './course-overview/course-overview.component';
 import { CreateLessonComponent } from './create-lesson/create-lesson.component';
 import { EditorComponent } from './editor/editor.component';
+import { EditLessonComponent } from './edit-lesson/edit-lesson.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import { EditorComponent } from './editor/editor.component';
     NavbarComponent,
     CourseOverviewComponent,
     CreateLessonComponent,
-    EditorComponent
+    EditorComponent,
+    EditLessonComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +32,8 @@ import { EditorComponent } from './editor/editor.component';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    DragDropModule
+    DragDropModule,
+    MatProgressBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import {CourseComponent} from './course/course.component';
 import {CourseOverviewComponent} from './course-overview/course-overview.component';
 import {CreateLessonComponent} from './create-lesson/create-lesson.component';
+import {EditLessonComponent} from './edit-lesson/edit-lesson.component';
 import {EditorComponent} from './editor/editor.component';
 
 const routes: Routes = [
@@ -11,7 +12,8 @@ const routes: Routes = [
   { path: 'courses',  component: CourseOverviewComponent },
   { path: 'course/:id',  component: CourseComponent },
   { path: 'editor',  component: EditorComponent },
-  { path: 'create-lesson',  component: CreateLessonComponent },
+  { path: 'create-lesson/:chId',  component: CreateLessonComponent },
+  { path: 'edit-lesson/:_id',  component: EditLessonComponent },
   
   // { path: 'login',  component: LoginComponent },
   // { path: 'emailverify',  component: EmailVerifyComponent },

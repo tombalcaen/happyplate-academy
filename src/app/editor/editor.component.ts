@@ -1,9 +1,11 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 
-import { first } from 'rxjs/operators';
+import * as moment from 'moment';
 
 import { CourseService } from '../services/course.service';
+import { LessonService } from '../services/lesson.service';
+import { ChapterService } from '../services/chapter.service';
 
 @Component({
   selector: 'app-editor',
@@ -22,12 +24,15 @@ export class EditorComponent implements OnInit {
     // this.innerWidth = window.innerWidth;
   }
 
-  constructor(private _courseService: CourseService) { }
+  constructor(private _courseService: CourseService,
+              private _chapterService: ChapterService,
+              private _lessonService: LessonService) { }
 
   blnSidebar: boolean;
   blnDisabled: boolean = true;
   blnCreateCourse: boolean = false;
   blnCreateChapter: boolean = false;
+  blnEditChapter: boolean = false;
   blnLessons: boolean = false;
   blnCourseOverview: boolean = false;
 
@@ -35,6 +40,8 @@ export class EditorComponent implements OnInit {
 
   active_course: any;
   active_course_title: string = "";
+  active_chapter: any;
+  active_chapter_id: string = "";
   active_chapter_title: string = "";
   chapter_title: string = "";
   course_title: string = "";
@@ -62,13 +69,35 @@ export class EditorComponent implements OnInit {
       lessons: []
     }
 
-    this._courseService.createChapter(chapter).subscribe((res)=>{
+    this._chapterService.createChapter(chapter).subscribe((res)=>{      
       this.changeCourse(this.active_course._id)
     });
   }
 
-  deleteChapter(){
+  editChapter(){
+    let chapter = {
+      _id: this.active_chapter_id,
+      name: this.active_chapter_title,
+      n: this.active_chapter.n
+    }
 
+    this._chapterService.updateChapter(chapter).subscribe((res)=>{      
+      this.getCourses();
+    })
+
+  }
+
+  deleteChapter(){
+    this._chapterService.deleteChapter(this.active_chapter_id).subscribe((res)=>{
+      this.getCourses();
+    })
+  }
+
+  getCourses(){
+    this._courseService.getCourses().subscribe((courses)=>{
+      this.courses = courses;      
+      this.changeCourse(this.courses[0]._id)
+    });
   }
 
   createCourse(){
@@ -93,7 +122,7 @@ export class EditorComponent implements OnInit {
     }
     
     this._courseService.updateCourse(course).subscribe((res)=>{
-      
+      this.blnDisabled = true;
     })
   }
 
@@ -103,18 +132,10 @@ export class EditorComponent implements OnInit {
     })
   }
 
-  getCourses(){
-    this._courseService.getCourses().subscribe((courses)=>{
-      this.courses = courses;      
-      this.changeCourse(this.courses[0]._id)
-    });
-  }
-
   changeCourse(course){
     let crs = this.courses.find((test)=>{
       return test._id == course;
-    })
-    console.log(crs)
+    })    
     this.clearContent();
     this.blnCourseOverview = true;
     this.active_course_title = crs.name;
@@ -125,16 +146,19 @@ export class EditorComponent implements OnInit {
 
   getposts(cId){    
     this.sections = [];
-    this._courseService.getChaptersForCourse(cId).subscribe((data)=>{            
+    this._courseService.getChaptersForCourse(cId).subscribe((data)=>{      
       this.sections = data;
       this.sections.active = false;
-      // this.sections.map((ch)=>{
-      //   ch.lessons.map((less)=>{
-      //     less.viewed = false;
-      //     less.active = false; 
-      //     // this.activatePost(0,0);
-      //   })
-      // })
+      this.sections.map((ch)=>{
+        ch.lessons.map((less)=>{          
+          less.last_edit = moment(+less.last_edit).fromNow();          
+        })
+      })
+    })
+  }
+
+  deleteLesson(lesson_id){
+    this._lessonService.deleteLesson(lesson_id).subscribe((res)=>{      
     })
   }
 
@@ -143,9 +167,16 @@ export class EditorComponent implements OnInit {
   }
 
   toggleCreate(item){
+    this.active_chapter_id = "";
+    this.active_chapter_title = "";
     this.clearContent();
     if(item === 'course') this.blnCreateCourse = true;
     else if (item === 'chapter') this.blnCreateChapter = true;
+  }
+
+  toggleEdit(item){
+    this.clearContent();
+    if(item === 'chapter') this.blnEditChapter = true;
   }
 
   toggleDisabled(blnDisabled){
@@ -155,8 +186,10 @@ export class EditorComponent implements OnInit {
   checkChapter(index){
     this.clearContent();
     this.blnLessons = true;
+    this.active_chapter = this.sections[index];
     this.lessons = this.sections[index].lessons;
     this.active_chapter_title = this.sections[index].name;
+    this.active_chapter_id = this.sections[index]._id;
     // this.sections[index].active = true;
   }
 
@@ -168,13 +201,24 @@ export class EditorComponent implements OnInit {
   clearContent(){
     this.blnCreateCourse = false;
     this.blnCreateChapter = false;
+    this.blnEditChapter = false;
     this.blnLessons = false;
     this.blnCourseOverview = false;
     this.blnDisabled = true;
   }
 
-  drop(event: CdkDragDrop<string[]>) {
-    // moveItemInArray(this.movies, event.previousIndex, event.currentIndex);
+  drop(event: CdkDragDrop<string[]>) {    
+    moveItemInArray(this.sections, event.previousIndex, event.currentIndex);    
+    this.sections.map((section,index)=>{
+      console.log(section)
+      console.log(index)
+      if(section.n != index + 1){
+        this._chapterService.updateChapter({_id: section._id,name: section.name, n: index + 1}).subscribe((r)=>{
+          console.log(r)
+        })
+      }
+    })
+    
   }
 
 }

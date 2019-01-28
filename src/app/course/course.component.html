@@ -15,7 +15,8 @@
       </div>
     </div>
     <!--CONTENT-->
-    <div class="course-content">
+    <mat-progress-bar class="course-content-progress" mode="determinate" [value]="progress" style="position: relative;"></mat-progress-bar>
+    <div #scrollcontent (scroll)="checkScrollposition($event)" class="course-content">      
       <div class="container">
         <!-- TITLE -->
         <div class="row">

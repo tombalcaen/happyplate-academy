@@ -61,6 +61,24 @@
     color: #5e6971;
 }
 
+.lessons-container{
+    padding: 0;
+    overflow-y: scroll;
+    height: calc(100vh - 195px);
+    margin: 0;
+}
+
+.lessons-item{
+    padding: 0; 
+    list-style: none; 
+    border: 1px solid #e0e0e0; 
+    border-radius: 3px;
+}
+
+.lessons-item.create-item{
+    max-height: 57px;
+}
+
 .editor-sidebar{
     z-index: 1; /*1049*/
     position: fixed;
@@ -206,6 +224,10 @@
 
 .activated{
     background-color: gold;
+}
+
+.published{
+    color: #03a87c !important;
 }
 
 h1{

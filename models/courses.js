@@ -4,7 +4,7 @@ const config = require('../config/database');
 // var ObjectID = require('mongodb').ObjectID
 
 const coursesSchema = mongoose.Schema({
-    _id: {type: mongoose.Types.ObjectId},
+    // _id: {type: mongoose.Types.ObjectId},
     name: {type: String, required: true},
     descr: {type: String, required: true},
     price: {type: Number},

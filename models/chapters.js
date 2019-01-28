@@ -4,7 +4,8 @@ const config = require('../config/database');
 const lessonModel = require('../models/lessons');
 
 const chaptersSchema = mongoose.Schema({
-    uid: {type: String},
+    // _id: {type: mongoose.Schema.Types.ObjectId},
+    // uid: {type: String},
     name: {type: String, required: true},
     cId: {type: String},
     n: {type: Number},
@@ -22,9 +23,34 @@ module.exports.getChapters = function(callback){
 
 module.exports.getChaptersForCid = function(courseId,callback){  
     chapters.find({cId: courseId},callback)
-    .populate('lessons');        
+    .populate('lessons')
+    .sort({n: 1});        
 }
 
-module.exports.createChapter = function(chapter,callback){    
+module.exports.createChapter = function(chapter,callback){        
     chapter.save(callback)
+}
+
+module.exports.updateChapter = function(chapter,callback){    
+
+    console.log(chapter)
+
+    let newUpdate = {
+                    name: chapter.name,
+                    last_edit: chapter.last_edit, 
+                    n: chapter.n                   
+                    }
+
+    chapters.findOneAndUpdate({_id: mongoose.Types.ObjectId(chapter._id)},newUpdate,callback);
+}
+
+module.exports.deleteChapter = function(_id,callback){    
+    chapters.deleteOne({_id: mongoose.Types.ObjectId(_id)},callback);
+}
+
+module.exports.pushLesson = function(lesson,callback){        
+    chapters.findByIdAndUpdate(
+        { _id: mongoose.Types.ObjectId(lesson.lesson.chId)},
+        { $push: {lessons: lesson.lesson._id}},
+        callback)
 }
