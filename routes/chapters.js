@@ -5,6 +5,7 @@ const moment = require("moment/moment");
 
 router.get('/',(req,res,next)=>{
     ChaptersList.getChaptersForCid(req.query.cId,(err,items)=>{
+        console.log(items)
         if(err){            
             res.json({success: false, message: "failed to get chapters."})
         } else {            
@@ -60,7 +61,23 @@ router.delete('/delete',(req,res,next)=>{
     })    
 })
 
+router.delete('/deleteLesson',(req,res,next)=>{
+    console.log("delte tha lesson")    
+    console.log(req.query)
+    console.log(req.params)
+    ChaptersList.deleteFromArray(req.query, (err,Course)=>{
+        console.log(Course)
+        if(err){
+            console.log(err.message);
+            res.json({success: false, message: "failed to delete lesson in array."});
+        } else {
+            res.json({succes: true, message: 'lesson deleted.'});
+        }
+    })
+})
+
 router.post('/pushlesson',(req,res,next)=>{  
+    console.log(req.body)
     ChaptersList.pushLesson(req.body, (err, Course)=>{        
         if(err){            
             res.json({success: false, message: "Failed to push lesson."})

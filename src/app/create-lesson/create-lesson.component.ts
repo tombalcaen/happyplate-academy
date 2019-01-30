@@ -12,7 +12,8 @@ import { LessonService } from '../services/lesson.service';
 export class CreateLessonComponent implements OnInit {
   @ViewChild('el1') el1:ElementRef;
   constructor(private _lesson: LessonService,
-              private _route: ActivatedRoute) { }
+              private _route: ActivatedRoute,
+              private router: Router) { }
 
   last_saved: any;
   blnBold: boolean = false;
@@ -36,16 +37,8 @@ export class CreateLessonComponent implements OnInit {
       .subscribe(params => {        
         this.chId = params.chId;
       });
-    
+    document.execCommand("insertHTML", false, "<p><br></p>");
     this.blnBoldSupport = document.queryCommandSupported('bold');
-    this.getfiles();
-  }
-
-  // DIT IS EEN TEST VAN GET FILE DUS MOET WEG
-  getfiles(){
-    this._lesson.findFiles().subscribe((files)=>{
-      console.log(files)
-    })
   }
 
   bold(event) {
@@ -143,19 +136,30 @@ export class CreateLessonComponent implements OnInit {
 
   onBlur(tekst){    
     this.n_regex = 0;
-    this.tekst = tekst.replace(/<img.*?>/g,(test)=>{      
-      this.n_regex++
-      return "[image-" + this.n_regex + "]";
-    });
+    this.tekst = tekst;
+    // this.tekst = tekst.replace(/src\s*=\s*"[^"]*"/g,(test)=>{      
+    //   this.n_regex++
+    //   return "";
+    // });
     console.log( this.tekst)
     this.blnEditor = false;
   }
 
+  onEnterDown($event){
+    console.log("test")
+    console.log(this.el1.nativeElement.children)
+    // document.execCommand("insertHTML", false, "<p></p>");
+  }
+
+  onBackSpaceDown($event){
+    console.log(this.el1.nativeElement.children.length)
+  }
+
   onFileChanged(event) {
     const file = event.target.files[0]
-    console.log(this.n_image)
+
     this.n_image++;
-    console.log("huh? " + this.n_image)
+    
     this.file_array.push(event.target.files[0]);
 
     this.selectionEngine();
@@ -194,7 +198,8 @@ export class CreateLessonComponent implements OnInit {
       chId: this.chId,
       name: this.title,
       body: this.tekst,
-      files: []
+      files: [],
+      status: "draft"
     }
 
     var payload = new FormData();
@@ -206,20 +211,19 @@ export class CreateLessonComponent implements OnInit {
     // console.log(this.d1.nativeElement.innerHTML.getElementById("0"));
 
     //upload files
-    this._lesson.uploadFile(payload).then((req)=>{         
-      return req.file.map((file)=>{        
-        return file.filename;
-      })  
-    }).then((returnFiles)=>{    
+    // this._lesson.uploadFile(payload).then((req)=>{         
+    //   return req.file.map((file)=>{        
+    //     return file.filename;
+    //   })  
+    // }).then((returnFiles)=>{    
        
-      lesson.files = returnFiles,
-      
+    //   lesson.files = returnFiles,      
       this._lesson.createLesson(lesson).then((res)=>{
-        console.log(res)    
+        this.router.navigate(['editor'])
       });
 
       this.last_saved = moment().format("HH:mm:ss");    
-    })
+    // })
 
     //upload tekst
     

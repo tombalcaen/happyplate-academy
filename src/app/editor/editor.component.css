@@ -64,7 +64,7 @@
 .lessons-container{
     padding: 0;
     overflow-y: scroll;
-    height: calc(100vh - 195px);
+    max-height: calc(100vh - 195px);
     margin: 0;
 }
 
@@ -73,6 +73,7 @@
     list-style: none; 
     border: 1px solid #e0e0e0; 
     border-radius: 3px;
+    max-height: 105px;
 }
 
 .lessons-item.create-item{
@@ -157,6 +158,21 @@
     height: 100%;
 }
 
+.course-create-container{
+    border: 1px solid #e0e0e0;
+    background: white;
+    height: 58px;
+}
+
+.course-create-icon{
+    vertical-align: sub;
+}
+
+.course-create-data{
+    vertical-align: sub;
+    text-transform: capitalize;
+}
+
 .chapter-list{
     padding: 0;
 }
@@ -180,6 +196,10 @@
 
 .chapter-item-icon, .chapter-item-name, .chapter-item-drag{
     vertical-align: sub;
+}
+
+.chapter-item-name{
+    text-transform: capitalize;
 }
 
 .chapter-item-drag{
@@ -286,11 +306,11 @@ button.disabled {
     padding: 13px 17px 13px 17px;
 }
 
-.cancel{
+/* .cancel{
     cursor: pointer;
     color: #aeb2b8;
     vertical-align: -webkit-baseline-middle;
-}
+} */
 
 .text-xs{
     font-size: 14px;
@@ -341,4 +361,16 @@ button.disabled {
 
 .dropdown-item{
     cursor: pointer;
+}
+
+.disable-btn{
+    cursor: not-allowed;
+}
+
+.red{
+    color: rgb(255, 102, 102);
+}
+
+.red-bg{
+    background-color: rgb(255, 102, 102);
 }

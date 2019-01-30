@@ -1,6 +1,7 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ElementRef, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
-
+import {MatSnackBar} from '@angular/material';
 import * as moment from 'moment';
 
 import { CourseService } from '../services/course.service';
@@ -13,7 +14,6 @@ import { ChapterService } from '../services/chapter.service';
   styleUrls: ['./editor.component.css']
 })
 export class EditorComponent implements OnInit {
-
   @HostListener('window:resize', ['$event'])
   onResize(event) {    
     if (window.innerWidth < 1024) {
@@ -24,9 +24,20 @@ export class EditorComponent implements OnInit {
     // this.innerWidth = window.innerWidth;
   }
 
-  constructor(private _courseService: CourseService,
+  @ViewChild('deleteChapterModal') private deleteChapterModal : ElementRef;
+  @ViewChild('deleteCourseModal') private deleteCourseModal : ElementRef;
+
+  courseForm: FormGroup;
+  chapterForm: FormGroup;
+
+  constructor(private fb: FormBuilder,
+              private _courseService: CourseService,
               private _chapterService: ChapterService,
-              private _lessonService: LessonService) { }
+              private _lessonService: LessonService,
+              private snackBar: MatSnackBar) {
+                this.createCourseForm();
+                this.createChapterForm();
+               }
 
   blnSidebar: boolean;
   blnDisabled: boolean = true;
@@ -43,6 +54,15 @@ export class EditorComponent implements OnInit {
   active_chapter: any;
   active_chapter_id: string = "";
   active_chapter_title: string = "";
+  active_lesson = {
+    name: "",
+    body: "",
+    chId: "",
+    created: "",
+    files: [],
+    last_edit: "",   
+    _id: "",
+  };
   chapter_title: string = "";
   course_title: string = "";
   course_description: string = "";
@@ -51,6 +71,21 @@ export class EditorComponent implements OnInit {
 
   courses = [];
   lessons = [];
+
+  createCourseForm(){
+    this.courseForm = this.fb.group({
+      name: ['', Validators.required],
+      descr: ['', Validators.required],
+      price: 0,
+      status: 'pending'
+    })
+  }
+
+  createChapterForm(){
+    this.chapterForm = this.fb.group({
+      name: ['', Validators.required],
+    })
+  }
 
   ngOnInit() {
     if (window.innerWidth < 1024) {
@@ -61,54 +96,18 @@ export class EditorComponent implements OnInit {
     this.getCourses();
   }
 
-  createChapter(){
-    let chapter = {    
-      name: this.chapter_title,
-      cId: this.active_course._id,
-      n: this.sections.length + 1,      
-      lessons: []
-    }
+  //COURSES
+  createCourse(courseObj){        
+    // let course = {
+    //   name: this.course_title,
+    //   descr: this.course_description,
+    //   price: 0,
+    //   status: 'pending'
+    // }
 
-    this._chapterService.createChapter(chapter).subscribe((res)=>{      
-      this.changeCourse(this.active_course._id)
-    });
-  }
-
-  editChapter(){
-    let chapter = {
-      _id: this.active_chapter_id,
-      name: this.active_chapter_title,
-      n: this.active_chapter.n
-    }
-
-    this._chapterService.updateChapter(chapter).subscribe((res)=>{      
+    this._courseService.createCourse(courseObj).subscribe((res)=>{
+      this.openSnackBar('Cursus gecreeërd!');
       this.getCourses();
-    })
-
-  }
-
-  deleteChapter(){
-    this._chapterService.deleteChapter(this.active_chapter_id).subscribe((res)=>{
-      this.getCourses();
-    })
-  }
-
-  getCourses(){
-    this._courseService.getCourses().subscribe((courses)=>{
-      this.courses = courses;      
-      this.changeCourse(this.courses[0]._id)
-    });
-  }
-
-  createCourse(){
-    let course = {
-      name: this.course_title,
-      descr: this.course_description,
-      price: 0,
-      status: 'pending'
-    }
-    this._courseService.createCourse(course).subscribe((res)=>{
-      console.log(res)
     });
   }
 
@@ -122,20 +121,72 @@ export class EditorComponent implements OnInit {
     }
     
     this._courseService.updateCourse(course).subscribe((res)=>{
+      this.openSnackBar("Cursus details gewijzigd!")
       this.blnDisabled = true;
     })
   }
 
   deleteCourse(){
     this._courseService.deleteCourse(this.active_course._id).subscribe((res)=>{
+      this.deleteCourseModal.nativeElement.click();
+      this.openSnackBar(this.active_course_title + " verwijdert!")
       this.getCourses();
     })
+  }
+
+  //CHAPTERS
+  createChapter(chapterObj){
+    
+    let chapter = {    
+      name: chapterObj.name,
+      cId: this.active_course._id,
+      n: this.sections.length + 1,      
+      lessons: []
+    }
+
+    this._chapterService.createChapter(chapter).subscribe((res)=>{      
+      this.openSnackBar('Hoofdstuk gecreeërd!');
+      this.changeCourse(this.active_course._id);      
+    });
+  }
+
+  editChapter(){
+    let chapter = {
+      _id: this.active_chapter_id,
+      name: this.active_chapter_title,
+      n: this.active_chapter.n
+    }
+
+    this._chapterService.updateChapter(chapter).subscribe((res)=>{      
+      this.openSnackBar("Hoofdstuk details gewijzigd!")
+      this.getCourses();
+    })
+
+  }
+
+  deleteChapter(){
+    this._chapterService.deleteChapter(this.active_chapter_id).subscribe((res)=>{      
+      this.deleteChapterModal.nativeElement.click();
+      this.openSnackBar('Hoofdstuk verwijdert!');
+      this.getCourses();
+    })
+  }
+
+  getCourses(){
+    this.courses = [];
+    this._courseService.getCourses().subscribe((courses)=>{      
+        this.courses = courses;      
+        if(this.courses[0]){
+          this.changeCourse(this.courses[0]._id)
+        }      
+    });
   }
 
   changeCourse(course){
     let crs = this.courses.find((test)=>{
       return test._id == course;
     })    
+    
     this.clearContent();
     this.blnCourseOverview = true;
     this.active_course_title = crs.name;
@@ -157,8 +208,18 @@ export class EditorComponent implements OnInit {
     })
   }
 
-  deleteLesson(lesson_id){
-    this._lessonService.deleteLesson(lesson_id).subscribe((res)=>{      
+  setLesson(lesson){
+    this.active_lesson = lesson;
+    console.log(lesson)
+  }
+
+  deleteLesson(){    
+    this._lessonService.deleteLesson(this.active_lesson).then((res)=>{  
+      this.openSnackBar('Les verwijdert!');
+      this.lessons = this.lessons.filter((el)=>{
+        return el._id != this.active_lesson._id;
+      }) //lesson._id
+      // this.changeCourse(this.active_course)
     })
   }
 
@@ -181,6 +242,14 @@ export class EditorComponent implements OnInit {
 
   toggleDisabled(blnDisabled){
     blnDisabled? this.blnDisabled = false: this.blnDisabled = true;
+  }
+
+  togglePublish(lesson){
+    lesson.status === 'published'?lesson.status = 'draft':lesson.status = 'published';
+    this._lessonService.updateStatus(lesson).subscribe((res)=>{
+      console.log(res)
+      this.openSnackBar("les status gewijzigd naar: " + lesson.status)
+    })
   }
 
   checkChapter(index){
@@ -217,8 +286,10 @@ export class EditorComponent implements OnInit {
           console.log(r)
         })
       }
-    })
-    
+    })    
   }
 
+  openSnackBar(message) {
+    this.snackBar.open(message,"ok",{duration: 2000});
+  }
 }

@@ -25,32 +25,14 @@ mongoose.connection.on('connected',()=>{
 });
 
 // let gfs;
-// connect.once('open',()=>{
 mongoose.connection.once('open',()=>{
     console.log("- connection open -");
-    gfs = Grid(mongoose.connection.db,mongoose.mongo);
-    // gfs = Grid(connect.db,mongoose.mongo);
-    // gfs.collection('uploads');
+    gfs = Grid(mongoose.connection.db,mongoose.mongo);    
 })
 
 //create storage engine
 const storage = new GridFsStorage({
     db: connect
-    // url: config.uri,
-    // file: (req, file) => { 
-    //   return new Promise((resolve, reject) => {        
-    //     crypto.randomBytes(16, (err, buf) => {
-    //       if (err) {
-    //         return reject(err);
-    //       }
-    //       const filename = buf.toString('hex') + path.extname(file.originalname);
-    //       const fileInfo = {
-    //         filename: filename,            
-    //       };
-    //       resolve(fileInfo);
-    //     });
-    //   });
-    // }
   });
   const upload = multer({ storage });
 
@@ -72,7 +54,8 @@ var allowCrossDomain = function(req, res, next) {
 app.use(allowCrossDomain);
 
 //bodyparser middleware
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '16mb'})); //,{limit: '16mb'}
+// app.use(express.bodyParser({limit: '50mb'}));
 
 //passport middleware
 // app.use(passport.initialize());
@@ -126,18 +109,20 @@ app.get('/files/delete', (req,res)=>{
 })
 
 
-app.get('/files', (req,res)=>{
-    gfs.files.find().toArray((err,files)=>{
-        //check if files exist
-        if(!files || files.length == 0){
-            return (res.status(404).json({err: 'no files exist'}))
-        } 
-        return res.json(files);
-    });
-})
+// app.get('/files', (req,res)=>{
+//     gfs.files.find().toArray((err,files)=>{
+//         //check if files exist
+//         if(!files || files.length == 0){
+//             return (res.status(404).json({err: 'no files exist'}))
+//         } 
+//         return res.json(files);
+//     });
+// })
 
-app.get('/files/:filename', (req,res)=>{ 
-    gfs.findOne({filename: req.params.filename},(err,file)=>{
+app.get('/files', (req,res)=>{ //:filename
+    console.log(req.query.filename)
+    gfs.findOne({filename: req.query.filename},(err,file)=>{
+        console.log(file)
         //check if files exist
         if(!file || file.length == 0){
             return (res.status(404).json({err: 'no file exist'}))
@@ -164,21 +149,54 @@ app.get('/image', (req,res)=>{
     });
 })
 
-// app.get('/images', (req, res)=>{
-//     gfs.files.find().toArray((err,files)=>{
+app.get('/images', (req, res)=>{    
+    console.log(req.query)
+    gfs.files.find().toArray((err,files)=>{
+        //check if files exist
+        if(!files || files.length == 0){
+            // res.render('images', {files : false});
+        }  else {
+            files.map((file)=>{
+                if(file.contentType == "image/png" || file.contentType == "image/jpeg"){
+                    
+                    const readstream = gfs.createReadStream(file.filename);
+                    readstream.pipe(res)
+                    // readstream.on('data',(chunk)=>{
+                    //     bufs.push(chunk)
+                    // })
+                    // readstream.on('end', function() {
+                    //     const fbuf = Buffer.concat(bufs);
+                    //     readstream.pipe(res)
+                    // });
+                    // console.log(bufs)
+                    // file.isImage = true;
+                } else {
+                    res.status(404).json({err: 'not an image'})
+                    // file.isImage = false;
+                }
+            });
+            // res.json(files)
+            // res.render('images', {files : files});
+        }        
+    });
+})
+
+// app.get('/images', (req,res)=>{   
+//     console.log(req) 
+//     gfs.files.find().toArray((err,file)=>{
 //         //check if files exist
-//         if(!files || files.length == 0){
-//             res.render('index', {files : false});
-//         }  else {
-//             files.map((file)=>{
-//                 if(file.contentType == "image/png" || file.contentType == "image/jpeg"){
-//                     file.isImage = true;
-//                 } else {
-//                     file.isImage = false;
-//                 }
-//             });
-//             res.render('index', {files : files});
-//         }        
+//         if(!file || file.length == 0){
+//             return (res.status(404).json({err: 'no file exist'}))
+//         } 
+//         //check if img
+//         if(file.contentType == "image/png" || file.contentType == "image/jpeg"){
+//             //read output to browser            
+//             const readstream = gfs.createReadStream(file.filename)
+//             // res.contentType("blob");
+//             readstream.pipe(res)
+//         } else {
+//             res.status(404).json({err: 'not an image'})
+//         }
 //     });
 // })
 

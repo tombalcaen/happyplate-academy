@@ -34,6 +34,8 @@ export class CourseComponent implements OnInit {
   cId: string = "";
   progress: number = 0;
 
+  images = [];
+
   ngOnInit() {    
     if (window.innerWidth < 1024) {
       this.blnSidebar = false;
@@ -99,23 +101,20 @@ export class CourseComponent implements OnInit {
   getpost(a,i){
     this.subject = this.sections[a].lessons[i].name;
     this.text = this.sections[a].lessons[i].body;
-
-    console.log(this.sections[a].lessons[i].files)
-
+    this.images = [];
+    let n = 0;
+    console.log(this.text)
+    
     this.sections[a].lessons[i].files.map((file)=>{
-      this._lesson.getImage(file).subscribe((f)=>{     
-        // let reader = new FileReader();   
-        // console.log(reader.readAsDataURL(f))
-        // //let base64data = f.toString('base64');
-        // // let mySrc = this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64,' + base64data);
-        // console.log(f)
-        // // let a = reader.readAsText(f)
-        // console.log(a)
-        // this.text = "<img src='data:image/png;base64,"+ reader.readAsDataURL(f) +"'>"; // src=data:image/png;base64,"
+      this._lesson.findFile(file).subscribe((l)=>{
+        this.images.push(l);
+      })
+      this._lesson.getImage(file).subscribe((f)=>{
+        n++;
         let imgNode = document.createElement("img");
 
-        let img = new Image;
-        img.src = URL.createObjectURL(f);        
+        // let img = new Image;
+        // img.src = URL.createObjectURL(f);        
         
         let reader = new FileReader();
     
@@ -124,9 +123,14 @@ export class CourseComponent implements OnInit {
           imgNode.src = reader.result.toString(); 
         }
         
-        this.el.nativeElement.appendChild(imgNode)
+        let con = this.el.nativeElement.getElementsByClassName('figure-container');
 
+        console.log(this.images.length + " " + n)
 
+        // let con2 = document.getElementById((this.images.length - n + 1).toString())
+        con[0].prepend(imgNode)
+
+        // this.el.nativeElement.appendChild(imgNode)
 
         console.log(this.text)
       })

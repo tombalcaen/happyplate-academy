@@ -23,7 +23,7 @@ module.exports.getChapters = function(callback){
 
 module.exports.getChaptersForCid = function(courseId,callback){  
     chapters.find({cId: courseId},callback)
-    .populate('lessons')
+    .populate('lessons',{match: { age: 'published'}})
     .sort({n: 1});        
 }
 
@@ -32,9 +32,6 @@ module.exports.createChapter = function(chapter,callback){
 }
 
 module.exports.updateChapter = function(chapter,callback){    
-
-    console.log(chapter)
-
     let newUpdate = {
                     name: chapter.name,
                     last_edit: chapter.last_edit, 
@@ -48,7 +45,12 @@ module.exports.deleteChapter = function(_id,callback){
     chapters.deleteOne({_id: mongoose.Types.ObjectId(_id)},callback);
 }
 
-module.exports.pushLesson = function(lesson,callback){        
+module.exports.deleteFromArray = function(lesson,callback){
+    console.log(lesson)
+    chapters.update({_id: mongoose.Types.ObjectId(lesson.chId)}, {$pull: {"lessons": mongoose.Types.ObjectId(lesson._id)}},callback)
+}
+
+module.exports.pushLesson = function(lesson,callback){
     chapters.findByIdAndUpdate(
         { _id: mongoose.Types.ObjectId(lesson.lesson.chId)},
         { $push: {lessons: lesson.lesson._id}},

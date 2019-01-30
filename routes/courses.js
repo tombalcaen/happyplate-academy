@@ -23,11 +23,8 @@ router.post('/create',(req,res,next)=>{
     })
     
     CoursesList.createCourse(newCourse, (err, Course)=>{        
-        console.log(Course)
-
-        console.log(err.message)
-
         if(err){
+            console.log(err.message)
             res.json({success: false, message: "Failed to add new item."})
         } else {
             res.json({success: true, message: "Item added!"});

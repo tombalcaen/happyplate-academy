@@ -106,8 +106,10 @@
           </div>
         </div>
         <div class="">
-          <div #el1 class="col-12 textEditor-textArea" (blur)="onBlur(el1.innerHTML)" contenteditable="true" style="overflow-y: scroll" (focus)="onFocus()" placeholder="Type hier de inhoud van de les...">
-            
+          <div #el1 class="col-12 textEditor-textArea" (blur)="onBlur(el1.innerHTML)" (focus)="onFocus()" (keydown.backspace)="onBackSpaceDown($event)" (keydown.enter)="onEnterDown($event)" contenteditable="true" style="overflow-y: scroll" placeholder="Type hier de inhoud van de les...">
+            <p>
+              <br>
+            </p>
           </div>      <!---->
         </div>   
         <div class="row py-3">

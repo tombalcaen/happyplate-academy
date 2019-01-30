@@ -32,8 +32,7 @@ export class LessonService {
     return this._http.post(environment.connection_uri + 'lesson/create/', lesson)
     .toPromise()    
     // .then(response => response as Lesson)
-    .then((res)=>{  
-      console.log("lesson created and now the push!")    
+    .then((res)=>{        
       this._chapter.pushLessonInChapter(res).subscribe((r)=>{
         console.log(r);
       });
@@ -42,9 +41,20 @@ export class LessonService {
     .catch(this.handleError);  
   }
 
-  deleteLesson(id): Observable<any>{
-    console.log("deletelesson")
-    return this._http.delete(environment.connection_uri + 'lesson/delete?_id=' + id);            
+  deleteLesson(lesson): Promise<any>{
+    console.log("deletelesson: " + lesson)
+    return this._http.delete(environment.connection_uri + 'lesson/delete?_id=' + lesson._id)
+    .toPromise()
+    .then((res)=>{
+      console.log(lesson)
+      this._chapter.deleteLessonInArray(lesson).subscribe((r)=>{
+        console.log(r)
+      })
+    })
+  }
+
+  updateStatus(lesson): Observable<any>{        
+    return this._http.post(environment.connection_uri + "lesson/update_status", lesson);
   }
 
   findFiles():Observable<any>{
@@ -57,8 +67,8 @@ export class LessonService {
 
   getImage(filename):Observable<any>{
     console.log(filename)
-    return this._http.get(environment.connection_uri + 'image',{responseType: 'blob', params:{filename: filename}});
-    // return this._http.get(environment.connection_uri + 'image',{params:{filename: filename}});
+    // return this._http.get(environment.connection_uri + 'image',{responseType: 'blob', params:{filename: filename}});
+    return this._http.get(environment.connection_uri + 'image',{responseType: 'blob',params:{filename}}); //filename //,{responseType: 'text',params:{filename}}
     // return this._http.get(environment.connection_uri + 'images');
     
   }

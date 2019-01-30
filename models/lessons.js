@@ -11,7 +11,8 @@ const lessonsSchema = mongoose.Schema({
     body: {type: String, required: true},
     files: {type: Array},
     created: {type: String},
-    last_edit: {type: String}
+    last_edit: {type: String},
+    status: {type: String} //draft, published
 });
 
 // const GroceryList = module.exports = mongoose.model('groceryList', groceryListSchema);
@@ -27,6 +28,18 @@ module.exports.addLesson = function(lesson,callback){
 
 module.exports.deleteLesson = function(_id,callback){ 
     lessons.deleteOne({_id: mongoose.Types.ObjectId(_id)},callback);
+}
+
+module.exports.updateLesson = function(lesson,callback){ 
+    console.log("in model")   
+    console.log(lesson)
+    // let newUpdate = {
+    //                 name: chapter.name,
+    //                 last_edit: chapter.last_edit, 
+    //                 n: chapter.n                   
+    //                 }
+
+    lessons.findOneAndUpdate({_id: mongoose.Types.ObjectId(lesson._id)},lesson,callback);
 }
 
 // module.exports.addList = function(list,callback){    

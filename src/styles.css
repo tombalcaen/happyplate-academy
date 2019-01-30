@@ -1,2 +1,34 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+
+.modal-title{
+    margin: auto;
+    line-height: normal;
+    font-weight: 300;
+  }
+  
+  .modal-header .close{
+    padding: 0;
+    margin: 0;
+  }
+  
+  .modal-body{
+    font-weight: 300;
+  }
+  
+  .modal-control{
+    margin-right: auto;
+  }
+  
+  .cancel{
+    color: #237a91;
+    border-bottom: 1px solid;
+    text-decoration: none;
+    vertical-align: baseline;
+  }
+  
+  .cancel:hover{
+    color: darkcyan;
+    text-decoration: none;
+  }
