@@ -50,6 +50,9 @@ export class CourseService {
     return this._http.get(environment.connection_uri + "chapter",{params:{cId: cId}})
   }
 
+  getChaptersForCourseALL(cId): Observable<any>{
+    return this._http.get(environment.connection_uri + "chapter/all",{params:{cId: cId}})
+  }
   // pushLessonInChapter(lesson): Observable<any>{
   //   console.log("in push lesson to chapter")
   //   return this._http.post(environment.connection_uri + "chapter/pushlesson", lesson);
