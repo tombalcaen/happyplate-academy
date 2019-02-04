@@ -2,13 +2,17 @@ const mongoose = require('mongoose');
 
 const articlesSchema = mongoose.Schema({
     // _id: {type: mongoose.Types.ObjectId},
-    title: {type: String, required: true},
-    subtitle: {type: String, required: true},
+    name: {type: String, required: true},
+    description: {type: String},
+    body: {type: String},
     tags: {type: Array},
-    created_date: {type: String},
-    posted_date: {type: String},
-    last_edit_date: {type: String},
-    text: {type: Object}
+    files: {type: Array},
+    dateCreated: {type: String},
+    datePublished: {type: String},
+    dateModified: {type: String},
+    contributor: {type: Object},
+    status: {type: String}, //draft;published
+    views: {type: Number},
 });
 
 // const GroceryList = module.exports = mongoose.model('groceryList', groceryListSchema);
@@ -17,11 +21,17 @@ const articles = module.exports = mongoose.model('articles', articlesSchema);
 //GET
 module.exports.getArticles = function(callback){
     console.log("model get articles")
-    articles.find({},callback)
+    articles.find({},{name: 1, files: 1, dateCreated: 1, contributor: 1},callback)
+}
+
+module.exports.getArticleById = function(_id,callback){
+    console.log('models id: ' + _id)
+    articles.find({_id: mongoose.Types.ObjectId(_id)},callback)
 }
 
 //CREATE
 module.exports.createArticle = function(article,callback){
+    console.log("in model create article")
     article.save(callback)
 }
 

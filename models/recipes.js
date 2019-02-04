@@ -28,7 +28,7 @@ const recipes = module.exports = mongoose.model('recipes', recipesSchema);
 
 //GET
 module.exports.getRecipes = function(callback){
-    recipes.find({},{name: 1, time_spend: 1, difficulty_index: 1, health_index: 1, images: 1},callback)
+    recipes.find({},{name: 1, time_spend: 1, difficulty_index: 1, health_index: 1, images: 1, dateCreated: 1},callback)
 }
 
 module.exports.getRecipesById = function(_id,callback){

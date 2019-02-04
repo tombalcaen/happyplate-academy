@@ -1,9 +1,9 @@
-<header class="container-fluid header-wrapper">
-  <div class="container header-container">
+<header class="container-fluid header-wrapper">  
+  <div class="container header-container" [style.padding.px]="blnNarrow ? '0' : '16'">
     <div class="row justify-content-center header-row">
       <div class="col-12 header-column">
         <div class="header-brand-container">
-          <a routerLink="/blog"><span class="header-brand-container-logo">Happy Plate Blog</span></a>
+          <a routerLink="/blog"><span class="header-brand-container-logo">Happy Plate</span></a>
         </div>
         <div class="header-content">
           
@@ -11,26 +11,27 @@
       </div>
     </div>
   </div>
-</header>
-<section class="container-fluid">
-  <div class="container upper-menu-container">
+  <div class="container upper-menu-container" [style.padding.rem]="blnNarrow ? '0' : '1'">
     <div class="row p-0">
       <div class="col-12 upper-menu">
         <ul class="upper-menu-list p-0 m-0">
           <li class="upper-menu-list-item">
-            <a>gezonder recepten</a>            
+            <a routerLink="/recipes">gezonder recepten</a>            
           </li>
           <li class="upper-menu-list-item">
-            <a> artikels</a>
+            <a routerLink="/articles">artikels</a>
           </li>
           <li class="upper-menu-list-item">
             <a routerLink="/courses">happy plate academy</a>
           </li>
           <li class="upper-menu-list-item">
-            <a>About us</a>
+            <a routerLink="/community">Community</a>
           </li>          
         </ul>
       </div>
     </div>
   </div>
-</section>
+</header>
+  <!-- <section class="container-fluid">
+    
+  </section> -->

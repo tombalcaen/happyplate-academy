@@ -13,21 +13,38 @@ export class BlogComponent implements OnInit {
   constructor(private _article: ArticleService,
               private _recipe: RecipeService) { }
 
-  trending = [1,2,3,4];
-  articles = [1,2,3,4];
+  trending = [];
+  articles = [];
   recipes = [];
 
+
   ngOnInit() {
-    this._article.getArticles().subscribe((articles)=>{
-      console.log(articles)
+    this._article.getArticles().subscribe((articles)=>{      
+      this.articles = articles;
+
+      articles.map((article)=>{
+        article.type = 1;
+        this.trending.push(article);
+        this.trending.sort((a,b)=>{
+          return b.dateCreated - a.dateCreated;
+        });
+      })
+
     })
 
     this._recipe.getRecipes().subscribe((recipes)=>{            
       this.recipes = recipes
 
-      console.log(this.recipes)
+      recipes.map((recipe)=>{
+        recipe.type = 2;
+        this.trending.push(recipe);
+        this.trending.sort((a,b)=>{
+          return b.dateCreated - a.dateCreated;
+        });
+      })
     })
 
+    console.log(this.trending)
   }
 
 }

@@ -11,9 +11,11 @@ import { ArticleComponent } from './article/article.component';
 import { RecipeComponent } from './recipe/recipe.component';
 import { CreateRecipeComponent } from './create-recipe/create-recipe.component';
 import { CreateArticleComponent } from './create-article/create-article.component';
+import { RecipesComponent } from './recipes/recipes.component';
+import { ArticlesComponent } from './articles/articles.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'courses', pathMatch: 'full' },
+  { path: '', redirectTo: 'blog', pathMatch: 'full' },
   { path: 'courses',  component: CourseOverviewComponent },
   { path: 'course/:id',  component: CourseComponent },
   { path: 'editor',  component: EditorComponent },
@@ -21,7 +23,9 @@ const routes: Routes = [
   { path: 'edit-lesson/:_id',  component: EditLessonComponent },
   { path: 'blog',  component: BlogComponent },
   { path: 'article/:_id',  component: ArticleComponent },
+  { path: 'articles',  component: ArticlesComponent },
   { path: 'recipe/:_id',  component: RecipeComponent },
+  { path: 'recipes',  component: RecipesComponent },
   { path: 'create_recipe',  component: CreateRecipeComponent },
   { path: 'create_article',  component: CreateArticleComponent },
   // { path: 'login',  component: LoginComponent },

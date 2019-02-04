@@ -15,49 +15,101 @@
   </div>
 </section>
 <section class="container-fluid py-5" style="">
-  <div class="container trending-container pb-5" style="padding: 0; border-bottom: 2px solid #f2f2f2;">
+  <div class="container trending-container" style="padding: 0; border-bottom: 2px solid #f2f2f2;">
     <div class="row trending-content pt-5" style="padding: 0;">
-      <div class="col-12 content-container">
-        <h2>Trending</h2>
+      <div class="col-12 recipes-container-header">
+        <h2 class="font-weight-light">Trending</h2>
       </div>
-      <div *ngFor="let i of trending" class="col-6 col-sm-6 col-md-3 pb-5 px-2 content-container-card">
-        <div class="content-card m-1" style="">
+      <div *ngFor="let trend of trending | slice:0:3" class="col-6 col-sm-6 col-md-3 pb-5 px-2 content-container-card">
+        
+        <!-- ARTICLE -->
+        <div *ngIf="trend.type == 1">
+          <div class="content-card m-1">
+            <div class="content-card-image-container">
+              <div [routerLink]="['/article', trend._id]" class="content-card-image" [style.background-image]="'url(' + trend?.files[0]?.source + ')'">
+                <a  style="height: 100%; width: 100%; "></a>
+              </div>
+            </div>
+            <div class="content-card-title content-card-title--article p-2">
+              <a class="content-card-title-link" [routerLink]="['/article', trend._id]">{{trend.name}}</a>
+            </div>
+            <div class="content-card-author">
+              <div>Door: <span style="color: darkgrey;">{{trend?.contributor[0]?.name}}</span></div>
+              <div><span style="color: darkgrey;">{{trend?.contributor[0]?.title}}</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RECIPE -->
+        <div *ngIf="trend.type == 2">
+          <div class="content-card m-1">
+            <div class="content-card-image-container">            
+              <div [routerLink]="['/recipe', trend._id]" class="content-card-image" [style.background-image]="'url(' + trend?.images[0]?.source + ')'">
+                <a  style="height: 100%; width: 100%; "></a>
+              </div>
+            </div>
+            <div class="content-card-title content-card-title--recipe p-2">
+              <a class="content-card-title-link" [routerLink]="['/recipe', trend._id]">{{trend.name}}</a>
+            </div>
+            <div class="row m-0 text-center content-card-data" style="border-top: 1px solid #e0e0e0;">
+              <div class="time col-4 p-1" style="border-right: 1px solid #e0e0e0">
+                <div><strong>tijd</strong></div>
+                <div>{{trend.time_spend.totalTime}}</div>
+              </div>
+              <div class="healthy col-4 p-1" style="border-right: 1px solid #e0e0e0">
+                <div><strong>Gezond</strong></div>
+                <div>{{trend.health_index}}</div>
+              </div>
+              <div class="difficutly col-4 p-1">
+                <div><strong>moeilijkheid</strong></div>
+                <div>{{trend.difficulty_index}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="content-card m-1 mb-5" style="">
           <div class="content-card-image-container">
             <div class="content-card-image">
               <a routerLink=""></a>
             </div>
           </div>
           <div class="content-card-title">
-            <a>20 gezonde kippensnack recepten</a>
+            <a>{{trend.name}}</a>
           </div>
           <div class="content-card-author">
             <div>Door: <span style="color: darkgrey;">Tom Balcaen</span></div>
             <div><span style="color: darkgrey;">happy plate bijdrager</span></div>
           </div>
-        </div>
+        </div> -->
+
+
       </div>
     </div>
   </div>
 </section>
 <section class="container-fluid py-5">
-  <div class="container recipes-container pb-5" style="padding: 0; border-bottom: 2px solid #f2f2f2;">
+  <div class="container recipes-container" style="padding: 0; border-bottom: 2px solid #f2f2f2;">
     <div class="row trending-content pt-5" style="padding: 0;">
-      <div class="col-12 content-container">
-        <h2>Laatste artikels</h2>
-      </div>
-      <div *ngFor="let i of articles" class="col-6 col-sm-6 col-md-3 pb-5 px-2 content-container-card">
+      <div class="col-12 recipes-container-header">
+        <h2 class="content-container-header-title font-weight-light" routerLink="/articles">
+          Laatste artikels
+        </h2>
+        <a class="content-container-header-more" routerLink="/articles">Nog meer artikels</a>
+      </div>      
+      <div *ngFor="let article of articles" class="col-6 col-sm-6 col-md-3 pb-5 px-2 content-container-card">
         <div class="content-card m-1">
           <div class="content-card-image-container">
-            <div class="content-card-image">
-              <a routerLink=""></a>
+            <div [routerLink]="['/article', article._id]" class="content-card-image" [style.background-image]="'url(' + article?.files[0]?.source + ')'">
+              <a  style="height: 100%; width: 100%; "></a>
             </div>
           </div>
-          <div class="content-card-title content-card-title--article">
-            <a>20 gezonde kippensnack recepten</a>
+          <div class="content-card-title content-card-title--article p-2">
+            <a class="content-card-title-link" [routerLink]="['/article', article._id]">{{article.name}}</a>
           </div>
           <div class="content-card-author">
-            <div>Door: <span style="color: darkgrey;">Tom Balcaen</span></div>
-            <div><span style="color: darkgrey;">happy plate bijdrager</span></div>
+            <div>Door: <span style="color: darkgrey;">{{article?.contributor[0]?.name}}</span></div>
+            <div><span style="color: darkgrey;">{{article?.contributor[0]?.title}}</span></div>
           </div>
         </div>
       </div>
@@ -65,11 +117,12 @@
   </div>
 </section>
 <section class="container-fluid py-5">
-  <div class="container articles-container pb-5" style="padding: 0; border-bottom: 2px solid #f2f2f2;">
+  <div class="container articles-container" style="padding: 0; border-bottom: 2px solid #f2f2f2;">
     <div class="row trending-content pt-5" style="padding: 0;">
-      <div class="col-12 content-container">
-        <h2>Recepten</h2>
-      </div>
+      <div class="col-12 recipes-container-header">
+        <h2 class="content-container-header-title font-weight-light">Recepten</h2>
+        <a class="content-container-header-more" routerLink="/recipes" style="float: right; text-decoration: none;">Nog meer recepten</a>
+      </div>      
       <div *ngFor="let recipe of recipes" class="col-6 col-sm-6 col-md-3 pb-5 px-2 content-container-card">
         <div class="content-card m-1">
           <div class="content-card-image-container">            
@@ -80,7 +133,7 @@
           <div class="content-card-title content-card-title--recipe p-2">
             <a class="content-card-title-link" [routerLink]="['/recipe', recipe._id]">{{recipe.name}}</a>
           </div>
-          <div class="row p-0 text-center content-card-data" style="border-top: 1px solid #e0e0e0;">
+          <div class="row m-0 text-center content-card-data" style="border-top: 1px solid #e0e0e0;">
             <div class="time col-4 p-1" style="border-right: 1px solid #e0e0e0">
               <div><strong>tijd</strong></div>
               <div>{{recipe.time_spend.totalTime}}</div>

@@ -25,7 +25,15 @@ export class RecipeComponent implements OnInit {
     this._recipe.incrementView(this.recipe_id);
     this._recipe.getRecipeById(this.recipe_id).subscribe((recipeObj)=>{      
       this.recipe = recipeObj[0];  
-      console.log(this.recipe.nutrition)      
+      console.log(recipeObj[0])      
+      this.recipe.tags.push(recipeObj[0].tags[1])
+      this.recipe.tags.push(recipeObj[0].tags[1])
+      this.recipe.tags.push(recipeObj[0].tags[1])
+      this.recipe.tags.push(recipeObj[0].tags[1])
+      this.recipe.tags.push(recipeObj[0].tags[1])
+      this.recipe.tags.push(recipeObj[0].tags[1])
+      this.recipe.tags.push(recipeObj[0].tags[1])
+      this.recipe.tags.push(recipeObj[0].tags[1])
       // this.recipe.images[0].source = this.domSanitizer.bypassSecurityTrustUrl(this.recipe.images[0].source);      
     })
   }

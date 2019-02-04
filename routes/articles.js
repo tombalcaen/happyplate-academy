@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const ArticleList = require("../models/articles");
+const moment = require("moment/moment");
 
 //GET
 router.get('/',(req,res,next)=>{
@@ -15,8 +16,44 @@ router.get('/',(req,res,next)=>{
     })
 })
 
-//CREATE
+router.get('/id',(req,res,next)=>{
+  console.log('router id: ' + req.query._id)
+  ArticleList.getArticleById(req.query._id,(err, article)=>{        
+  if(err){
+      console.log(err.message)
+      res.json({success: false, message: "failed to get article."})
+    } else {
+        res.json(article);
+    }
+  })
+})
 
+//CREATE
+router.post('/create',(req,res,next)=>{
+    console.log("in router create article")
+    console.log(req.body)
+    let newArticle = new ArticleList({
+      name: req.body.name,
+      description: req.body.description,
+      body: req.body.body,
+      files: req.body.files,
+      tags: req.body.tags,
+      dateCreated: +moment(),
+      datePublished: +moment(),
+      dateModified: +moment(),
+      contributor: {name: req.body.contributor.name, title: req.body.contributor.title},
+      status: req.body.status //draft;published
+    })
+  
+    ArticleList.createArticle(newArticle, (err, Article)=>{
+      if(err){      
+        console.log(err.message)
+        res.json({success: false, message: "Failed to create new article!"})
+    } else {      
+        res.json({success: true, message: "Article created!", article: Article});
+      }
+    })
+  })
 
 //DELETE
 

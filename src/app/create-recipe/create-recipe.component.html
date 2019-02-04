@@ -1,4 +1,13 @@
 <div class="container">
+  <div class="row">
+    <ul class="m-0">
+      <li routerLink="/create_recipe" class="btn btn-info mx-3" style="list-style: none; display: inline-block;">recipe</li>
+      <li routerLink="/create_article" class="btn btn-info mx-3" style="list-style: none; display: inline-block;">article</li>
+    </ul>
+  </div>
+</div>
+
+<div class="container">
   <div class="row justify-content-center">
     <div class="col-12">
       <form class="row" [formGroup]="recipeForm" (ngSubmit)="createRecipe(recipeForm.value)">    

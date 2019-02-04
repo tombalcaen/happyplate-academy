@@ -20,7 +20,7 @@ router.get('/id',(req,res,next)=>{
     RecipesList.getRecipesById(req.query._id,(err, recipe)=>{        
     if(err){
         console.log(err.message)
-        res.json({success: false, message: "failed to get chapter."})
+        res.json({success: false, message: "failed to get recipe."})
       } else {
           res.json(recipe);
       }

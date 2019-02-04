@@ -1,0 +1,29 @@
+.article-carousel{
+    height: 420px;
+    background-image: url("../../assets/pexels-photo-1640773.jpeg");
+    background-color: lightgrey; /* fallback color */    
+    background-position: center;
+    background-size: cover;   
+    transition: all .5s;
+}
+
+@media only screen
+and (max-width: 812px)
+and (orientation: portrait){
+    .article-carousel{
+        height: 300px;
+    }
+
+}
+
+.article-content-text, .article-content-description{
+    font-family: "avenir-next", "Helvetica Neue", Arial, sans-serif;
+    font-size: 18px;
+    line-height: 2;
+    color: #5e6971;
+}
+
+.article-content-text a{
+    color: orangered;
+    text-decoration: none;
+}

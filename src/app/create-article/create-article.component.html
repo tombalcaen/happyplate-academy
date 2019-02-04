@@ -1,8 +1,38 @@
-<p>
-  create-article works!
-</p>
+<div class="container my-3">
+  <div class="row">
+    <ul class="m-0">
+      <li routerLink="/create_recipe" class="btn btn-info mx-3" style="list-style: none; display: inline-block;">recipe</li>
+      <li routerLink="/create_article" class="btn btn-info mx-3" style="list-style: none; display: inline-block;">article</li>
+    </ul>
+  </div>
+</div>
+
 <div class="container-fluid">
   <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group">
+          <label for="exampleInputEmail1">Title</label>
+          <input type="text" [(ngModel)]="title" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputEmail1">description</label>
+          <input type="text" [(ngModel)]="description" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Contributor name</label>
+          <input type="text" [(ngModel)]="contributorName" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Contributor Title</label>
+          <input type="text" [(ngModel)]="contributorTitle" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">
+        </div>
+        <div class="button">
+          <i class="icon-file far fa-image"></i>
+          <input class="input-file" type="file" name="file" (change)="onFileChanged($event)">
+        </div>
+      </div>
+    </div>
     <div class="row">
       <div class="col-12"> 
         <quill-editor [(ngModel)]="htmlText"
@@ -11,7 +41,14 @@
           (onSelectionChanged)="onSelectionChanged($event)"
           (onContentChanged)="onContentChanged($event)" style="height: 80vh">
         </quill-editor>
-        </div>
-    </div>
+      </div>      
+    </div>  
   </div>
+</div>
+<div class="container" style="margin-top: 50px;">
+  <div class="row">
+    <div class="col-12">
+      <button class="btn btn-success" (click)="saveArticle()">Save</button>
+    </div>
+  </div>  
 </div>

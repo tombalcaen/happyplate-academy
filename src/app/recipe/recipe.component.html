@@ -85,40 +85,40 @@
           <ul class="nutrition-list">
             <li *ngFor="let nut_item of recipe?.nutrition" [ngSwitch]="nut_item.descr" class="nutrition-list-item">
               <div *ngSwitchCase="'calories'">
-                <div *ngIf="nut_item.a != '0' && nut_item.a != ''" style="font-weight: 500;"><span class="text-transform: uppercase;">energie</span> <span style="float: right;">{{nut_item.a}} {{nut_item.u}}</span></div>
+                <div *ngIf="nut_item.a != '0' && nut_item.a != ''" class="pt-1" style="font-weight: 500;"><span class="text-transform: uppercase;">energie</span> <span style="float: right;">{{nut_item.a}} {{nut_item.u}}</span></div>
               </div>
               <div *ngSwitchCase="'carbs'">
-                <div *ngIf="nut_item.a != '0' && nut_item.a != ''" style="font-weight: 500;"><span class="text-transform: uppercase;">koolhydraten</span> <span style="float: right;">{{nut_item.a}} {{nut_item.u}}</span></div>
+                <div *ngIf="nut_item.a != '0' && nut_item.a != ''" class="pt-1" style="font-weight: 500;"><span class="text-transform: uppercase;">koolhydraten</span> <span style="float: right;">{{nut_item.a}} {{nut_item.u}}</span></div>
               </div>
               <div *ngSwitchCase="'starch'">
-                <div class="pl-5" *ngIf="nut_item.a != '0' && nut_item.a != ''"><span class="text-transform: uppercase;">zetmeel</span> <span style="float: right;">{{nut_item.a}} {{nut_item.u}}</span></div>
+                <div class="pl-5 pt-1" *ngIf="nut_item.a != '0' && nut_item.a != ''"><span class="text-transform: uppercase;">zetmeel</span> <span style="float: right;">{{nut_item.a}} {{nut_item.u}}</span></div>
               </div>
               <div *ngSwitchCase="'sugar'">
-                <div class="pl-5" *ngIf="nut_item.a != '0' && nut_item.a != ''"><span class="text-transform: uppercase;">suiker</span> <span style="float: right;">{{nut_item.a}} {{nut_item.u}}</span></div>
+                <div class="pl-5 pt-1" *ngIf="nut_item.a != '0' && nut_item.a != ''"><span class="text-transform: uppercase;">suiker</span> <span style="float: right;">{{nut_item.a}} {{nut_item.u}}</span></div>
               </div>
               <div *ngSwitchCase="'fiber'">
-                <div class="pl-5" *ngIf="nut_item.a != '0' && nut_item.a != ''"><span class="text-transform: uppercase;">vezels</span> <span style="float: right;">{{nut_item.a}} {{nut_item.u}}</span></div>
+                <div class="pl-5 pt-1" *ngIf="nut_item.a != '0' && nut_item.a != ''"><span class="text-transform: uppercase;">vezels</span> <span style="float: right;">{{nut_item.a}} {{nut_item.u}}</span></div>
               </div>
               <div *ngSwitchCase="'fat'">
-                <div *ngIf="nut_item.a != '0' && nut_item.a != ''" style="font-weight: 500;"><span class="text-transform: uppercase;">vetten</span> <span style="float: right;">{{nut_item.a}} {{nut_item.u}}</span></div>
+                <div *ngIf="nut_item.a != '0' && nut_item.a != ''" class="pt-1" style="font-weight: 500;"><span class="text-transform: uppercase;">vetten</span> <span style="float: right;">{{nut_item.a}} {{nut_item.u}}</span></div>
               </div>
               <div *ngSwitchCase="'sat_fat'">
-                <div class="pl-5" *ngIf="nut_item.a != '0' && nut_item.a != ''"><span class="text-transform: uppercase;">verzadingd vetten</span> <span style="float: right;">{{nut_item.a}} {{nut_item.u}}</span></div>
+                <div class="pl-5 pt-1" *ngIf="nut_item.a != '0' && nut_item.a != ''"><span class="text-transform: uppercase;">verzadingd vetten</span> <span style="float: right;">{{nut_item.a}} {{nut_item.u}}</span></div>
               </div>
               <div *ngSwitchCase="'mono_fat'">
-                <div class="pl-5" *ngIf="nut_item.a != '0' && nut_item.a != ''"><span class="text-transform: uppercase;">mono onverzadigd vetten</span> <span style="float: right;">{{nut_item.a}} {{nut_item.u}}</span></div>
+                <div class="pl-5 pt-1" *ngIf="nut_item.a != '0' && nut_item.a != ''"><span class="text-transform: uppercase;">mono onverzadigd vetten</span> <span style="float: right;">{{nut_item.a}} {{nut_item.u}}</span></div>
               </div>
               <div *ngSwitchCase="'poly_fat'">
-                <div class="pl-5" *ngIf="nut_item.a != '0' && nut_item.a != ''"><span class="text-transform: uppercase;">poly onverzadigd vetten</span> <span style="float: right;">{{nut_item.a}} {{nut_item.u}}</span></div>
+                <div class="pl-5 pt-1" *ngIf="nut_item.a != '0' && nut_item.a != ''"><span class="text-transform: uppercase;">poly onverzadigd vetten</span> <span style="float: right;">{{nut_item.a}} {{nut_item.u}}</span></div>
               </div>
               <div *ngSwitchCase="'transfat'">
-                <div class="pl-5" *ngIf="nut_item.a != '0' && nut_item.a != ''"><span class="text-transform: uppercase;">transvetten</span> <span style="float: right;">{{nut_item.a}} {{nut_item.u}}</span></div>
+                <div class="pl-5 pt-1" *ngIf="nut_item.a != '0' && nut_item.a != ''"><span class="text-transform: uppercase;">transvetten</span> <span style="float: right;">{{nut_item.a}} {{nut_item.u}}</span></div>
               </div>
               <div *ngSwitchCase="'protein'">
-                <div *ngIf="nut_item.a != '0' && nut_item.a != ''" style="font-weight: 500;"><span class="text-transform: uppercase;">eiwitten</span> <span style="float: right;">{{nut_item.a}} {{nut_item.u}}</span></div>
+                <div *ngIf="nut_item.a != '0' && nut_item.a != ''" class="pt-1" style="font-weight: 500;"><span class="text-transform: uppercase;">eiwitten</span> <span style="float: right;">{{nut_item.a}} {{nut_item.u}}</span></div>
               </div>
               <div *ngSwitchCase="'cholesterol'">
-                <div *ngIf="nut_item.a != '0' && nut_item.a != ''" style="font-weight: 500;"><span class="text-transform: uppercase;">cholesterol</span> <span style="float: right;">{{nut_item.a}} {{nut_item.u}}</span></div>
+                <div *ngIf="nut_item.a != '0' && nut_item.a != ''" class="pt-1" style="font-weight: 500;"><span class="text-transform: uppercase;">cholesterol</span> <span style="float: right;">{{nut_item.a}} {{nut_item.u}}</span></div>
               </div>
             </li>
           </ul>
@@ -129,6 +129,15 @@
       </div>
     </div>
     <div class="row p-0 m-0">
+      <div class="col-12 col-md-8 pt-4 px-0">
+        <ul class="p-0 m-0">
+          <li *ngFor="let pill of recipe?.tags" class="d-inline-block p-0 m-1">
+            <span [routerLink]="['/recipes', {search: pill}]" class="badge badge-pill badge-light px-3 py-2 mx-1" style="background-color: darkorange; color: white; cursor: pointer;">{{pill}}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- <div class="row p-0 m-0">
       <div class="col-12 col-md-8 pt-4">
         <div class="review-title">
           <h2>reviews</h2>
@@ -142,7 +151,7 @@
       <div class="col-12 col-md-4">
   
       </div>
-    </div>
+    </div> -->
   </div>
 </section>
 <blog-footer></blog-footer>

@@ -28,6 +28,7 @@ import { CreateArticleComponent } from './create-article/create-article.componen
 //third party editor
 import { QuillModule } from 'ngx-quill';
 import { RecipesComponent } from './recipes/recipes.component';
+import { ArticlesComponent } from './articles/articles.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { RecipesComponent } from './recipes/recipes.component';
     BlogNavbarComponent,
     BlogFooterComponent,
     CreateArticleComponent,
-    RecipesComponent
+    RecipesComponent,
+    ArticlesComponent
   ],
   imports: [
     BrowserModule,
