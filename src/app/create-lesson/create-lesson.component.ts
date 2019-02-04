@@ -199,6 +199,7 @@ export class CreateLessonComponent implements OnInit {
       name: this.title,
       body: this.tekst,
       files: [],
+      type: 1,
       status: "draft"
     }
 

@@ -21,9 +21,15 @@ module.exports.getChapters = function(callback){
     chapters.find({},callback)
 }
 
+module.exports.getChaptersForCidAll = function(courseId,callback){  
+    chapters.find({cId: courseId},callback)
+    .populate('lessons') //,null,
+    .sort({n: 1});        
+}
+
 module.exports.getChaptersForCid = function(courseId,callback){  
     chapters.find({cId: courseId},callback)
-    .populate('lessons',{match: { age: 'published'}})
+    .populate('lessons',null,null,{match: { status: {$eq: 'published'}}}) //,null,
     .sort({n: 1});        
 }
 

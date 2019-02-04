@@ -1,0 +1,69 @@
+.recipe-panel-stats{
+    border-top: 1px solid #e0e0e0;
+}
+
+.ingredients-title h2, .prep-title h2, .nutrition-title h2, .review-title h2{
+    clear: both;
+    font-family: "Open Sans",Arial;
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: #4d4d4d;
+    border-bottom: 1px solid #f2f2f2;
+    padding: .8rem 1% .3rem;
+}
+
+.ingredients-list, .nutrition-list, .prep-info-item, .review-list{
+    list-style: none;
+    list-style-position: inside;
+    margin: 0;
+    padding: 0;
+    color: #777;
+    margin-bottom: 20px;
+    font-size: 15px;
+}
+
+.prep-info-item{
+    margin-bottom: 0px;
+}
+
+.ingredients-list-item, .nutrition-list-item{
+    margin: 7px 0;
+}
+
+.recipe-carousel{
+    height: 420px;
+    background-image: url("../../assets/pexels-photo-1640773.jpeg");
+    background-color: lightgrey; /* fallback color */    
+    background-position: center;
+    background-size: cover;   
+    transition: all .5s;
+}
+
+@media only screen
+and (max-width: 812px)
+and (orientation: portrait){
+    .recipe-carousel{
+        height: 300px;
+    }
+
+}
+
+.nutrition-list{
+    margin-right: 200px;
+}
+
+@media only screen
+and (max-width: 812px)
+and (orientation: portrait){
+    .nutrition-list{
+        margin-right: 0px;
+    }
+}
+
+.nutrition-list-item{
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* .background-1{
+    background-image: url("../../assets/pexels-photo-1640773.jpeg");
+} */

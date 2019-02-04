@@ -1,0 +1,121 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <form class="row" [formGroup]="recipeForm" (ngSubmit)="createRecipe(recipeForm.value)">    
+        <div class="col-6">
+          <div class="form-group">
+            <label for="exampleInputEmail1">name</label>
+            <input type="text" formControlName="name" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">description</label>
+            <input type="text" formControlName="description" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">tags</label>
+            <input type="text" formControlName="tags" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">servings</label>
+            <input type="text" formControlName="servings" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">prep time</label>
+            <input type="text" formControlName="prepTime" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">
+            <label for="exampleInputEmail1">cook time</label>
+            <input type="text" formControlName="cookTime" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">          
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">ingredients</label>
+            <input type="text" formControlName="ingredients" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">
+          </div>        
+          <div class="form-group">
+            <label for="exampleInputEmail1">recipe instructions</label>
+            <input type="text" formControlName="recipeInstructions" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">
+          </div>        
+          <div class="form-group">
+            <label for="exampleInputEmail1">difficulty_index</label>
+            <input type="text" formControlName="difficulty_index" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">health_index</label>
+            <input type="text" formControlName="health_index" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">source name</label>
+            <input type="text" formControlName="sourceName" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">source link</label>
+            <input type="text" formControlName="sourceLink" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="exampleInputEmail1">calories</label>
+            <input type="text" formControlName="calories" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">
+          </div>        
+          <div class="form-group">
+            <label for="exampleInputEmail1">koolhydraten</label>
+            <input type="text" formControlName="carbs" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">
+          </div>        
+          <div class="form-group">
+            <label for="exampleInputEmail1">zetmeel</label>
+            <input type="text" formControlName="starch" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">suiker</label>
+            <input type="text" formControlName="sugar" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">vezels</label>
+            <input type="text" formControlName="fiber" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">vet</label>
+            <input type="text" formControlName="fat" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">verzadingd vet</label>
+            <input type="text" formControlName="sat_fat" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">
+          </div>        
+          <div class="form-group">
+            <label for="exampleInputEmail1">onv mono vet</label>
+            <input type="text" formControlName="mono_fat" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">
+          </div>        
+          <div class="form-group">
+            <label for="exampleInputEmail1">onv poly vet</label>
+            <input type="text" formControlName="poly_fat" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">transvet</label>
+            <input type="text" formControlName="transfat" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">eiwitten</label>
+            <input type="text" formControlName="protein" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">cholesterol</label>
+            <input type="text" formControlName="cholesterol" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">
+          </div>          
+        </div>
+        <div class="form-group">
+          <div class="button">
+            <i class="icon-file far fa-image"></i>
+            <input class="input-file" type="file" name="file" (change)="onFileChanged($event)">
+          </div>
+        </div>
+        <!-- <div class="form-group">
+          <label for="exampleInputEmail1">health_index</label>
+          <input type="text" formControlName="health_index" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">
+        </div> -->
+        <div class="pt-3 pb-1 px-2">
+          <button type="submit" class="btn btn-info" [disabled]="!recipeForm.valid" style="color: white;">Create</button> <!--(submit)="createCourse()"-->
+          <a class="cancel" data-dismiss="modal">cancel</a>
+          <!-- <button type="submit"  class="btn btn-sm alert-secondary" style="padding: .25rem 1rem;">Delete</button> -->
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

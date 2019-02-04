@@ -1,0 +1,102 @@
+<blog-navbar></blog-navbar>
+<section class="container-fluid background-cover background-1 background-fill">
+  <div class="container wrapper">
+    <div class="row">
+      <div class="col-12 col-md-6 wrapper-column" style="">
+        <div class="header-info-bg" style=""></div>
+        <a routerLink='' class="wrapper-link">
+          <div class="header-data" style="position: absolute; bottom: 50px;">
+            <h1>Jouw persoonlijke maaltijd</h1>
+            <h4>speciaal ontwikkeld voor jouw door onze gediplomeerde voedingsdeskundigen</h4>            
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="container-fluid py-5" style="">
+  <div class="container trending-container pb-5" style="padding: 0; border-bottom: 2px solid #f2f2f2;">
+    <div class="row trending-content pt-5" style="padding: 0;">
+      <div class="col-12 content-container">
+        <h2>Trending</h2>
+      </div>
+      <div *ngFor="let i of trending" class="col-6 col-sm-6 col-md-3 pb-5 px-2 content-container-card">
+        <div class="content-card m-1" style="">
+          <div class="content-card-image-container">
+            <div class="content-card-image">
+              <a routerLink=""></a>
+            </div>
+          </div>
+          <div class="content-card-title">
+            <a>20 gezonde kippensnack recepten</a>
+          </div>
+          <div class="content-card-author">
+            <div>Door: <span style="color: darkgrey;">Tom Balcaen</span></div>
+            <div><span style="color: darkgrey;">happy plate bijdrager</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="container-fluid py-5">
+  <div class="container recipes-container pb-5" style="padding: 0; border-bottom: 2px solid #f2f2f2;">
+    <div class="row trending-content pt-5" style="padding: 0;">
+      <div class="col-12 content-container">
+        <h2>Laatste artikels</h2>
+      </div>
+      <div *ngFor="let i of articles" class="col-6 col-sm-6 col-md-3 pb-5 px-2 content-container-card">
+        <div class="content-card m-1">
+          <div class="content-card-image-container">
+            <div class="content-card-image">
+              <a routerLink=""></a>
+            </div>
+          </div>
+          <div class="content-card-title content-card-title--article">
+            <a>20 gezonde kippensnack recepten</a>
+          </div>
+          <div class="content-card-author">
+            <div>Door: <span style="color: darkgrey;">Tom Balcaen</span></div>
+            <div><span style="color: darkgrey;">happy plate bijdrager</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="container-fluid py-5">
+  <div class="container articles-container pb-5" style="padding: 0; border-bottom: 2px solid #f2f2f2;">
+    <div class="row trending-content pt-5" style="padding: 0;">
+      <div class="col-12 content-container">
+        <h2>Recepten</h2>
+      </div>
+      <div *ngFor="let recipe of recipes" class="col-6 col-sm-6 col-md-3 pb-5 px-2 content-container-card">
+        <div class="content-card m-1">
+          <div class="content-card-image-container">            
+            <div [routerLink]="['/recipe', recipe._id]" class="content-card-image" [style.background-image]="'url(' + recipe?.images[0]?.source + ')'">
+              <a  style="height: 100%; width: 100%; "></a>
+            </div>
+          </div>
+          <div class="content-card-title content-card-title--recipe p-2">
+            <a class="content-card-title-link" [routerLink]="['/recipe', recipe._id]">{{recipe.name}}</a>
+          </div>
+          <div class="row p-0 text-center content-card-data" style="border-top: 1px solid #e0e0e0;">
+            <div class="time col-4 p-1" style="border-right: 1px solid #e0e0e0">
+              <div><strong>tijd</strong></div>
+              <div>{{recipe.time_spend.totalTime}}</div>
+            </div>
+            <div class="healthy col-4 p-1" style="border-right: 1px solid #e0e0e0">
+              <div><strong>Gezond</strong></div>
+              <div>{{recipe.health_index}}</div>
+            </div>
+            <div class="difficutly col-4 p-1">
+              <div><strong>moeilijkheid</strong></div>
+              <div>{{recipe.difficulty_index}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<blog-footer></blog-footer>

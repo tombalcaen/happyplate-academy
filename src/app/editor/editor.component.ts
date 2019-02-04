@@ -111,13 +111,24 @@ export class EditorComponent implements OnInit {
     });
   }
 
+  setEditCourse(){
+    //set form values
+    this.courseForm.setValue({
+      'name': this.active_course.name,
+      'descr': this.active_course.descr,
+      'price': this.active_course.price,
+      'status': this.active_course.status
+    })
+    this.toggleCreate('course');
+  }
+
   saveCourse(){
     let course = {
       _id: this.active_course._id,
       name: this.active_course.name,
       descr: this.active_course.descr,
       price: 0,
-      status: 'pending'
+      status: 'draft'
     }
     
     this._courseService.updateCourse(course).subscribe((res)=>{
@@ -130,6 +141,7 @@ export class EditorComponent implements OnInit {
     this._courseService.deleteCourse(this.active_course._id).subscribe((res)=>{
       this.deleteCourseModal.nativeElement.click();
       this.openSnackBar(this.active_course_title + " verwijdert!")
+      this.clearContent();
       this.getCourses();
     })
   }
@@ -183,10 +195,13 @@ export class EditorComponent implements OnInit {
   }
 
   changeCourse(course){
+    console.log(this.courses)
     let crs = this.courses.find((test)=>{
       return test._id == course;
     })    
     
+    console.log(crs)
+
     this.clearContent();
     this.blnCourseOverview = true;
     this.active_course_title = crs.name;
@@ -197,7 +212,7 @@ export class EditorComponent implements OnInit {
 
   getposts(cId){    
     this.sections = [];
-    this._courseService.getChaptersForCourse(cId).subscribe((data)=>{      
+    this._courseService.getChaptersForCourseALL(cId).subscribe((data)=>{      
       this.sections = data;
       this.sections.active = false;
       this.sections.map((ch)=>{
@@ -252,6 +267,10 @@ export class EditorComponent implements OnInit {
     })
   }
 
+  onTogglePublishCourse(){   
+    this.active_course.status === 'published'?this.active_course.status = 'draft':this.active_course.status = 'published'    
+  }
+
   checkChapter(index){
     this.clearContent();
     this.blnLessons = true;
@@ -263,8 +282,9 @@ export class EditorComponent implements OnInit {
   }
 
   cancel(){
-    this.changeCourse(this.active_course);
+    this.changeCourse(this.active_course._id);
     this.clearContent();
+    this.blnCourseOverview = true;
   }
 
   clearContent(){
@@ -274,6 +294,7 @@ export class EditorComponent implements OnInit {
     this.blnLessons = false;
     this.blnCourseOverview = false;
     this.blnDisabled = true;
+    this.sections = [];
   }
 
   drop(event: CdkDragDrop<string[]>) {    

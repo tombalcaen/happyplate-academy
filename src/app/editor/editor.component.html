@@ -28,6 +28,52 @@
     <!--CONTENT-->
     <div class="course-content">
       
+<!-- course details -->
+      <div *ngIf="blnCourseOverview" class="container">
+        <div class="row p-3" style="border-bottom: 1px solid #e0e0e0;">
+          <h2>{{active_course_title}}</h2>
+          <button class="button button-edit ml-auto" [class.disabled]='!blnDisabled' (click)="setEditCourse()" [disabled]="!blnDisabled">wijzig</button> <!-- (click)="toggleDisabled(blnDisabled)"-->
+          <button class="button button-delete ml-2" [class.disabled]='!blnDisabled' data-toggle="modal" data-target="#deleteCourseModal" [disabled]="!blnDisabled"><i class="fas fa-trash"></i></button><!--(click)="deleteCourse()"-->
+        </div>
+        <div class="py-3">
+          <div class="py-1 px-2">
+            <div class="course-title py-1">
+              <h5 style="color: #aeb2b8;">naam:</h5>
+            </div>
+            <div class="input-group input-group-lg course-description">
+              {{active_course.name}}
+              <!-- <input type="text" [(ngModel)]="active_course.name" class="create-lesson-title form-control disabled" aria-label="titel" aria-describedby="inputGroup-sizing-lg" [disabled]=blnDisabled style="background-color: #fbfbfd;"> -->
+            </div>
+          </div>            
+          <div class="pt-3 pb-1 px-2">
+            <div class="course-title py-1">
+              <h5 style="color: #aeb2b8;">Beschrijving:</h5>                  
+            </div>
+            <div class="input-group input-group-lg course-description">
+                {{active_course.descr}}
+              <!-- <textarea class="form-control disabled" [(ngModel)]="active_course.descr" name="" rows="5" style="background-color: #fbfbfd;" [disabled]=blnDisabled></textarea> -->
+            </div>
+          </div>  
+          <div class="pt-3 pb-1 pl-2 pr-5" style="display: inline-block;">
+            <div class="course-title py-1">
+              <h5 style="color: #aeb2b8;">prijs:</h5>
+            </div>
+            <div>{{active_course.price}}</div>
+          </div>
+          <div class="pt-3 pb-1 px-5" style="display: inline-block;">
+            <div class="course-title py-1">
+              <h5 class="" style="color: #aeb2b8;">gepubliceerd:</h5>
+              <mat-slide-toggle class="example-margin d-inline-block" [disabled]="blnDisabled" (change)="onTogglePublishCourse()" [checked]="active_course.status === 'published'"> {{active_course.status}} </mat-slide-toggle>
+            </div>
+            <!-- <div>{{active_course.status}}</div> -->
+          </div>
+          <!-- <div *ngIf="!blnDisabled" class="pt-3 pb-1 px-2">
+            <a class="button button-save" (click)="saveCourse()" style="color: white;">opslaan</a>
+            <a class="cancel mx-3" (click)="cancel()">cancel</a>
+          </div> -->
+        </div>                      
+      </div>
+      
       <!-- create course -->
       <div *ngIf="blnCreateCourse" class="container add-course-container">
         <div class="row py-5 justify-content-center">
@@ -39,7 +85,7 @@
               <div class="py-3">
                 <div class="py-1 px-2">
                   <div class="course-title py-1">
-                    <h5 style="color: #aeb2b8;">naam:</h5>                  
+                    <h5 style="color: #aeb2b8;">Titel:</h5>                  
                   </div>
                   <div class="form-group input-group-lg course-description" style="min-height: 71px;">
                     <input type="text" formControlName="name" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;"> <!--[(ngModel)]="course_title"-->
@@ -55,9 +101,10 @@
                     <textarea class="form-control" formControlName="descr" name="" rows="5" style="background-color: #fbfbfd;"></textarea> <!--[(ngModel)]="course_description"-->
                     <small *ngIf="courseForm.controls['descr'].hasError('required') && !courseForm.controls['descr'].untouched"  id="descriptionHelp" class="form-text red">Gelieve een cursus beschrijving in te vullen.</small>
                   </div>
-                </div>
+                </div>                
                 <div class="pt-3 pb-1 px-2">
                   <button type="submit" class="btn btn-info" [disabled]="!courseForm.valid" [class.disable-btn]='!courseForm.valid' style="color: white;">Create</button> <!--(submit)="createCourse()"-->
+                  <a class="cancel" data-dismiss="modal">cancel</a>
                   <!-- <button type="submit"  class="btn btn-sm alert-secondary" style="padding: .25rem 1rem;">Delete</button> -->
                 </div>
               </div>
@@ -136,7 +183,12 @@
           <li *ngFor="let lesson of lessons" class="col-md-8 my-3 lessons-item">
             <div class="">
               <div class="p-3" style="">
-                <div style="display: inline-block;"><h3>{{lesson.name}}</h3></div>
+                <div style="display: inline-block;">
+                  <i *ngIf="lesson.type === 1" class="far fa-file-alt d-inline-block mr-3"></i>
+                  <i *ngIf="lesson.type === 2" class="fas fa-volume-up d-inline-block mr-3"></i>
+                  <i *ngIf="lesson.type === 3" class="far fa-play-circle d-inline-block mr-3"></i>                  
+                  <h3 class="d-inline-block">{{lesson.name}}</h3>
+                </div>
                 <div style="display: inline-block; float: right;">                  
                   <a class="px-2" style="cursor: pointer;"><i class="fas fa-eye" (click)="togglePublish(lesson)" [class.published]="lesson.status == 'published'" style="color: lightgrey;"></i></a>
                   <a class="px-2" [routerLink]="['/edit-lesson',lesson._id]"><i class="fas fa-edit" style="color: #aeb2b8; cursor: pointer;"></i></a>
@@ -150,50 +202,6 @@
           </li>          
         </ul>
       </div>
-
-      <!-- course details -->
-      <div *ngIf="blnCourseOverview" class="container">
-        <div class="row p-3" style="border-bottom: 1px solid #e0e0e0;">
-          <h2>{{active_course_title}}</h2>
-          <button class="button button-edit ml-auto" [class.disabled]='!blnDisabled' (click)="toggleDisabled(blnDisabled)" [disabled]="!blnDisabled">wijzig</button>
-          <button class="button button-delete ml-2" [class.disabled]='!blnDisabled' data-toggle="modal" data-target="#deleteCourseModal" [disabled]="!blnDisabled"><i class="fas fa-trash"></i></button><!--(click)="deleteCourse()"-->
-        </div>
-        <div class="py-3">
-          <div class="py-1 px-2">
-            <div class="course-title py-1">
-              <h5 style="color: #aeb2b8;">naam:</h5>
-            </div>
-            <div class="input-group input-group-lg course-description">
-              <input type="text" [(ngModel)]="active_course.name" class="create-lesson-title form-control disabled" aria-label="titel" aria-describedby="inputGroup-sizing-lg" [disabled]=blnDisabled style="background-color: #fbfbfd;">
-            </div>
-          </div>            
-          <div class="pt-3 pb-1 px-2">
-            <div class="course-title py-1">
-              <h5 style="color: #aeb2b8;">Beschrijving:</h5>                  
-            </div>
-            <div class="input-group input-group-lg course-description">              
-              <textarea class="form-control disabled" [(ngModel)]="active_course.descr" name="" rows="5" style="background-color: #fbfbfd;" [disabled]=blnDisabled></textarea>
-            </div>
-          </div>  
-          <div class="pt-3 pb-1 pl-2 pr-5" style="display: inline-block;">
-            <div class="course-title py-1">
-              <h5 style="color: #aeb2b8;">prijs:</h5>
-            </div>
-            <div>{{active_course.price}}</div>
-          </div>
-          <div class="pt-3 pb-1 px-5" style="display: inline-block;">
-            <div class="course-title py-1">
-              <h5 style="color: #aeb2b8;">gepubliceerd:</h5>
-            </div>
-            <div>{{active_course.status}}</div>
-          </div>
-          <div *ngIf="!blnDisabled" class="pt-3 pb-1 px-2">
-            <a class="button button-save" (click)="saveCourse()" style="color: white;">opslaan</a>
-            <a class="cancel mx-3" (click)="cancel()">cancel</a>
-          </div>
-        </div>                      
-      </div>
-
     </div>
   </div>
 
@@ -201,8 +209,10 @@
     <div class="editor-sidebar-header hidden-xs px-3 py-4 text-center">
       <h3>Editor</h3>
     </div>
+    
     <div class="sidebar-section-list">
-      <div class="input-group py-3">
+      <div class="pt-3">Cursus</div>      
+      <div class="input-group pb-3 mt-2">        
         <select *ngIf="courses.length > 0" class="custom-select course-select" (change)="changeCourse($event.target.value)" id="courseSelect" aria-label="Course select">
           <option *ngFor="let course of courses" value="course._id" [value]="course._id" style="text-transform: capitalize;"><i class="fas fa-book">{{course.name}}</i></option>          
         </select>   
@@ -213,7 +223,8 @@
           </div>
         </div>     
       </div>
-      <div *ngIf="sections" class="sidebar-course-chapters">
+      <div *ngIf='courses.length >= 1' class="sidebar-course-chapters">
+        <span>Hoofdstukken</span>
         <ul cdkDropList class="chapter-list" (cdkDropListDropped)="drop($event)">
             <li *ngFor="let section of sections; let a = index" (click)="checkChapter(a)" class="chapter-item my-2" [class.activated]="section.active" cdkDrag>
               <div class="chapter-item-container py-3 pl-3">
@@ -228,8 +239,7 @@
                 <span class="chapter-item-name pl-2">creeër hoofdstuk</span>                
               </div>
             </li>
-          </ul>
-        
+          </ul>        
       </div>
       <!-- <div *ngFor="let section of sections; let a = index;" class="sidebar-section">
         <div class="sidebar-section-name">
@@ -263,7 +273,7 @@
             <span style="margin: 0px 10px;">
               <button class="btn btn-sm btn-secondary" (click)="deleteCourse()" style="padding: .25rem 1rem;">Verwijder</button>
             </span>
-            <a class="cancel" href="#" data-dismiss="modal">cancel</a>              
+            <a class="cancel" href="#" data-dismiss="modal">cancel</a>
           </div>
         </div>
     </div>

@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http'
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -16,6 +17,17 @@ import { CourseOverviewComponent } from './course-overview/course-overview.compo
 import { CreateLessonComponent } from './create-lesson/create-lesson.component';
 import { EditorComponent } from './editor/editor.component';
 import { EditLessonComponent } from './edit-lesson/edit-lesson.component';
+import { BlogComponent } from './blog/blog.component';
+import { ArticleComponent } from './article/article.component';
+import { RecipeComponent } from './recipe/recipe.component';
+import { CreateRecipeComponent } from './create-recipe/create-recipe.component';
+import { BlogNavbarComponent } from './blog-navbar/blog-navbar.component';
+import { BlogFooterComponent } from './blog-footer/blog-footer.component';
+import { CreateArticleComponent } from './create-article/create-article.component';
+
+//third party editor
+import { QuillModule } from 'ngx-quill';
+import { RecipesComponent } from './recipes/recipes.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +37,15 @@ import { EditLessonComponent } from './edit-lesson/edit-lesson.component';
     CourseOverviewComponent,
     CreateLessonComponent,
     EditorComponent,
-    EditLessonComponent
+    EditLessonComponent,
+    BlogComponent,
+    ArticleComponent,
+    RecipeComponent,
+    CreateRecipeComponent,
+    BlogNavbarComponent,
+    BlogFooterComponent,
+    CreateArticleComponent,
+    RecipesComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +56,9 @@ import { EditLessonComponent } from './edit-lesson/edit-lesson.component';
     BrowserAnimationsModule,
     DragDropModule,
     MatProgressBarModule,
-    MatSnackBarModule
+    MatSlideToggleModule,
+    MatSnackBarModule,
+    QuillModule
   ],
   providers: [],
   bootstrap: [AppComponent]

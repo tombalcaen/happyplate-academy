@@ -23,7 +23,8 @@ router.post('/create',(req,res,next)=>{
     files: req.body.files,
     created: +moment(),
     last_edit: +moment(),
-    status: ""
+    type: 1,
+    status: req.body.status
   })
 
   LessonsList.addLesson(newLesson, (err, Lesson)=>{
@@ -58,6 +59,7 @@ router.post('/update_status',(req,res,next)=>{
     files: req.body.files,
     created: req.body.created,
     last_edit: +moment(),
+    type: req.body.type,
     status: req.body.status
   })
 

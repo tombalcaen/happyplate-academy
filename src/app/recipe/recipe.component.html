@@ -1,0 +1,148 @@
+<blog-navbar></blog-navbar>
+<section class="container-fluid">
+  <div class="container">
+    <div class="row px-3 pt-5 pb-3">
+      <div class="col-12 p-0 m-0">
+        <h1 class="title">{{recipe?.name}}</h1>
+      </div>
+      <div class="col-12 col-md-8 p-0 m-0">
+        <p class="subtitle">{{recipe?.description}}</p>
+      </div>            
+    </div>
+    <div class="row">
+      <div class="col-12 col-md-8">
+        <div class="recipe-carousel" [style.background-image]="'url(' + recipe?.images[0]?.source + ')'"></div>
+      </div>
+    </div>
+    <div class="row">        
+      <div class="col-12 col-md-8 recipe-panel-info">
+        <div class="recipe-panel-social"></div>
+        <div class="recipe-panel-about">
+          <div>
+            <small>Recept door: <span>{{recipe?.source?.name}}</span></small>
+          </div>
+          <div>
+            <span>{{recipe?.source?.link}}</span>
+          </div>
+        </div>
+        <div class="row m-3 text-center recipe-panel-stats">
+          <div class="time col-4 p-0" style="border-right: 1px solid #e0e0e0">
+            <div><strong>tijd</strong></div>
+            <!-- <div class="row m-0"> -->
+              <!-- <div class="col-6 p-0" style="width: 50%;">                 -->
+                <div>{{recipe?.time_spend?.totalTime}}</div>
+              <!-- </div>
+              <div class="col-6 p-0">                 -->
+                <!-- <div>{{recipe?.time_spend?.cookTime}}</div> -->
+              <!-- </div> -->
+            <!-- </div> -->
+          </div>
+          <div class="healthy col-4 p-0" style="border-right: 1px solid #e0e0e0">
+            <div><strong>Gezond</strong></div>
+            <div>{{recipe?.health_index}}</div>
+          </div>
+          <div class="difficutly col-4 p-0">
+            <div><strong>moeilijkheid</strong></div>
+            <div>{{recipe?.difficulty_index}}</div>
+          </div>
+        </div>
+      </div>      
+    </div>
+  </div>
+  <div class="container instuctions-container pb-5" style="border-bottom: 2px solid #f2f2f2;">
+    <div class="row p-0 m-0">
+      <div class="col-12 col-md-8 pt-4">      
+        <div class="row instructions-content" style="">
+          <div class="col-6 pr-5 ingredients-container">
+            <div class="ingredients-title">
+              <h2>ingrediënten</h2>
+            </div>
+            <div class="ingredients-info">
+              <ul class="ingredients-list">
+                <li *ngFor="let ing of recipe?.ingredients" class="ingredients-list-item">{{ing}}</li>                
+              </ul>
+            </div>
+          </div>
+          <div class="col-6 prep-container">
+            <div class="prep-title">
+              <h2>bereiding</h2>
+            </div>
+            <div class="prep-info">
+              <div *ngFor="let prep of recipe?.recipeInstructions" class="prep-info-item pb-2">
+                {{prep}}
+              </div>            
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>  
+    <div class="row p-0 m-0">
+      <div class="col-12 col-md-8 pt-4">
+        <div class="nutrition-title">
+          <h2>voedingswaarde informatie</h2>
+        </div>
+        <div class="nutrition-info">
+          <ul class="nutrition-list">
+            <li *ngFor="let nut_item of recipe?.nutrition" [ngSwitch]="nut_item.descr" class="nutrition-list-item">
+              <div *ngSwitchCase="'calories'">
+                <div *ngIf="nut_item.a != '0' && nut_item.a != ''" style="font-weight: 500;"><span class="text-transform: uppercase;">energie</span> <span style="float: right;">{{nut_item.a}} {{nut_item.u}}</span></div>
+              </div>
+              <div *ngSwitchCase="'carbs'">
+                <div *ngIf="nut_item.a != '0' && nut_item.a != ''" style="font-weight: 500;"><span class="text-transform: uppercase;">koolhydraten</span> <span style="float: right;">{{nut_item.a}} {{nut_item.u}}</span></div>
+              </div>
+              <div *ngSwitchCase="'starch'">
+                <div class="pl-5" *ngIf="nut_item.a != '0' && nut_item.a != ''"><span class="text-transform: uppercase;">zetmeel</span> <span style="float: right;">{{nut_item.a}} {{nut_item.u}}</span></div>
+              </div>
+              <div *ngSwitchCase="'sugar'">
+                <div class="pl-5" *ngIf="nut_item.a != '0' && nut_item.a != ''"><span class="text-transform: uppercase;">suiker</span> <span style="float: right;">{{nut_item.a}} {{nut_item.u}}</span></div>
+              </div>
+              <div *ngSwitchCase="'fiber'">
+                <div class="pl-5" *ngIf="nut_item.a != '0' && nut_item.a != ''"><span class="text-transform: uppercase;">vezels</span> <span style="float: right;">{{nut_item.a}} {{nut_item.u}}</span></div>
+              </div>
+              <div *ngSwitchCase="'fat'">
+                <div *ngIf="nut_item.a != '0' && nut_item.a != ''" style="font-weight: 500;"><span class="text-transform: uppercase;">vetten</span> <span style="float: right;">{{nut_item.a}} {{nut_item.u}}</span></div>
+              </div>
+              <div *ngSwitchCase="'sat_fat'">
+                <div class="pl-5" *ngIf="nut_item.a != '0' && nut_item.a != ''"><span class="text-transform: uppercase;">verzadingd vetten</span> <span style="float: right;">{{nut_item.a}} {{nut_item.u}}</span></div>
+              </div>
+              <div *ngSwitchCase="'mono_fat'">
+                <div class="pl-5" *ngIf="nut_item.a != '0' && nut_item.a != ''"><span class="text-transform: uppercase;">mono onverzadigd vetten</span> <span style="float: right;">{{nut_item.a}} {{nut_item.u}}</span></div>
+              </div>
+              <div *ngSwitchCase="'poly_fat'">
+                <div class="pl-5" *ngIf="nut_item.a != '0' && nut_item.a != ''"><span class="text-transform: uppercase;">poly onverzadigd vetten</span> <span style="float: right;">{{nut_item.a}} {{nut_item.u}}</span></div>
+              </div>
+              <div *ngSwitchCase="'transfat'">
+                <div class="pl-5" *ngIf="nut_item.a != '0' && nut_item.a != ''"><span class="text-transform: uppercase;">transvetten</span> <span style="float: right;">{{nut_item.a}} {{nut_item.u}}</span></div>
+              </div>
+              <div *ngSwitchCase="'protein'">
+                <div *ngIf="nut_item.a != '0' && nut_item.a != ''" style="font-weight: 500;"><span class="text-transform: uppercase;">eiwitten</span> <span style="float: right;">{{nut_item.a}} {{nut_item.u}}</span></div>
+              </div>
+              <div *ngSwitchCase="'cholesterol'">
+                <div *ngIf="nut_item.a != '0' && nut_item.a != ''" style="font-weight: 500;"><span class="text-transform: uppercase;">cholesterol</span> <span style="float: right;">{{nut_item.a}} {{nut_item.u}}</span></div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+  
+      </div>
+    </div>
+    <div class="row p-0 m-0">
+      <div class="col-12 col-md-8 pt-4">
+        <div class="review-title">
+          <h2>reviews</h2>
+        </div>
+        <div class="review-info">
+          <ul class="review-list">
+            <li class="review-list-item">sqdf</li>            
+          </ul>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+  
+      </div>
+    </div>
+  </div>
+</section>
+<blog-footer></blog-footer>

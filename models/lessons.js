@@ -12,6 +12,7 @@ const lessonsSchema = mongoose.Schema({
     files: {type: Array},
     created: {type: String},
     last_edit: {type: String},
+    type: {type: Number}, //1: text-file; 2: audio-file; 3: video-file
     status: {type: String} //draft, published
 });
 

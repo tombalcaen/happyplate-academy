@@ -14,6 +14,17 @@ router.get('/',(req,res,next)=>{
     })
 })
 
+router.get('/all',(req,res,next)=>{
+    ChaptersList.getChaptersForCidAll(req.query.cId,(err,items)=>{
+        console.log(items)
+        if(err){            
+            res.json({success: false, message: "failed to get chapters."})
+        } else {            
+            res.json(items)
+        }
+    })
+})
+
 router.post('/create',(req,res,next)=>{
     console.log("router chapter create")
     let newChapter = new ChaptersList({

@@ -12,10 +12,12 @@ var db;
 const courses = require('./routes/courses');
 const chapters = require('./routes/chapters');
 const lessons = require('./routes/lessons');
+const articles = require('./routes/articles');
+const recipes = require('./routes/recipes');
 
 const config = require('./config/database');
 
-//mongodb middleware
+//mongodb middleware 
 const connect = mongoose.connect(config.uri, {useNewUrlParser: true});
 // const connect = mongoose.createConnection(config.uri);
 
@@ -71,6 +73,8 @@ app.use(express.static(distDir));
 app.use('/course', courses);
 app.use('/chapter', chapters);
 app.use('/lesson', lessons);
+app.use('/article', articles);
+app.use('/recipe', recipes);
 
 var server = app.listen(process.env.PORT || 3000,()=>{
     console.log("App now running on port", server.address().port);
