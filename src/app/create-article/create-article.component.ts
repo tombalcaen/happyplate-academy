@@ -45,7 +45,7 @@ export class CreateArticleComponent implements OnInit {
     }
   }
 
-  onContentChanged(){
+  onContentChanged(event){
     console.log(this.htmlText)
   }
 

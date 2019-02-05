@@ -24,7 +24,7 @@
                 <ul class="textEditor-control-list">
                   <li>
                     <div class="textEditor-item">
-                      <button class="button fas fa-bold" [class.active]="blnBold" (click)="bold($event)" [class.disabled]="!blnBoldSupport" [disabled]="!blnBoldSupport"></button>
+                      <button class="button fas fa-bold" (click)="bold($event)"></button>
                     </div>
                   </li>
                   <li>
@@ -54,7 +54,7 @@
                   </li>
                   <li>
                     <div class="textEditor-item">
-                      <button class="button fas fa-highlighter" (click)="highlight($event)"></button>
+                      <button class="button fas fa-highlighter" (click)="highlight()"></button>
                     </div>
                   </li>
                   <li>

@@ -96,7 +96,7 @@ export class CreateLessonComponent implements OnInit {
     document.execCommand('undo', false);  
   }
 
-  highlight(){
+  highlight(event){
     this.selectionEngine();
     document.execCommand("BackColor", false, "yellow");
   }

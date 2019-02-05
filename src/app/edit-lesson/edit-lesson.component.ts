@@ -13,6 +13,7 @@ export class EditLessonComponent implements OnInit {
   constructor(private _route: ActivatedRoute,
               private _lesson: LessonService) { }
 
+  
   lesson_id: string = "";
   range: any;
   sel: any;
