@@ -66,7 +66,7 @@ app.use(bodyParser.json({limit: '16mb'})); //,{limit: '16mb'}
 // require('./config/passport')(passport);
 
 //serve static files, this is the base of our front end: aka the angular app
-var distDir = __dirname + "/dist/happyplateAcademy/";
+var distDir = __dirname + "/dist/happyplate-academy/";
 app.use(express.static(distDir));
 
 //routes middelware
