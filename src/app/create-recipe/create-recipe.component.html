@@ -36,11 +36,13 @@
           </div>
           <div class="form-group">
             <label for="exampleInputEmail1">ingredients</label>
-            <input type="text" formControlName="ingredients" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">
+            <!-- <input type="text" formControlName="ingredients" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;"> -->
+            <textarea formControlName="ingredients" class="form-control" id="exampleFormControlTextarea1" rows="3" style="background-color: #fbfbfd;"></textarea>
           </div>        
           <div class="form-group">
             <label for="exampleInputEmail1">recipe instructions</label>
-            <input type="text" formControlName="recipeInstructions" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">
+            <!-- <input type="text" formControlName="recipeInstructions" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;"> -->
+            <textarea formControlName="recipeInstructions" class="form-control" id="exampleFormControlTextarea1" rows="3" style="background-color: #fbfbfd;"></textarea>
           </div>        
           <div class="form-group">
             <label for="exampleInputEmail1">difficulty_index</label>
@@ -57,6 +59,10 @@
           <div class="form-group">
             <label for="exampleInputEmail1">source link</label>
             <input type="text" formControlName="sourceLink" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">image source:</label>
+            <input type="text" formControlName="imgSource" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">
           </div>
         </div>
         <div class="col-6">
@@ -107,19 +113,19 @@
           <div class="form-group">
             <label for="exampleInputEmail1">cholesterol</label>
             <input type="text" formControlName="cholesterol" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">
-          </div>          
+          </div>
         </div>
         <div class="form-group">
           <div class="button">
             <i class="icon-file far fa-image"></i>
             <input class="input-file" type="file" name="file" (change)="onFileChanged($event)">
           </div>
-        </div>
+        </div>        
         <!-- <div class="form-group">
           <label for="exampleInputEmail1">health_index</label>
           <input type="text" formControlName="health_index" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">
         </div> -->
-        <div class="pt-3 pb-1 px-2">
+        <div class="col-12 pt-3 pb-1 px-2">
           <button type="submit" class="btn btn-info" [disabled]="!recipeForm.valid" style="color: white;">Create</button> <!--(submit)="createCourse()"-->
           <a class="cancel" data-dismiss="modal">cancel</a>
           <!-- <button type="submit"  class="btn btn-sm alert-secondary" style="padding: .25rem 1rem;">Delete</button> -->

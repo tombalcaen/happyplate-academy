@@ -19,6 +19,7 @@ export class RecipeComponent implements OnInit {
 
   recipe_id: string;
   recipe: any;
+  blnShowSource: boolean = false;
 
   ngOnInit() {
     this.recipe_id = this._route.snapshot.paramMap.get('_id');
@@ -36,6 +37,10 @@ export class RecipeComponent implements OnInit {
       this.recipe.tags.push(recipeObj[0].tags[1])
       // this.recipe.images[0].source = this.domSanitizer.bypassSecurityTrustUrl(this.recipe.images[0].source);      
     })
+  }
+
+  showSource(){
+    this.blnShowSource? this.blnShowSource = false:this.blnShowSource = true;
   }
 
 }

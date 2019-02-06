@@ -18,6 +18,11 @@
     overflow: hidden;
 }
 
+.content-card-image-container--large{
+    height: 400px;
+    overflow: hidden;
+}
+
 .content-card-image{
     z-index: 2;
     cursor: pointer;

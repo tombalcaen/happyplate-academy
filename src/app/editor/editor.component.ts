@@ -278,6 +278,7 @@ export class EditorComponent implements OnInit {
     this.lessons = this.sections[index].lessons;
     this.active_chapter_title = this.sections[index].name;
     this.active_chapter_id = this.sections[index]._id;
+    
     // this.sections[index].active = true;
   }
 
@@ -294,7 +295,7 @@ export class EditorComponent implements OnInit {
     this.blnLessons = false;
     this.blnCourseOverview = false;
     this.blnDisabled = true;
-    this.sections = [];
+    // this.sections = [];
   }
 
   drop(event: CdkDragDrop<string[]>) {    

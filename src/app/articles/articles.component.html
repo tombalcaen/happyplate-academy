@@ -1,6 +1,17 @@
 <blog-navbar></blog-navbar>
 <section class="container-fluid py-5">
   <div class="container article-container" style="padding: 0; border-bottom: 2px solid #f2f2f2;">
+    <!-- <div class="row">
+      <div class="col-6 content-card-image-container--large">
+        <div class="content-card-image" [style.background-image]="'url(' + articles[0]?.files[0]?.source + ')'"></div>
+        <div>{{articles[0]?.name}}</div>
+      </div>
+      <div class="col-6">
+        <div class="row">
+          
+        </div>
+      </div>
+    </div> -->
     <div class="row article-content pt-5" style="padding: 0;"> 
       <div *ngFor="let article of articles" class="col-6 col-sm-6 col-md-3 pb-5 px-2 content-container-card">
         <div class="content-card m-1">

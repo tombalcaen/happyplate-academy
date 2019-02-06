@@ -15,7 +15,7 @@ export class CreateRecipeComponent implements OnInit {
               private _recipe: RecipeService) { }
 
   recipeObj : {};
-  images : Array<Object> = []
+  images : Array<any> = []
 
   ngOnInit() {
     this.createRecipeForm();
@@ -47,17 +47,27 @@ export class CreateRecipeComponent implements OnInit {
       poly_fat: '',
       protein: '',
       transfat: '',
-      cholesterol: ''      
+      cholesterol: '',
+      imgSource: ''      
     })
   }
 
   createRecipe(recipe){
+
+
+    //split on enter, remove empty array elements
+    let ingr = recipe.ingredients.split(/\r?\n/).filter(v=>v?v:null);
+    let instr = recipe.recipeInstructions.split(/\r?\n/).filter(v=>v?v:null);
+
+    //add image inspiration source to object
+    this.images[0].insp = recipe.imgSource;
+
     this.recipeObj = {
     name: recipe.name,
     description: recipe.description,
     tags: recipe.tags.split(','), //['vegetarisch','vegan','lunch'],    
-    ingredients: recipe.ingredients.split(','),//[{amount: 10, unit: 'gram', descr: 'boter'},{amount: 2, unit: 'stukken', descr: 'avocado'}],
-    recipeInstructions: recipe.recipeInstructions.split(','),//['eerste stap','tweede stap','derde stap','vierde stap','vijfde stap'],
+    ingredients: ingr,//[{amount: 10, unit: 'gram', descr: 'boter'},{amount: 2, unit: 'stukken', descr: 'avocado'}],
+    recipeInstructions: instr,//['eerste stap','tweede stap','derde stap','vierde stap','vijfde stap'],
     servings:  3,
     time_spend:  {prepTime: +recipe.prepTime, cookTime: +recipe.cookTime, totalTime: +recipe.prepTime + +recipe.cookTime},
     difficulty_index:  recipe.difficulty_index,
@@ -80,10 +90,8 @@ export class CreateRecipeComponent implements OnInit {
     images: this.images, //[{source: "bla bla bla", height: '200px', width: '200px', title: "image title"}]
   }
 
-  console.log(this.recipeObj)
-
     this._recipe.createRecipe(this.recipeObj).subscribe((res)=>{
-      console.log(res)
+      alert(res.message)
     })
 
   }

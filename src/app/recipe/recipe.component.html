@@ -18,11 +18,15 @@
       <div class="col-12 col-md-8 recipe-panel-info">
         <div class="recipe-panel-social"></div>
         <div class="recipe-panel-about">
-          <div>
-            <small>Recept door: <span>{{recipe?.source?.name}}</span></small>
-          </div>
-          <div>
-            <span>{{recipe?.source?.link}}</span>
+          <div *ngIf="!blnShowSource" (click)="showSource()" style="cursor: pointer; color: #a0a0a0;">Source</div>
+          <div *ngIf="blnShowSource" style="color: #a0a0a0;">
+            <div>
+              <small>Recept geïnspireerd door: <span>{{recipe?.source?.name}}</span></small>
+              <small style="float: right;">Image: {{recipe?.images[0]?.insp}}</small>
+            </div>
+            <div>
+              <span>{{recipe?.source?.link}}</span>
+            </div>                                    
           </div>
         </div>
         <div class="row m-3 text-center recipe-panel-stats">

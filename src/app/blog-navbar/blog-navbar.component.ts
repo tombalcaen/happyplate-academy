@@ -4,9 +4,9 @@ import { Component, OnInit } from '@angular/core';
   selector: 'blog-navbar',
   templateUrl: './blog-navbar.component.html',
   styleUrls: ['./blog-navbar.component.css'],
-  host: {
-    '(window:scroll)':'onScroll($event)'
-  }
+  // host: {
+  //   '(window:scroll)':'onScroll($event)'
+  // }
 })
 export class BlogNavbarComponent implements OnInit {
 
@@ -22,12 +22,9 @@ export class BlogNavbarComponent implements OnInit {
     if(this.isMobileDevice()) this.blnNarrow = true;
   }
 
-  onScroll($event){    
-    console.log(document.scrollingElement.scrollTop)
-    console.log(this.isMobileDevice())
-    document.scrollingElement.scrollTop >= 100 || this.isMobileDevice()? this.blnNarrow = true : this.blnNarrow = false;
-    
-  }
+  // onScroll($event){    
+  //   document.scrollingElement.scrollTop >= 100 || this.isMobileDevice()? this.blnNarrow = true : this.blnNarrow = false;
+  // }
   
   // onMobileNav(){    
   //   this.blnMobile = !this.blnMobile;    

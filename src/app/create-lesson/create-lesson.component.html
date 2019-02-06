@@ -31,8 +31,21 @@
           <div><p style="color: #e0e0e0;">Hier schrijft u de inhoud van de cursus.</p></div>        
         </div>
       </div> -->
-      <div class="col-12 col-md-8">        
-        <div class="py-3" style="min-height: 94px;">
+      <div class="col-12 col-md-8"> 
+        <quill-editor [(ngModel)]="tekst"
+          placeholder="Enter Text"
+          [modules]="quillConfig"
+          style="height: 80vh"> <!--(onSelectionChanged)="onSelectionChanged($event)" (onContentChanged)="onContentChanged($event)"-->
+        </quill-editor>
+        <div class="row py-3">
+          <a class="btn btn-info" (click)="save()" style="color: white;">Save</a>      
+          <span *ngIf="last_saved != '' && last_saved != null" class="px-5 pt-3">Last saved: {{last_saved}}</span>
+        </div>
+      </div>
+    </div> 
+  <div>
+</div>       
+        <!-- <div class="py-3" style="min-height: 94px;">
           <div class="container textEditor">
             <div class="row justify-content-center">
               <div class="textEditor-controls">
@@ -87,11 +100,11 @@
                       <button class="button fas fa-align-right" (click)="justifyRight($event)"></button>
                     </div>
                   </li>
-                  <!--<li>
+                  <li>
                     <div class="textEditor-item">
                       <button class="button fas fa-play" (click)="addYoutube($event)"></button>                      
                     </div>
-                  </li> -->      
+                  </li>     
                   <li>
                     <div class="textEditor-item image-upload">
                       <div class="button">
@@ -110,13 +123,6 @@
             <p>
               <br>
             </p>
-          </div>      <!---->
-        </div>   
-        <div class="row py-3">
-          <a class="btn btn-info" (click)="save()" style="color: white;">Save</a>      
-          <span *ngIf="last_saved != '' && last_saved != null" class="px-5 pt-3">Last saved: {{last_saved}}</span>
-        </div>
-      </div>
-    </div> 
-  <div>
-</div>
+          </div> 
+        </div>    -->
+        
