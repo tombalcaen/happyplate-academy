@@ -11,6 +11,17 @@ import {LessonService} from '../services/lesson.service';
 })
 export class EditLessonComponent implements OnInit {
 
+  quillConfig = {
+    toolbar: [
+      ['bold', 'italic', 'underline'],        // toggled buttons
+      [{ 'header': 1 }, { 'header': 2 }, { 'header': 3 }, { 'header': 4 }, { 'header': 5 }, { 'header': 6 }],               // custom button values
+      [{ 'list': 'ordered'}, { 'list': 'bullet' }],       
+      [{ 'align': [] }],  
+      ['clean'],                                         // remove formatting button  
+      ['link', 'image', 'video']                         // link and image, video
+    ]
+  };
+
   constructor(private _route: ActivatedRoute,
               private snackBar: MatSnackBar,
               private _lesson: LessonService) { }
