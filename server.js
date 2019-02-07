@@ -18,7 +18,7 @@ const recipes = require('./routes/recipes');
 const config = require('./config/database');
 
 //mongodb middleware 
-const connect = mongoose.connect(config.mlab_uri, {useNewUrlParser: true});
+const connect = mongoose.connect(config.uri, {useNewUrlParser: true});
 // const connect = mongoose.createConnection(config.uri);
 
 // connect.on('connected',()=>{

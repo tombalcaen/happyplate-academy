@@ -75,3 +75,42 @@
 .content-card-data{
     font-size: 12px;
 }
+
+.recipe_mealtype{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 10px;
+    right: 20px;
+    border-radius: 50%;
+    z-index: 200;
+}
+
+.recipe_mealtype__meat{
+    border: 1px solid lightsalmon;
+    color: lightsalmon;
+    background-color: white;
+}
+
+.recipe_mealtype__fish{
+    border: 1px solid lightskyblue;
+    color: lightskyblue;
+    background-color: white;
+}
+
+.recipe_mealtype__vegetarian{
+    border: 1px solid olivedrab;
+    color: olivedrab;
+    background-color: white;
+}
+
+.recipe_mealtype__vegan{
+    border: 1px solid green;
+    color: green;
+    background-color: white;
+}
+
+.time, .healthy, .difficulty{
+    font-size: 14px; 
+    color: #413b38;
+}

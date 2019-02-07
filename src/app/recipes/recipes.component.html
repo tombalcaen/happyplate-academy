@@ -14,29 +14,48 @@
       <div *ngIf="recipes?.length <= 0" class="col-12">
         {{recipes?.length}} resultaten voor "{{searchResult}}"
       </div>      
-      <div *ngFor="let recipe of recipes" class="col-6 col-sm-6 col-md-3 pb-5 px-2 content-container-card">        
+      <div *ngFor="let recipe of recipes" class="col-12 col-sm-6 col-md-4 col-lg-3 pb-5 px-2 content-container-card">        
         <div class="content-card m-1">
+          <div class="recipe_mealtype text-center" [ngClass]="getMealType(recipe?.meal_type)" matTooltip="{{recipe?.meal_type_info}}">
+            <i *ngIf="recipe?.meal_type == 1" class="fas fa-drumstick-bite" style="vertical-align: text-bottom; margin-top: 7px; margin-left: 2px;"></i>
+            <i *ngIf="recipe?.meal_type == 2" class="fas fa-fish" style="vertical-align: text-bottom; margin-top: 7px; margin-left: 2px;"></i>
+            <i *ngIf="recipe?.meal_type == 3" class="fas fa-leaf" style="vertical-align: text-bottom; margin-top: 6px; margin-right: 1px;"></i>
+            <i *ngIf="recipe?.meal_type == 4" class="fab fa-envira" style="vertical-align: text-bottom; margin-top: 7px; margin-left: 2px;"></i>
+          </div>
           <div class="content-card-image-container">
             <div [routerLink]="['/recipe', recipe._id]" class="content-card-image" [style.background-image]="'url(' + recipe?.images[0]?.source + ')'">
               <a  style="height: 100%; width: 100%; "></a>
-            </div>
+            </div>            
           </div>
           <div class="content-card-title content-card-title--recipe p-2">
             <a class="content-card-title-link" [routerLink]="['/recipe', recipe._id]">{{recipe.name}}</a>
           </div>
-          <div class="row m-0 text-center content-card-data" style="border-top: 1px solid #e0e0e0;">
-            <div class="time col-4 p-1" style="border-right: 1px solid #e0e0e0">
-              <div><strong>tijd</strong></div>
-              <div>{{recipe.time_spend.totalTime}}</div>
+          <div class="row m-0 text-center content-card-data" style=""> <!--border-top: 1px solid #e0e0e0;-->
+            <div class="time col-4 p-1" style=""> <!--border-right: 1px solid #e0e0e0-->
+              <div>Serveertijd</div>              
+              <div><i class="far fa-clock"></i> {{recipe.time_spend.totalTime}}</div>
             </div>
-            <div class="healthy col-4 p-1" style="border-right: 1px solid #e0e0e0">
-              <div><strong>Gezond</strong></div>
-              <div>{{recipe.health_index}}</div>
+            <div class="healthy col-4 p-1" style=""> <!--border-right: 1px solid #e0e0e0-->
+              <div>Gezond</div>
+              <div>
+                <i *ngIf="recipe?.health_index == 1" class="fas fa-plus" style="color: seagreen;"></i>
+                <i *ngIf="recipe?.health_index == 1" class="fas fa-plus" style="color: seagreen;"></i>
+                <i *ngIf="recipe?.health_index == 2" class="fas fa-plus" style="color: gold;"></i>
+                <i *ngIf="recipe?.health_index == 3" class="fas fa-minus" style="color: orangered;"></i>
+              </div>
+              <!-- <div>{{recipe.health_index}}</div> -->
             </div>
-            <div class="difficutly col-4 p-1">
-              <div><strong>moeilijkheid</strong></div>
+            <div class="difficulty col-4 p-1">
+              <div>Moeilijkheid</div>
               <div>{{recipe.difficulty_index}}</div>
             </div>
+          </div>
+          <div class="row m-0 content-card-review">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
           </div>
         </div>
       </div>

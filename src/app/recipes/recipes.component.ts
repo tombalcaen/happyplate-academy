@@ -24,6 +24,13 @@ export class RecipesComponent implements OnInit {
     if(!this.searchParam){
       this._recipe.getRecipes().subscribe((recipes)=>{            
         this.recipes = recipes;
+        this.recipes.map((res)=>{
+          console.log(res.meal_type)
+          if(res.meal_type == 1) res.meal_type_info = "vlees";
+          if(res.meal_type == 2) res.meal_type_info = "vis"; 
+          if(res.meal_type == 3) res.meal_type_info = "vegetarisch"; 
+          if(res.meal_type == 4) res.meal_type_info = "veganistisch"; 
+        })
         console.log(recipes)      
       })
     } else {
@@ -49,6 +56,24 @@ export class RecipesComponent implements OnInit {
   clearSearch(){
     this.searchResult = "";
     this.SearchRecipes('');
+  }
+
+  getMealType(type){
+    switch(type) { 
+      case 1: { 
+        return "recipe_mealtype__meat";
+      } 
+      case 2: { 
+        return "recipe_mealtype__fish";
+      } 
+      case 3: { 
+        return "recipe_mealtype__vegetarian";
+      } 
+      case 4: { 
+        return "recipe_mealtype__vegan";
+      } 
+   } 
+    
   }
 
 }
