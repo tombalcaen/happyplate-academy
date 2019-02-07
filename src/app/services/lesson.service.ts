@@ -24,10 +24,12 @@ export class LessonService {
               private _course: CourseService,
               private _chapter: ChapterService) { }
 
+  // GET
   getLessons(lId): Observable<any>{    
     return this._http.get(environment.connection_uri + "lesson",{params:{_id: lId}});
   }
 
+  // CREATE
   createLesson(lesson): Promise<any>{
     return this._http.post(environment.connection_uri + 'lesson/create/', lesson)
     .toPromise()    
@@ -41,8 +43,14 @@ export class LessonService {
     .catch(this.handleError);  
   }
 
+  //UPDATE
+  updateLesson(lesson): Observable<any>{ 
+    return this._http.post(environment.connection_uri + "lesson/update", lesson);
+  }
+
+
+  //DELETE
   deleteLesson(lesson): Promise<any>{
-    console.log("deletelesson: " + lesson)
     return this._http.delete(environment.connection_uri + 'lesson/delete?_id=' + lesson._id)
     .toPromise()
     .then((res)=>{

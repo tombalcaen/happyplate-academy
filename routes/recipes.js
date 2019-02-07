@@ -15,6 +15,18 @@ router.get('/',(req,res,next)=>{
     })
 })
 
+router.get('/for',(req,res,next)=>{
+    console.log("router getrecipefor: " + req.query.tag)
+    RecipesList.getRecipesFor(req.query.tag,(err, items)=>{        
+    if(err){
+        console.log(err.message)
+        res.json({success: false, message: "failed to get chapters."})
+      } else {
+          res.json(items);
+      }
+    })
+})
+
 router.get('/id',(req,res,next)=>{
     console.log('router id: ' + req.query._id)
     RecipesList.getRecipesById(req.query._id,(err, recipe)=>{        

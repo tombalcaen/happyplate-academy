@@ -26,6 +26,7 @@ export class EditorComponent implements OnInit {
 
   @ViewChild('deleteChapterModal') private deleteChapterModal : ElementRef;
   @ViewChild('deleteCourseModal') private deleteCourseModal : ElementRef;
+  @ViewChild('deleteLesModal') private deleteLesModal : ElementRef;
 
   courseForm: FormGroup;
   chapterForm: FormGroup;
@@ -230,6 +231,7 @@ export class EditorComponent implements OnInit {
 
   deleteLesson(){    
     this._lessonService.deleteLesson(this.active_lesson).then((res)=>{  
+      this.deleteLesModal.nativeElement.click();
       this.openSnackBar('Les verwijdert!');
       this.lessons = this.lessons.filter((el)=>{
         return el._id != this.active_lesson._id;

@@ -19,28 +19,24 @@ const lessonsSchema = mongoose.Schema({
 // const GroceryList = module.exports = mongoose.model('groceryList', groceryListSchema);
 const lessons = module.exports = mongoose.model('lessons', lessonsSchema);
 
+// GET
 module.exports.getLessons = function(_id,callback){    
     lessons.findById({_id: mongoose.Types.ObjectId(_id)},callback)
 }
 
+//CREATE
 module.exports.addLesson = function(lesson,callback){    
     lesson.save(callback);    
 }
 
-module.exports.deleteLesson = function(_id,callback){ 
-    lessons.deleteOne({_id: mongoose.Types.ObjectId(_id)},callback);
+//UPDATE
+module.exports.updateLesson = function(lesson,callback){     
+    lessons.findOneAndUpdate({_id: mongoose.Types.ObjectId(lesson._id)},lesson,callback);
 }
 
-module.exports.updateLesson = function(lesson,callback){ 
-    console.log("in model")   
-    console.log(lesson)
-    // let newUpdate = {
-    //                 name: chapter.name,
-    //                 last_edit: chapter.last_edit, 
-    //                 n: chapter.n                   
-    //                 }
-
-    lessons.findOneAndUpdate({_id: mongoose.Types.ObjectId(lesson._id)},lesson,callback);
+//DELETE
+module.exports.deleteLesson = function(_id,callback){ 
+    lessons.deleteOne({_id: mongoose.Types.ObjectId(_id)},callback);
 }
 
 // module.exports.addList = function(list,callback){    

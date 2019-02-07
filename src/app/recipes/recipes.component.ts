@@ -13,30 +13,42 @@ export class RecipesComponent implements OnInit {
               private _route: ActivatedRoute) { }
 
   recipes: any;
-  searchParam: string;
+  searchParam: string; //from url
+  searchResult: string; //from searchbox
 
   ngOnInit() {
 
     this.searchParam = this._route.snapshot.paramMap.get('search');
+    this.searchResult = this.searchParam;
 
-    this._recipe.getRecipes().subscribe((recipes)=>{            
-      this.recipes = recipes;
-      console.log(recipes)      
-      this.recipes.push(recipes[0])
-      this.recipes.push(recipes[0])
-      this.recipes.push(recipes[0])
-      this.recipes.push(recipes[0])
-      this.recipes.push(recipes[0])
-      this.recipes.push(recipes[0])
-      this.recipes.push(recipes[0])
-      this.recipes.push(recipes[0])
-      this.recipes.push(recipes[0])
-      this.recipes.push(recipes[0])
-      this.recipes.push(recipes[0])
-      this.recipes.push(recipes[0])
-      this.recipes.push(recipes[0])
-      this.recipes.push(recipes[0])
-      this.recipes.push(recipes[0])
-    })
+    if(!this.searchParam){
+      this._recipe.getRecipes().subscribe((recipes)=>{            
+        this.recipes = recipes;
+        console.log(recipes)      
+      })
+    } else {
+      this._recipe.getRecipesFor(this.searchResult).subscribe((recipes)=>{
+        this.recipes = recipes;
+      })
+    }
   } 
+
+  SearchRecipes(event){
+    if(!this.searchResult){
+      this._recipe.getRecipes().subscribe((recipes)=>{            
+        this.recipes = recipes;
+        console.log(recipes)      
+      })
+    } else {
+      this._recipe.getRecipesFor(this.searchResult).subscribe((recipes)=>{
+        this.recipes = recipes;
+      })
+    }
+  }
+
+  clearSearch(){
+    this.searchResult = "";
+    this.SearchRecipes('');
+  }
+
 }

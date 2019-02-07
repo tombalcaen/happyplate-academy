@@ -1,8 +1,20 @@
 <blog-navbar></blog-navbar>
-<section class="container-fluid py-5">
+<section class="container-fluid py-3" style="min-height: 80vh;">
   <div class="container recipe-container" style="padding: 0; border-bottom: 2px solid #f2f2f2;">
-    <div class="row recipe-content pt-5" style="padding: 0;">      
-      <div *ngFor="let recipe of recipes" class="col-6 col-sm-6 col-md-3 pb-5 px-2 content-container-card">
+    <div class="row">
+      <div class="col-12">
+        <mat-form-field class="" style="width: 100%;">
+          <span matPrefix class="px-3" style="color: orangered;"><i class="fas fa-search"></i></span>
+          <input type="text" matInput [(ngModel)]="searchResult" (keydown.enter)="SearchRecipes($event)" placeholder="Zoek naar...">        
+          <span matSuffix (click)="clearSearch()" style="color: darkgrey"><i class="fas fa-backspace"></i></span>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row recipe-content py-3" style="padding: 0;">
+      <div *ngIf="recipes?.length <= 0" class="col-12">
+        {{recipes?.length}} resultaten voor "{{searchResult}}"
+      </div>      
+      <div *ngFor="let recipe of recipes" class="col-6 col-sm-6 col-md-3 pb-5 px-2 content-container-card">        
         <div class="content-card m-1">
           <div class="content-card-image-container">
             <div [routerLink]="['/recipe', recipe._id]" class="content-card-image" [style.background-image]="'url(' + recipe?.images[0]?.source + ')'">

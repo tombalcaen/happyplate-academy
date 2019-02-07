@@ -8,6 +8,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -60,6 +62,8 @@ import { ArticlesComponent } from './articles/articles.component';
     MatProgressBarModule,
     MatSlideToggleModule,
     MatSnackBarModule,
+    MatInputModule,
+    MatFormFieldModule,
     QuillModule
   ],
   providers: [],

@@ -31,6 +31,11 @@ module.exports.getRecipes = function(callback){
     recipes.find({},{name: 1, time_spend: 1, difficulty_index: 1, health_index: 1, images: 1, dateCreated: 1},callback)
 }
 
+module.exports.getRecipesFor = function(tag,callback){
+    console.log("model getrecipefor: " + tag)
+    recipes.find({tags: tag},{name: 1, time_spend: 1, difficulty_index: 1, health_index: 1, images: 1, dateCreated: 1},callback)
+}
+
 module.exports.getRecipesById = function(_id,callback){
     console.log('models id: ' + _id)
     recipes.find({_id: mongoose.Types.ObjectId(_id)},callback)
