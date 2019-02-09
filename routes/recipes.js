@@ -42,6 +42,7 @@ router.get('/id',(req,res,next)=>{
 router.post('/create',(req,res,next)=>{
     let newRecipe = new RecipesList({
         name: req.body.name,
+        meal_type: req.body.meal_type,
         description: req.body.description,
         tags: req.body.tags,
         dateCreated: +moment(),
@@ -56,7 +57,9 @@ router.post('/create',(req,res,next)=>{
         nutrition: req.body.nutrition,        
         images: req.body.images,
         views: 0,
-        source: req.body.source
+        source: req.body.source,
+        like_score: 0,
+        like_n: 0
     })
     
     RecipesList.createRecipes(newRecipe,(err, Recipe)=>{
@@ -69,14 +72,35 @@ router.post('/create',(req,res,next)=>{
     })
 })
 
-router.post('/increment',(req,res,next)=>{
-    console.log("router increment")
-    RecipesList.incrementView(_id,(err,Recipe)=>{
+router.post('/increment',(req,res,next)=>{    
+    RecipesList.incrementView(req.body._id,(err,Recipe)=>{
         if(err){
             console.log(err.message);
             res.json({success: false, message: "Failed to increment view!"})
         } else {
             res.json({success: true, message: "incremented!"})
+        }
+    })
+})
+
+router.post('/increment_like',(req,res,next)=>{    
+    RecipesList.incrementLike(req.body._id,(err,Recipe)=>{
+        if(err){
+            console.log(err.message);
+            res.json({success: false, message: "Failed to increment like!"})
+        } else {
+            res.json({success: true, message: "incremented!",recipe: Recipe})
+        }
+    })
+})
+
+router.post('/decrement_like',(req,res,next)=>{    
+    RecipesList.decrementLike(req.body._id,(err,Recipe)=>{
+        if(err){
+            console.log(err.message);
+            res.json({success: false, message: "Failed to decrement like!"})
+        } else {
+            res.json({success: true, message: "decremented!",recipe: Recipe})
         }
     })
 })

@@ -21,6 +21,23 @@
             <input type="text" formControlName="description" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">
           </div>
           <div class="form-group">
+            <select class="custom-select" formControlName="meal_type" id="inputGroupSelect02">              
+              <option value="1" [value]='1'>meat</option>
+              <option value="2" [value]='2'>fish</option>
+              <option value="3" [value]='3'>vegetarian</option>
+              <option value="4" [value]='4'>vegan</option>
+            </select>            
+          </div>
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-secondary" (click)="addRemoveTag('max. 30 min.')">max. 30 min.</button>
+            <button type="button" class="btn btn-secondary" (click)="addRemoveTag('max. 5 ingr.')">max. 5 ingr.</button>
+            <button type="button" class="btn btn-secondary" (click)="addRemoveTag('super gezond')">super gezond</button>
+            <button type="button" class="btn btn-secondary" (click)="addRemoveTag('lage calorieën')">lage calorieën</button>
+            <button type="button" class="btn btn-secondary" (click)="addRemoveTag('pikant')">pikant</button>
+            <button type="button" class="btn btn-secondary" (click)="addRemoveTag('zuivel vrij')">zuivel vrij</button>
+            <button type="button" class="btn btn-secondary" (click)="addRemoveTag('gluten vrij')">gluten vrij</button>
+          </div>
+          <div class="form-group">            
             <label for="exampleInputEmail1">tags</label>
             <input type="text" formControlName="tags" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">
           </div>

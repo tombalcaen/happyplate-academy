@@ -1,18 +1,3 @@
-.container-fluid{
-    background-color: white;
-    /* height: 86px; */
-    /* position: fixed; */
-    top: 0;
-    transition: all 0.3s ease-in-out;
-    width: 100%;
-    z-index: 10;
-    padding: 0;
-}
-
-.container{
-    padding: 1rem;    
-}
-
 .content-card-image-container{    
     height: 180px;
     overflow: hidden;
@@ -47,7 +32,7 @@
     cursor: pointer;
     font-family: "Open Sans",Arial;
     color: #2d2d2d;
-    min-height: 74px;
+    min-height: 91px;
 }
 
 .content-card-title:hover .content-card-title-link{
@@ -78,6 +63,25 @@
 
 .content-card-data{
     font-size: 12px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.time, .healthy, .difficulty{
+    font-size: 14px; 
+    color: #413b38;
+}
+
+.time{
+    border-right: 1px solid #e0e0e0; 
+    border-left: 1px solid #e0e0e0;
+}
+
+.healthy{
+    border-right: 1px solid #e0e0e0;
+}
+
+.difficulty{
+    border-right: 1px solid #e0e0e0;
 }
 
 .recipe_mealtype{
@@ -112,11 +116,6 @@
     border: 1px solid green;
     color: green;
     background-color: white;
-}
-
-.time, .healthy, .difficulty{
-    font-size: 14px; 
-    color: #413b38;
 }
 
 .fa-star{
@@ -159,6 +158,18 @@
     top: 20px;
     color: #e0e0e0; 
   }
+
+.chef--count-decrement{
+    position: absolute;
+    display: none;
+    top: 58px;
+    left: 25px;
+    color: #e0e0e0;
+}
+
+.chef--count-decrement.active{
+    display: inline-block;
+}
 
 button:focus {outline:none;}
 
@@ -216,6 +227,28 @@ button:focus {outline:none;}
 .chef-button--active .chef-icon{
     color: red;
     /* background-color: red; */
+}
+
+.save-button{
+    display: inline-block; 
+    margin-top: 12px; 
+    float: right; 
+    color: #e0e0e0;
+}
+
+.save-button-text{
+    display: inline-block; 
+    vertical-align: sub;
+}
+
+.save-button-action{
+    display: inline-block; 
+    border: 1px solid #e0e0e0;
+}
+
+.save-button-icon{
+    display: inline-block; 
+    vertical-align: -webkit-baseline-middle;
 }
 
 .button-circle{

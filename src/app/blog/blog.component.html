@@ -42,7 +42,8 @@
 
         <!-- RECIPE -->
         <div *ngIf="trend.type == 2">
-          <div class="content-card m-1">
+          <recipe-widget [recipe]="trend"></recipe-widget>
+          <!-- <div class="content-card m-1">
             <div class="content-card-image-container">            
               <div [routerLink]="['/recipe', trend._id]" class="content-card-image" [style.background-image]="'url(' + trend?.images[0]?.source + ')'">
                 <a  style="height: 100%; width: 100%; "></a>
@@ -65,7 +66,7 @@
                 <div>{{trend.difficulty_index}}</div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
 
         <!-- <div class="content-card m-1 mb-5" style="">
@@ -122,33 +123,9 @@
       <div class="col-12 recipes-container-header">
         <h2 class="content-container-header-title font-weight-light">Recepten</h2>
         <a class="content-container-header-more" routerLink="/recipes" style="float: right; text-decoration: none;">Nog meer recepten</a>
-      </div>      
-      <div *ngFor="let recipe of recipes" class="col-6 col-sm-6 col-md-3 pb-5 px-2 content-container-card">
-        <div class="content-card m-1">
-          <div class="content-card-image-container">            
-            <div [routerLink]="['/recipe', recipe._id]" class="content-card-image" [style.background-image]="'url(' + recipe?.images[0]?.source + ')'">
-              <a  style="height: 100%; width: 100%; "></a>
-            </div>
-          </div>
-          <div class="content-card-title content-card-title--recipe p-2">
-            <a class="content-card-title-link" [routerLink]="['/recipe', recipe._id]">{{recipe.name}}</a>
-          </div>
-          <div class="row m-0 text-center content-card-data" style="border-top: 1px solid #e0e0e0;">
-            <div class="time col-4 p-1" style="border-right: 1px solid #e0e0e0">
-              <div><strong>tijd</strong></div>
-              <div>{{recipe.time_spend.totalTime}}</div>
-            </div>
-            <div class="healthy col-4 p-1" style="border-right: 1px solid #e0e0e0">
-              <div><strong>Gezond</strong></div>
-              <div>{{recipe.health_index}}</div>
-            </div>
-            <div class="difficutly col-4 p-1">
-              <div><strong>moeilijkheid</strong></div>
-              <div>{{recipe.difficulty_index}}</div>
-            </div>
-          </div>
-        </div>
-      </div>
+      </div>     
+      <!-- RECIPES  -->
+      <recipe-widget *ngFor="let recipe of recipes" class="col-6 col-sm-6 col-md-3 pb-5 px-2 content-container-card" [recipe]="recipe"></recipe-widget>
     </div>
   </div>
 </section>

@@ -5,6 +5,7 @@ const recipesSchema = mongoose.Schema({
     // _id: {type: mongoose.Types.ObjectId},
     name: {type: String, required: true},
     description: {type: String},
+    meal_type: {type: Number},
     tags: {type: Array},
     dateCreated: {type: String},
     datePublished:  {type: String},
@@ -20,7 +21,9 @@ const recipesSchema = mongoose.Schema({
     // review_amount: {type: Number},
     images: {type: Array},
     views: {type: Number},
-    source: {type: Object}
+    source: {type: Object},
+    like_score: {type: Number},
+    // like_n: {type: Number}
 });
 
 // const GroceryList = module.exports = mongoose.model('groceryList', groceryListSchema);
@@ -28,12 +31,12 @@ const recipes = module.exports = mongoose.model('recipes', recipesSchema);
 
 //GET
 module.exports.getRecipes = function(callback){
-    recipes.find({},{name: 1, time_spend: 1, difficulty_index: 1, health_index: 1, images: 1, dateCreated: 1, meal_type: 1},callback)
+    recipes.find({},{name: 1, time_spend: 1, difficulty_index: 1, health_index: 1, images: 1, dateCreated: 1, meal_type: 1, like_score: 1, tags: 1},callback)
 }
 
 module.exports.getRecipesFor = function(tag,callback){
     console.log("model getrecipefor: " + tag)
-    recipes.find({tags: tag},{name: 1, time_spend: 1, difficulty_index: 1, health_index: 1, images: 1, dateCreated: 1, meal_type: 1},callback)
+    recipes.find({tags: tag},{name: 1, time_spend: 1, difficulty_index: 1, health_index: 1, images: 1, dateCreated: 1, meal_type: 1, like_score: 1, tags: 1},callback)
 }
 
 module.exports.getRecipesById = function(_id,callback){
@@ -50,11 +53,17 @@ module.exports.createRecipes = function(recipe,callback){
 
 
 //UPDATE
-module.exports.incrementView = function(recipe_id,callback){
-    console.log("model increment : " + recipe_id)
-    recipe.update({_id: mongoose.Types.ObjectId(recipe_id)},{$inc:{views: +1}},callback)
+module.exports.incrementView = function(recipe_id,callback){    
+    recipes.update({_id: mongoose.Types.ObjectId(recipe_id)},{$inc:{views: 1}},callback)
 }
 
+module.exports.incrementLike = function(recipe_id,callback){    
+    recipes.update({_id: mongoose.Types.ObjectId(recipe_id)},{$inc:{like_score: 1}},callback)
+}
+
+module.exports.decrementLike = function(recipe_id,callback){    
+    recipes.update({_id: mongoose.Types.ObjectId(recipe_id)},{$inc:{like_score: -1}},callback)
+}
 
 // module.exports.deleteCourse = function(Course_id,callback){ 
 //     courses.deleteOne({_id: mongoose.Types.ObjectId(Course_id)},callback);

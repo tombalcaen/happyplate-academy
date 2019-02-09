@@ -14,7 +14,8 @@
       <div *ngIf="recipes?.length <= 0" class="col-12">
         {{recipes?.length}} resultaten voor "{{searchResult}}"
       </div>      
-      <div *ngFor="let recipe of recipes" class="col-12 col-sm-6 col-md-4 col-lg-3 pb-5 px-2 content-container-card">        
+      <recipe-widget *ngFor="let recipe of recipes; let i = index" [recipe]="recipe" class="col-12 col-sm-6 col-md-4 col-lg-3 pb-5 px-2 content-container-card"></recipe-widget>
+      <!-- <div *ngFor="let recipe of recipes; let i = index" class="col-12 col-sm-6 col-md-4 col-lg-3 pb-5 px-2 content-container-card">
         <div class="content-card m-1">
           <div class="recipe_mealtype text-center" [ngClass]="getMealType(recipe?.meal_type)" matTooltip="{{recipe?.meal_type_info}}">
             <i *ngIf="recipe?.meal_type == 1" class="fas fa-drumstick-bite" style="vertical-align: text-bottom; margin-top: 7px; margin-left: 2px;"></i>
@@ -26,40 +27,60 @@
             <div [routerLink]="['/recipe', recipe._id]" class="content-card-image" [style.background-image]="'url(' + recipe?.images[0]?.source + ')'">
               <a  style="height: 100%; width: 100%; "></a>
             </div>            
-          </div>
-          <div class="content-card-title content-card-title--recipe p-2">
-            <a class="content-card-title-link" [routerLink]="['/recipe', recipe._id]">{{recipe.name}}</a>
-          </div>
-          <div class="row m-0 text-center content-card-data" style=""> <!--border-top: 1px solid #e0e0e0;-->
-            <div class="time col-4 p-1" style=""> <!--border-right: 1px solid #e0e0e0-->
+          </div>          
+          <div class="row m-0 text-center content-card-data content-card-data--recipe" style="border-bottom: 1px solid #e0e0e0;">
+            <div class="time col-4 p-1" style="border-right: 1px solid #e0e0e0; border-left: 1px solid #e0e0e0;">
               <div>Serveertijd</div>              
               <div><i class="far fa-clock"></i> {{recipe.time_spend.totalTime}}</div>
             </div>
-            <div class="healthy col-4 p-1" style=""> <!--border-right: 1px solid #e0e0e0-->
+            <div class="healthy col-4 p-1" style="border-right: 1px solid #e0e0e0">
               <div>Gezond</div>
               <div>
                 <i *ngIf="recipe?.health_index == 1" class="fas fa-plus" style="color: seagreen;"></i>
                 <i *ngIf="recipe?.health_index == 1" class="fas fa-plus" style="color: seagreen;"></i>
                 <i *ngIf="recipe?.health_index == 2" class="fas fa-plus" style="color: gold;"></i>
                 <i *ngIf="recipe?.health_index == 3" class="fas fa-minus" style="color: orangered;"></i>
-              </div>
-              <!-- <div>{{recipe.health_index}}</div> -->
+              </div>              
             </div>
-            <div class="difficulty col-4 p-1">
+            <div class="difficulty col-4 p-1" style="border-right: 1px solid #e0e0e0;">
               <div>Moeilijkheid</div>
               <div>{{recipe.difficulty_index}}</div>
             </div>
           </div>
-          <div class="row m-0 content-card-review">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
+          <div class="content-card-title content-card-title--recipe p-2">
+            <a class="content-card-title-link" [routerLink]="['/recipe', recipe._id]">{{recipe.name}}</a>
           </div>
+          <div class="row mx-0 content-card-actions">
+            <div class="actions-chef-container">
+              <span id="chef--count" #chefcount class="chef--count text-center">+1</span>
+              <span id="chef--count-total" class="chef--count-total">3</span>
+              <button class="chef-button button-xl button-circle">                
+                <span class="chef-button--default" (click)="toggleIcon($event,i)" >
+                  <span class="chef-icon-container">
+                    <i class="fas fa-heart chef-icon"></i>
+                  </span>                  
+                </span>                
+              </button>
+              <div class="mr-1" style="display: inline-block; margin-top: 12px; float: right; color: #e0e0e0;">
+                <span class="mr-2" style="display: inline-block; vertical-align: sub;">save</span>
+                <div class="button-large button-circle" (click)="saveRecipe()" style="display: inline-block; border: 1px solid #e0e0e0;">
+                  <i class="fas fa-plus" style="display: inline-block; vertical-align: -webkit-baseline-middle;"></i>
+                </div>
+              </div>
+            </div>
+          </div>          
         </div>
-      </div>
+      </div>-->
     </div>
   </div>
 </section>
 <blog-footer></blog-footer>
+
+<!-- <div class="row mx-0 content-card-review">
+              <i class="fas fa-star p-2" [style.color]="recipe?.review_score >= 1?'orange':'lightgrey'"></i>
+              <i class="fas fa-star p-2" [style.color]="recipe?.review_score >= 2?'orange':'lightgrey'"></i>
+              <i class="fas fa-star p-2" [style.color]="recipe?.review_score >= 3?'orange':'lightgrey'"></i>
+              <i class="fas fa-star p-2" [style.color]="recipe?.review_score >= 4?'orange':'lightgrey'"></i>
+              <i class="fas fa-star p-2" [style.color]="recipe?.review_score >= 5?'orange':'lightgrey'"></i>
+              <div class="p-2"><span>{{recipe?.review_amount}}</span></div>
+          </div> -->

@@ -32,6 +32,7 @@ import { CreateArticleComponent } from './create-article/create-article.componen
 import { QuillModule } from 'ngx-quill';
 import { RecipesComponent } from './recipes/recipes.component';
 import { ArticlesComponent } from './articles/articles.component';
+import { RecipeWidgetComponent } from './recipe-widget/recipe-widget.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { ArticlesComponent } from './articles/articles.component';
     BlogFooterComponent,
     CreateArticleComponent,
     RecipesComponent,
-    ArticlesComponent
+    ArticlesComponent,
+    RecipeWidgetComponent
   ],
   imports: [
     BrowserModule,

@@ -30,7 +30,15 @@ export class RecipeService {
 
   incrementView(recipe_id): Observable<any>{
     console.log("rec " + recipe_id)
-    return this._http.post(environment.connection_uri + "recipe/increment", recipe_id);
+    return this._http.post(environment.connection_uri + "recipe/increment", {_id: recipe_id});
+  }
+
+  incrementLike(recipe_id): Observable<any>{    
+    return this._http.post(environment.connection_uri + "recipe/increment_like", {_id: recipe_id});
+  }
+
+  decrementLike(recipe_id): Observable<any>{    
+    return this._http.post(environment.connection_uri + "recipe/decrement_like", {_id: recipe_id});
   }
 
 }
