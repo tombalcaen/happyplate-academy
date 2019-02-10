@@ -32,7 +32,7 @@
     cursor: pointer;
     font-family: "Open Sans",Arial;
     color: #2d2d2d;
-    min-height: 91px;
+    min-height: 72px;
 }
 
 .content-card-title:hover .content-card-title-link{

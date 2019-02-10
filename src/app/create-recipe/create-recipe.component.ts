@@ -14,7 +14,7 @@ export class CreateRecipeComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private _recipe: RecipeService) { }
 
-  recipeObj : {};
+  recipeObj : any;
   images : Array<any> = []
 
   ngOnInit() {
@@ -100,7 +100,7 @@ export class CreateRecipeComponent implements OnInit {
   }
 
   addTag(meal_type){
-
+    
     if(meal_type == 1) this.recipeObj.tags.unshift('vlees');
     else if(meal_type == 2) this.recipeObj.tags.unshift('vis');
     else if(meal_type == 3) this.recipeObj.tags.unshift('vegetarisch');
