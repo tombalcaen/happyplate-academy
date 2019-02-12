@@ -1,0 +1,14 @@
+<div class="content-card m-1">
+  <div class="content-card-image-container">
+    <div [routerLink]="['/article', article._id]" class="content-card-image" [style.background-image]="'url(' + article?.files[0]?.source + ')'">
+      <a  style="height: 100%; width: 100%; "></a>
+    </div>
+  </div>
+  <div class="content-card-title content-card-title--article p-2">
+    <a class="content-card-title-link" [routerLink]="['/article', article._id]">{{article.name}}</a>
+  </div>
+  <!-- <div class="content-card-author">
+    <div>Door: <span style="color: darkgrey;">{{article?.contributor[0]?.name}}</span></div>
+    <div><span style="color: darkgrey;">{{article?.contributor[0]?.title}}</span></div>
+  </div> -->
+</div>

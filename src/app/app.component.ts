@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'happyplate-academy';
+
+  onActivate(event){
+    window.scrollTo(0, 0)
+  }
+
 }

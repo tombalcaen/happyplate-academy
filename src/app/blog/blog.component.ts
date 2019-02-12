@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import {ArticleService} from '../services/article.service';
 import {RecipeService} from '../services/recipe.service';
+import { BlogService } from '../services/blog.service';
+import * as moment from 'moment/moment';
 
 @Component({
   selector: 'app-blog',
@@ -11,14 +13,25 @@ import {RecipeService} from '../services/recipe.service';
 export class BlogComponent implements OnInit {
 
   constructor(private _article: ArticleService,
-              private _recipe: RecipeService) { }
+              private _recipe: RecipeService,
+              private _blog: BlogService) { }
 
   trending = [];
   articles = [];
   recipes = [];
+  highlights = [];
 
 
   ngOnInit() {
+    this._blog.getHighlights().subscribe((highlights)=>{
+      this.highlights = highlights;
+
+      this.highlights[0].articles.map((article)=>{
+        article.datePublished_str = moment(article.datePublished_str).format("D MMM");
+      })
+      console.log(highlights)
+    })
+
     this._article.getArticles().subscribe((articles)=>{      
       this.articles = articles;
 
@@ -43,8 +56,6 @@ export class BlogComponent implements OnInit {
         });
       })
     })
-
-    console.log(this.trending)
   }
 
 }

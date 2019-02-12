@@ -2,8 +2,18 @@
 <section class="container-fluid">
   <div class="container">
     <div class="row px-3 pt-5 pb-3">
-      <div class="col-12 p-0 m-0">
+      <div class="col-12 col-md-8 p-0 m-0">
         <h1 class="title">{{recipe?.name}}</h1>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="content-card-review mx-0 d-block" (click)="reviewRecipe()">
+          <i class="fas fa-star p-2" [style.color]="recipe?.rateAverage >= 1?'orange':'lightgrey'"></i>
+          <i class="fas fa-star p-2" [style.color]="recipe?.rateAverage >= 2?'orange':'lightgrey'"></i>
+          <i class="fas fa-star p-2" [style.color]="recipe?.rateAverage >= 3?'orange':'lightgrey'"></i>
+          <i class="fas fa-star p-2" [style.color]="recipe?.rateAverage >= 4?'orange':'lightgrey'"></i>
+          <i class="fas fa-star p-2" [style.color]="recipe?.rateAverage >= 5?'orange':'lightgrey'"></i>
+          <div class="p-2 d-inline-block"><span>{{recipe?.rateCount || 0}} review</span></div>
+        </div>
       </div>
       <div class="col-12 col-md-8 p-0 m-0">
         <p class="subtitle">{{recipe?.description}}</p>

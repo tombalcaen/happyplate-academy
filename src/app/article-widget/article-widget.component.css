@@ -1,0 +1,66 @@
+.content-card{
+    
+}
+
+.content-card-image-container{    
+    height: 180px;
+    overflow: hidden;
+}
+
+.content-card-image{
+    z-index: 2;
+    cursor: pointer;
+    /* width: 180px; */
+    height: 100%;
+    background-image: url("../../assets/pexels-photo-1640773.jpeg");
+    background-color: lightgrey; /* fallback color */    
+    background-position: center;
+    background-size: cover;   
+    transition: all .5s;
+ 
+}
+
+.content-card:hover .content-card-image{
+    transform: scale(1.2)
+}
+
+.content-card-title{
+    position: relative;
+    z-index: 0;
+    margin: 0;
+    padding: 8px 5px 20px 5px;    
+    font-size: 20px;
+    line-height: 25px;
+    text-decoration: none;
+    outline: 0;
+    cursor: pointer;
+    font-family: "Open Sans",Arial;
+    color: #2d2d2d;
+    min-height: 74px;
+}
+
+.content-card-title:hover .content-card-title-link{
+    color: lightgrey;
+}
+
+.content-card-title--article{
+    border-top: 8px solid yellowgreen;
+}
+
+.content-card-title-link{
+    text-decoration: none;
+    color: #2d2d2d;
+}
+
+.content-card-author{
+    color: #777;
+    text-shadow: 1px 1px 1px rgba(0,0,0,.004);
+    padding: 8px 5px 0 5px;
+    text-align: left;
+    line-height: 22px;
+    font-size: 14px;
+}
+
+.content-card-data{
+    font-size: 12px;
+}

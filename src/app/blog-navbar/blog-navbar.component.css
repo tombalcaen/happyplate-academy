@@ -97,7 +97,6 @@ a{
 }
 
 .upper-menu-list{
-    display: flex;
     justify-content: space-between;
     width: 100%;
     margin: 0 32px;
@@ -107,7 +106,7 @@ a{
 .upper-menu-list-item{
     text-transform: capitalize;
     text-align: center;
-    display: inline-block;
+    /* display: inline-block; */
 }
 
 .upper-menu-list-item a{

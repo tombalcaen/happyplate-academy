@@ -57,9 +57,12 @@ router.post('/create',(req,res,next)=>{
         nutrition: req.body.nutrition,        
         images: req.body.images,
         views: 0,
-        source: req.body.source,
-        like_score: 0,
-        like_n: 0
+        source: req.body.source,        
+        rateCount: 0,
+        rateValue: 0,
+        rateAverage: 0,
+        // like_score: 0, //from older method
+        // like_n: 0 //from older method
     })
     
     RecipesList.createRecipes(newRecipe,(err, Recipe)=>{

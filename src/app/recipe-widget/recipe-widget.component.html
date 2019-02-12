@@ -45,30 +45,30 @@
   <!-- MEAL INTERACTION -->
   <div class="row mx-0 content-card-actions">
     <div class="actions-chef-container">
-      <span id="chef--count" #chefcount class="chef--count text-center">+1</span>
+      <!-- <span id="chef--count" #chefcount class="chef--count text-center">+1</span>
       <span id="chef--count-total" class="chef--count-total">{{recipe.like_score}}</span>
       <span id="chef--count-decrement" #chefdecr class="chef--count-decrement" (click)="revertLike(recipe)"><i class="fas fa-times"></i></span>
       <button class="chef-button button-xl button-circle">                
-        <span class="chef-button--default" (click)="toggleIcon($event,recipe)" > <!--[ngClass]="!icon__default?'chef-button--default':'chef-button--active'"-->
+        <span class="chef-button--default" (click)="toggleIcon($event,recipe)" > [ngClass]="!icon__default?'chef-button--default':'chef-button--active'"
           <span class="chef-icon-container">
             <i class="fas fa-heart chef-icon"></i>
           </span>                  
         </span>                
-      </button>
-      <div class="save-button mr-1">
+      </button> -->
+      <div class="content-card-review mx-0 d-block">
+        <i class="fas fa-star p-2" [style.color]="recipe?.rateAverage >= 1?'orange':'lightgrey'"></i>
+        <i class="fas fa-star p-2" [style.color]="recipe?.rateAverage >= 2?'orange':'lightgrey'"></i>
+        <i class="fas fa-star p-2" [style.color]="recipe?.rateAverage >= 3?'orange':'lightgrey'"></i>
+        <i class="fas fa-star p-2" [style.color]="recipe?.rateAverage >= 4?'orange':'lightgrey'"></i>
+        <i class="fas fa-star p-2" [style.color]="recipe?.rateAverage >= 5?'orange':'lightgrey'"></i>
+        <div class="p-2 d-inline-block"><span>{{recipe?.rateCount || 0}}</span></div>
+      </div>
+      <!-- <div class="save-button mr-1 d-block">        
         <span class="save-button-text mr-2">save</span>
-        <div class="save-button-action button-large button-circle" (click)="saveRecipe()">
+        <div class="save-button-action button-large button-circle" (click)="saveRecipe()">          
           <i class="save-button-icon fas fa-plus"></i>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
-  <!-- <div class="row mx-0 content-card-review">
-      <i class="fas fa-star p-2" [style.color]="recipe?.review_score >= 1?'orange':'lightgrey'"></i>
-      <i class="fas fa-star p-2" [style.color]="recipe?.review_score >= 2?'orange':'lightgrey'"></i>
-      <i class="fas fa-star p-2" [style.color]="recipe?.review_score >= 3?'orange':'lightgrey'"></i>
-      <i class="fas fa-star p-2" [style.color]="recipe?.review_score >= 4?'orange':'lightgrey'"></i>
-      <i class="fas fa-star p-2" [style.color]="recipe?.review_score >= 5?'orange':'lightgrey'"></i>
-      <div class="p-2"><span>{{recipe?.review_amount}}</span></div>
-  </div> -->
 </div>

@@ -84,6 +84,16 @@
     border-right: 1px solid #e0e0e0;
 }
 
+.recipe_save{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 10px;
+    right: 70px;
+    border-radius: 50%;
+    z-index: 200;
+}
+
 .recipe_mealtype{
     position: absolute;
     width: 30px;
@@ -231,7 +241,7 @@ button:focus {outline:none;}
 
 .save-button{
     display: inline-block; 
-    margin-top: 12px; 
+    /* margin-top: 12px;  */
     float: right; 
     color: #e0e0e0;
 }

@@ -15,6 +15,7 @@ export class RecipeWidgetComponent implements OnInit {
   constructor(private _recipe: RecipeService) { }
 
   ngOnInit() {
+    this.recipe.rateAverage = this.recipe.rateValue / this.recipe.rateCount;
     console.log(this.recipe)
   }
 
@@ -39,44 +40,43 @@ export class RecipeWidgetComponent implements OnInit {
    }     
   }
 
-  toggleIcon(event,recipe){
-    let el = this.el;
-    let chef_decr_el = this.chef_decr_el;
+  // toggleIcon(event,recipe){
+  //   let el = this.el;
+  //   let chef_decr_el = this.chef_decr_el;
     
-    event.target.parentNode.parentNode.classList.remove("chef-button--default");
-    event.target.parentNode.parentNode.classList.add("chef-button--active");
-    setTimeout(function(){      
-      event.target.parentNode.parentNode.classList.remove("chef-button--active");
-      event.target.parentNode.parentNode.classList.add("chef-button--default");      
-    },500);
+  //   event.target.parentNode.parentNode.classList.remove("chef-button--default");
+  //   event.target.parentNode.parentNode.classList.add("chef-button--active");
+  //   setTimeout(function(){      
+  //     event.target.parentNode.parentNode.classList.remove("chef-button--active");
+  //     event.target.parentNode.parentNode.classList.add("chef-button--default");      
+  //   },500);
 
     
-    // +1 BULLET
-    el.nativeElement.classList.add("active");
-    setTimeout(function(){
-      el.nativeElement.classList.remove("active");
-    },1000);
+  //   // +1 BULLET
+  //   el.nativeElement.classList.add("active");
+  //   setTimeout(function(){
+  //     el.nativeElement.classList.remove("active");
+  //   },1000);
 
-    //DECREMENT ICON
-    chef_decr_el.nativeElement.classList.add("active");
-    setTimeout(function(){      
-      chef_decr_el.nativeElement.classList.remove("active");
-    },2000);
+  //   //DECREMENT ICON
+  //   chef_decr_el.nativeElement.classList.add("active");
+  //   setTimeout(function(){      
+  //     chef_decr_el.nativeElement.classList.remove("active");
+  //   },2000);
 
-    //increment review_score
-    this._recipe.incrementLike(recipe._id).subscribe((res)=>{
-      console.log(res.recipe)
-      recipe.like_score++;
-    })
+  //   //increment review_score
+  //   this._recipe.incrementLike(recipe._id).subscribe((res)=>{      
+  //     recipe.like_score++;
+  //   })
 
-  }
+  // }
 
-  revertLike(recipe){ 
-    this.chef_decr_el.nativeElement.classList.remove("active");
-    this._recipe.decrementLike(recipe._id).subscribe((res)=>{
-      recipe.like_score--;
-    })    
-  }
+  // revertLike(recipe){ 
+  //   this.chef_decr_el.nativeElement.classList.remove("active");
+  //   this._recipe.decrementLike(recipe._id).subscribe((res)=>{
+  //     recipe.like_score--;
+  //   })    
+  // }
 
   saveRecipe(){
 

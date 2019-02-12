@@ -27,3 +27,68 @@ and (orientation: portrait){
     color: orangered;
     text-decoration: none;
 }
+
+.actions-chef-container{
+    position: relative;
+    width: 100%;
+}
+
+.chef--count {
+    position: absolute;
+    /* top: -35px; */
+    top: -20px;
+    opacity: 0;
+    left: 17px;
+    font-size: 0.8rem;
+    color: white;
+    background: #ff591bf7;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
+    content: "+1";
+  }
+
+.chef--count.active {
+    transition: top 1s;
+    top: -55px;
+    opacity: 1;
+}
+
+.chef--count-total {
+    position: absolute;
+    font-size: 0.8rem;
+    width: 60px;
+    text-align: center;
+    left: 60px;
+    top: 20px;
+    color: #e0e0e0; 
+  }
+
+.chef--count-decrement{
+    position: absolute;
+    display: none;
+    top: 58px;
+    left: 25px;
+    color: #e0e0e0;
+}
+
+.chef--count-decrement.active{
+    display: inline-block;
+}
+
+button:focus {outline:none;}
+
+.chef-button{
+    display: inline-block;
+    position: relative;
+    color: rgba(0,0,0,.54);
+    background: rgba(0,0,0,0);
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    vertical-align: bottom;
+    white-space: nowrap;
+    z-index: 3000;
+}

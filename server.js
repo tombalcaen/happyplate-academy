@@ -14,6 +14,7 @@ const chapters = require('./routes/chapters');
 const lessons = require('./routes/lessons');
 const articles = require('./routes/articles');
 const recipes = require('./routes/recipes');
+const highlights = require('./routes/highlights');
 
 const config = require('./config/database');
 
@@ -75,6 +76,7 @@ app.use('/chapter', chapters);
 app.use('/lesson', lessons);
 app.use('/article', articles);
 app.use('/recipe', recipes);
+app.use('/highlight', highlights);
 
 var server = app.listen(process.env.PORT || 3000,()=>{
     console.log("App now running on port", server.address().port);
