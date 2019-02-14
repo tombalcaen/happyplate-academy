@@ -13,6 +13,8 @@ const articlesSchema = mongoose.Schema({
     contributor: {type: Object},
     status: {type: String}, //draft;published
     views: {type: Number},
+    like_score: {type: Number},
+    like_n: {type: Number}
 });
 
 // const GroceryList = module.exports = mongoose.model('groceryList', groceryListSchema);
@@ -35,19 +37,20 @@ module.exports.createArticle = function(article,callback){
     article.save(callback)
 }
 
-// module.exports.updateArticle = function(article,callback){
-
-//     // let newUpdate = {
-//     //                 name: course.name, 
-//     //                 descr: course.descr, 
-//     //                 price: course.price, 
-//     //                 status: course.status
-//     //                 }
-
-//     courses.findOneAndUpdate({_id: mongoose.Types.ObjectId(course._id)},newUpdate,{upsert:true},callback);
-// }
-
 //DELETE
 module.exports.deleteArticle = function(Article_id,callback){ 
     articles.deleteOne({_id: mongoose.Types.ObjectId(Article_id)},callback);
+}
+
+// UDPATE
+module.exports.incrementView = function(Article_id,callback){    
+    articles.update({_id: mongoose.Types.ObjectId(Article_id)},{$inc:{views: 1}},callback)
+}
+
+module.exports.incrementLike = function(Article_id,callback){    
+    articles.update({_id: mongoose.Types.ObjectId(Article_id)},{$inc:{like_score: 1}},callback)
+}
+
+module.exports.decrementLike = function(Article_id,callback){    
+    articles.update({_id: mongoose.Types.ObjectId(Article_id)},{$inc:{like_score: -1}},callback)
 }

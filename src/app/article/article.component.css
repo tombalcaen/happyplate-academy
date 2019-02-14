@@ -92,3 +92,98 @@ button:focus {outline:none;}
     white-space: nowrap;
     z-index: 3000;
 }
+
+.chef-button:hover{
+    cursor: pointer;
+    border: 1px solid orange;
+    transition: border-color 0.3s ease-in;
+    animation: shockwave 1s ease-in infinite;    
+    /* border-shadow: 0 0 50px darken(orangered, 80%), inset 0 0 10px orangered;       */
+}
+
+.chef-button:hover::after {
+    animation: shockwave 1s ease-in infinite;
+}
+
+.chef-button--default, .chef-button--active{
+    display: inline-block;
+    vertical-align: text-top;
+}
+
+.chef-button--default .chef-icon{
+    color: #e0e0e0;
+    /* background-color: white; */
+}
+
+.chef-button--active .chef-icon{
+    color: orangered;
+    /* background-color: red; */
+}
+
+.button-circle{
+    padding: 0;
+    width: 37px;
+    text-align: center;
+    -webkit-border-radius: 100%;
+    border-radius: 100%;
+}
+
+.button-large.button-circle{
+    width: 37px;
+    height: 37px;
+    padding: 0;
+}
+
+.button-xl.button-circle{
+    width: 60px;
+    height: 60px;
+    padding: 0;
+}
+
+.chef-icon-container{
+    border-color: rgba(0,0,0,.84);
+    color: rgba(0,0,0,.84);
+    fill: rgba(0,0,0,.84);
+}
+
+.chef-icon{
+    font-size: 33px;
+    background-color: #fff;
+    transition: color 0.5s ease;
+    /* transition: background-color 1s ease; */
+}
+
+
+
+/* .chef-icon:active{
+    color: red;
+    background-color: red;
+} */
+
+@keyframes shockwave {
+    0% {
+      transform: scale(1);
+      box-shadow: 0 0 2px orangered;
+      opacity: 1;      
+    }
+  
+    100% {
+      transform: scale(1);
+      /* opacity: 0.3; */
+      box-shadow: 0 0 30px orangered;
+      /* box-shadow: 0 0 50px darken(orangered, 20%), inset 0 0 10px orangered;       */
+    }
+  }
+
+  .button{
+    width: auto!important;
+    color: #fff;
+    letter-spacing: 2px;
+    background-color: orangered;
+    padding: 10px 20px!important;
+    border-width: 0!important;
+    border-color: #000;
+    border-radius: 6px!important;
+    -moz-border-radius: 6px!important;
+    -webkit-border-radius: 6px!important;
+}

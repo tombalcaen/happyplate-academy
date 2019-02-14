@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -11,6 +11,9 @@ import { RecipeService } from '../services/recipe.service';
 })
 export class RecipeComponent implements OnInit {
 
+  @ViewChild('rateRecipeModal') private rateRecipeModal : ElementRef;
+  @ViewChild('openRateRecipeModal') private btnOpenRateRecipeModal : ElementRef;
+
   constructor(private _route: ActivatedRoute,
               private domSanitizer: DomSanitizer,
               private _recipe: RecipeService) {
@@ -20,6 +23,7 @@ export class RecipeComponent implements OnInit {
   recipe_id: string;
   recipe: any;
   blnShowSource: boolean = false;
+  dummyRating: number = 0;
 
   ngOnInit() {
     this.recipe_id = this._route.snapshot.paramMap.get('_id');
@@ -37,7 +41,18 @@ export class RecipeComponent implements OnInit {
   }
 
   reviewRecipe(){
-    
+    //check if logged on
+    //promt login
+    //open popup to submit score
+    this.btnOpenRateRecipeModal.nativeElement.click();
+  }
+
+  setRate(rate){
+    this._recipe.createRecipe_rate(rate).subscribe((res)=>{
+      console.log(res)
+    })
+    this.rateRecipeModal.nativeElement.click();
+    //bedankt om dit recept te beoordelen
   }
 
 }

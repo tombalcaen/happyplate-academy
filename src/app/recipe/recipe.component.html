@@ -6,7 +6,7 @@
         <h1 class="title">{{recipe?.name}}</h1>
       </div>
       <div class="col-12 col-md-4">
-        <div class="content-card-review mx-0 d-block" (click)="reviewRecipe()">
+        <div class="content-card-review mx-0 d-block my-3" (click)="reviewRecipe()">
           <i class="fas fa-star p-2" [style.color]="recipe?.rateAverage >= 1?'orange':'lightgrey'"></i>
           <i class="fas fa-star p-2" [style.color]="recipe?.rateAverage >= 2?'orange':'lightgrey'"></i>
           <i class="fas fa-star p-2" [style.color]="recipe?.rateAverage >= 3?'orange':'lightgrey'"></i>
@@ -169,3 +169,28 @@
   </div>
 </section>
 <blog-footer></blog-footer>
+
+<button class="d-none" #openRateRecipeModal id="openRateRecipeModal" data-toggle="modal" data-target="#rateRecipeModal"></button>
+<div id="rateRecipeModal" #rateRecipeModal class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Welke beoordeling verdient dit recept?</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+          <div class="modal-body">
+            <div class="my-4">
+              <span>Klik op een ster en verstuur je beoordeling</span>
+            </div>
+            <div class="rate-content-card d-block mx-0 mt-3 mb-5">
+              <i class="fas fa-star p-2" (click)="setRate(5)"></i>
+              <i class="fas fa-star p-2" (click)="setRate(4)"></i>
+              <i class="fas fa-star p-2" (click)="setRate(3)"></i>
+              <i class="fas fa-star p-2" (click)="setRate(2)"></i>
+              <i class="fas fa-star p-2" (click)="setRate(1)"></i>                             
+            </div>
+          </div>          
+      </div>
+    </div>    
+  </div>

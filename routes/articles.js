@@ -42,7 +42,9 @@ router.post('/create',(req,res,next)=>{
       datePublished: +moment(),
       dateModified: +moment(),
       contributor: {name: req.body.contributor.name, title: req.body.contributor.title},
-      status: req.body.status //draft;published
+      status: req.body.status, //draft;published
+      like_score: 0, //from older method
+      like_n: 0 //from older method
     })
   
     ArticleList.createArticle(newArticle, (err, Article)=>{
@@ -56,6 +58,41 @@ router.post('/create',(req,res,next)=>{
   })
 
 //DELETE
+
+
+//UPDATE
+router.post('/increment',(req,res,next)=>{    
+  ArticleList.incrementView(req.body._id,(err,Article)=>{
+      if(err){
+          console.log(err.message);
+          res.json({success: false, message: "Failed to increment view!"})
+      } else {
+          res.json({success: true, message: "incremented!"})
+      }
+  })
+})
+
+router.post('/increment_like',(req,res,next)=>{    
+  ArticleList.incrementLike(req.body._id,(err,Article)=>{
+      if(err){
+          console.log(err.message);
+          res.json({success: false, message: "Failed to increment like!"})
+      } else {
+          res.json({success: true, message: "incremented!",article: Article})
+      }
+  })
+})
+
+router.post('/decrement_like',(req,res,next)=>{    
+  ArticleList.decrementLike(req.body._id,(err,Article)=>{
+      if(err){
+          console.log(err.message);
+          res.json({success: false, message: "Failed to decrement like!"})
+      } else {
+          res.json({success: true, message: "decremented!",article: Article})
+      }
+  })
+})
 
 
 module.exports = router;

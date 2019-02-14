@@ -79,7 +79,7 @@
         <a class="content-container-header-more d-none d-md-inline-block" routerLink="/articles">Nog meer artikels</a>
       </div>
       <!-- ARTICLES -->
-      <article-widget *ngFor="let article of articles" [article]="article" class="col-12 col-sm-6 col-md-3 pb-5 px-2 content-container-card"></article-widget>
+      <article-widget *ngFor="let article of articles | slice:0:8" [article]="article" class="col-12 col-sm-6 col-md-3 pb-5 px-2 content-container-card"></article-widget>
       
       <!-- <div *ngFor="let article of articles" class="col-12 col-sm-6 col-md-3 pb-5 px-2 content-container-card">
         <div class="content-card m-1">
@@ -109,7 +109,7 @@
         <a class="content-container-header-more d-none d-md-inline-block" routerLink="/recipes" style="float: right; text-decoration: none;">Nog meer recepten</a>
       </div>     
       <!-- RECIPES  -->
-      <recipe-widget *ngFor="let recipe of recipes" [recipe]="recipe" class="col-12 col-sm-6 col-md-3 pb-5 px-2 content-container-card"></recipe-widget>      
+      <recipe-widget *ngFor="let recipe of recipes | slice:0:8" [recipe]="recipe" class="col-12 col-sm-6 col-md-3 pb-5 px-2 content-container-card"></recipe-widget>      
     </div>
     <div class="row justify-content-center">
       <div class="col-12 text-center">

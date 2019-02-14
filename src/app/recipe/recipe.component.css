@@ -1,3 +1,7 @@
+.content-card-review{
+    cursor: pointer;
+}
+
 .recipe-panel-stats{
     border-top: 1px solid #e0e0e0;
 }
@@ -62,6 +66,19 @@ and (orientation: portrait){
 
 .nutrition-list-item{
     
+}
+
+.rate-content-card{
+    direction: rtl;
+}
+
+.rate-content-card .fa-star{
+    color: #e0e0e0;
+}
+
+.rate-content-card .fa-star:hover,
+.rate-content-card .fa-star:hover ~ .fa-star{
+    color: orange;
 }
 
 /* .background-1{

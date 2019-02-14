@@ -23,18 +23,23 @@
         <div #el [innerHtml]="article?.body"></div>        
       </div>
     </div>
-    <div class="row">
+    <div class="row position-relative mb-5">
       <span id="chef--count" #chefcount class="chef--count text-center">+1</span>
-      <span id="chef--count-total" class="chef--count-total">{{recipe.like_score}}</span>
-      <span id="chef--count-decrement" #chefdecr class="chef--count-decrement" (click)="revertLike(recipe)"><i class="fas fa-times"></i></span>
+      <span id="chef--count-total" class="chef--count-total">{{article?.like_score}}</span>
+      <span id="chef--count-decrement" #chefdecr class="chef--count-decrement" (click)="revertLike(article)"><i class="fas fa-times"></i></span>
       <button class="chef-button button-xl button-circle">                
-        <span class="chef-button--default" (click)="toggleIcon($event,recipe)" > [ngClass]="!icon__default?'chef-button--default':'chef-button--active'"
+        <span class="chef-button--default" (click)="toggleIcon($event,article)" > <!--[ngClass]="!icon__default?'chef-button--default':'chef-button--active'"-->
           <span class="chef-icon-container">
             <i class="fas fa-heart chef-icon"></i>
           </span>                  
         </span>                
       </button>
-    </div>    
+    </div>
+    <!-- <div class="row justify-content-center">
+      <div class="col-12 col-md-8">
+        <a class="button" routerLink="/recipes" style="text-decoration: none; cursor: pointer;">reacties laden</a>
+      </div>
+    </div>     -->
   </div>
 </section>
 <blog-footer></blog-footer>

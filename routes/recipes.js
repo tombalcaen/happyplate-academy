@@ -3,6 +3,7 @@ const router = express.Router();
 const moment = require("moment/moment");
 
 const RecipesList = require("../models/recipes");
+const Recipe_ratesList = require("../models/recipe_rates");
 
 router.get('/',(req,res,next)=>{
     RecipesList.getRecipes((err, items)=>{        
@@ -107,6 +108,25 @@ router.post('/decrement_like',(req,res,next)=>{
         }
     })
 })
+
+router.post('/rate/create',(req,res,next)=>{    
+    console.log("router create recipe rate")
+    let newRecipe_rates = new Recipe_ratesList({
+        userId: req.body.userId,
+        value: req.body.rate_value,
+        date: +moment()
+    })
+
+    Recipe_ratesList.createRecipeRates(newRecipe_rates,(err, Recipe_rate)=>{
+        if(err){
+            console.log(err.message);
+            res.json({success: false, message: "Failed to create new recipe_rate!"})
+        } else {
+            res.json({success: true, message: "Recipe_rate created!"})
+        }
+    })
+})
+
 
 
 module.exports = router;

@@ -41,4 +41,16 @@ export class RecipeService {
     return this._http.post(environment.connection_uri + "recipe/decrement_like", {_id: recipe_id});
   }
 
+  // RATES
+  createRecipe_rate(rate_value): Observable<any>{
+    console.log(rate_value);
+
+    let recipe_rates = {
+      userId: "5c27831efe40725124bc3744",
+      rate_value: rate_value
+    }
+
+    return this._http.post(environment.connection_uri + "recipe/rate/create", recipe_rates);
+  }
+
 }

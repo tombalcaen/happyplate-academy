@@ -15,8 +15,7 @@ export class RecipeWidgetComponent implements OnInit {
   constructor(private _recipe: RecipeService) { }
 
   ngOnInit() {
-    this.recipe.rateAverage = this.recipe.rateValue / this.recipe.rateCount;
-    console.log(this.recipe)
+    this.recipe.rateAverage = this.recipe.rateValue / this.recipe.rateCount;    
   }
 
   loadRecipe(recipe){
