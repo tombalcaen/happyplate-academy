@@ -7,11 +7,11 @@
       </div>
       <div class="col-12 col-md-4">
         <div class="content-card-review mx-0 d-block my-3" (click)="reviewRecipe()">
-          <i class="fas fa-star p-2" [style.color]="recipe?.rateAverage >= 1?'orange':'lightgrey'"></i>
-          <i class="fas fa-star p-2" [style.color]="recipe?.rateAverage >= 2?'orange':'lightgrey'"></i>
-          <i class="fas fa-star p-2" [style.color]="recipe?.rateAverage >= 3?'orange':'lightgrey'"></i>
-          <i class="fas fa-star p-2" [style.color]="recipe?.rateAverage >= 4?'orange':'lightgrey'"></i>
-          <i class="fas fa-star p-2" [style.color]="recipe?.rateAverage >= 5?'orange':'lightgrey'"></i>
+          <i class="fas fa-star p-2" [style.color]="recipe?.rateAverage > 0.5?'orange':'lightgrey'"></i>
+          <i class="fas fa-star p-2" [style.color]="recipe?.rateAverage > 1.5?'orange':'lightgrey'"></i>
+          <i class="fas fa-star p-2" [style.color]="recipe?.rateAverage > 2.5?'orange':'lightgrey'"></i>
+          <i class="fas fa-star p-2" [style.color]="recipe?.rateAverage > 3.5?'orange':'lightgrey'"></i>
+          <i class="fas fa-star p-2" [style.color]="recipe?.rateAverage > 4.5?'orange':'lightgrey'"></i>
           <div class="p-2 d-inline-block"><span>{{recipe?.rateCount || 0}} review</span></div>
         </div>
       </div>

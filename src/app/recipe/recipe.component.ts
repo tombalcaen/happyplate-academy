@@ -28,6 +28,7 @@ export class RecipeComponent implements OnInit {
   ngOnInit() {
     this.recipe_id = this._route.snapshot.paramMap.get('_id');
     this._recipe.incrementView(this.recipe_id);
+    this._recipe.getRatesForId("1","2");
     this._recipe.getRecipeById(this.recipe_id).subscribe((recipeObj)=>{      
       this.recipe = recipeObj[0];
       this.recipe.rateAverage = this.recipe.rateValue / this.recipe.rateCount;
@@ -48,7 +49,7 @@ export class RecipeComponent implements OnInit {
   }
 
   setRate(rate){
-    this._recipe.createRecipe_rate(rate).subscribe((res)=>{
+    this._recipe.createRecipe_rate(rate,this.recipe_id).subscribe((res)=>{
       console.log(res)
     })
     this.rateRecipeModal.nativeElement.click();

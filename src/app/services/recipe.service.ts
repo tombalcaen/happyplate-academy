@@ -42,11 +42,18 @@ export class RecipeService {
   }
 
   // RATES
-  createRecipe_rate(rate_value): Observable<any>{
+
+  getRatesForId(user_id,recipe_id): Observable<any>{
+    console.log("go")
+    return this._http.get(environment.connection_uri + "recipe/rate?Uid=" + "5c27831efe40725124bc3744") // + "?Rid=" + "5c62d2de7691feb396f01ae9"
+  }
+
+  createRecipe_rate(rate_value,recipe_id): Observable<any>{
     console.log(rate_value);
 
     let recipe_rates = {
       userId: "5c27831efe40725124bc3744",
+      recipe_id: recipe_id,
       rate_value: rate_value
     }
 

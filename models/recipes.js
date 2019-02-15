@@ -56,7 +56,13 @@ module.exports.createRecipes = function(recipe,callback){
 
 
 //UPDATE
-module.exports.incrementView = function(recipe_id,callback){    
+module.exports.addRating = function(recipe_rate,callback){
+    console.log("add rating")
+    console.log(recipe_rate)
+    recipes.update({_id: mongoose.Types.ObjectId(recipe_rate.recipeId)},{$inc:{rateCount: 1, rateValue: recipe_rate.value}},callback)
+}
+
+module.exports.incrementView = function(recipe_id,callback){   
     recipes.update({_id: mongoose.Types.ObjectId(recipe_id)},{$inc:{views: 1}},callback)
 }
 

@@ -109,20 +109,41 @@ router.post('/decrement_like',(req,res,next)=>{
     })
 })
 
+router.get('/rate',(req,res,next)=>{
+    console.log('router id: ' + req.query)
+    // RecipesList.getRecipesById(req.query._id,(err, recipe)=>{        
+    // if(err){
+    //     console.log(err.message)
+    //     res.json({success: false, message: "failed to get recipe."})
+    //   } else {
+    //       res.json(recipe);
+    //   }
+    // })
+})
+
 router.post('/rate/create',(req,res,next)=>{    
     console.log("router create recipe rate")
     let newRecipe_rates = new Recipe_ratesList({
         userId: req.body.userId,
+        recipeId: req.body.recipe_id,
         value: req.body.rate_value,
         date: +moment()
     })
+
+    console.log(newRecipe_rates)
 
     Recipe_ratesList.createRecipeRates(newRecipe_rates,(err, Recipe_rate)=>{
         if(err){
             console.log(err.message);
             res.json({success: false, message: "Failed to create new recipe_rate!"})
         } else {
-            res.json({success: true, message: "Recipe_rate created!"})
+            RecipesList.addRating(newRecipe_rates,(err, recipe)=>{
+                if(err)console.log(err.messsage)
+                else {
+                    res.json({success: true, message: "Recipe_rate created!"})
+                }
+                
+            })            
         }
     })
 })
