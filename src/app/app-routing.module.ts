@@ -13,6 +13,8 @@ import { CreateRecipeComponent } from './create-recipe/create-recipe.component';
 import { CreateArticleComponent } from './create-article/create-article.component';
 import { RecipesComponent } from './recipes/recipes.component';
 import { ArticlesComponent } from './articles/articles.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'blog', pathMatch: 'full' },
@@ -28,6 +30,8 @@ const routes: Routes = [
   { path: 'recipes',  component: RecipesComponent },
   { path: 'create_recipe',  component: CreateRecipeComponent },
   { path: 'create_article',  component: CreateArticleComponent },
+  { path: 'login',  component: LoginComponent },
+  { path: 'create-account',  component: RegisterComponent },
   // { path: 'login',  component: LoginComponent },
   // { path: 'emailverify',  component: EmailVerifyComponent },
   // { path: 'register',  component: RegisterComponent },

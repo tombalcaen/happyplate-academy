@@ -34,6 +34,8 @@ import { RecipesComponent } from './recipes/recipes.component';
 import { ArticlesComponent } from './articles/articles.component';
 import { RecipeWidgetComponent } from './recipe-widget/recipe-widget.component';
 import { ArticleWidgetComponent } from './article-widget/article-widget.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,9 @@ import { ArticleWidgetComponent } from './article-widget/article-widget.componen
     RecipesComponent,
     ArticlesComponent,
     RecipeWidgetComponent,
-    ArticleWidgetComponent
+    ArticleWidgetComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
