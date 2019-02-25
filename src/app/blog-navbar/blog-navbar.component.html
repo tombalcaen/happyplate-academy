@@ -5,8 +5,45 @@
         <div class="header-brand-container">
           <a routerLink="/blog"><span class="header-brand-container-logo">Happy Plate</span></a>
         </div>
-        <div class="header-content">
-          
+        <div class="header-content" [class.header-content--loggedin]="blnLoggedIn">
+          <ul class="navbar-nav mr-auto" style="flex-direction: unset !important;">
+            <li *ngIf="blnLoggedIn" class="nav-item dropdown position-relative mr-5">              
+              <a class="" id="navbarDropdownNotifications" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-bell"></i></a>
+              <div class="dropdown-menu dropdown-menu--notifications" aria-labelledby="navbarDropdownNotifications">
+                <div class="dropdown-item">
+                  <ul role="menu" class="notificationsList">
+                    <li class="list-item notificationsList-item notificationsList-item--status text-center">nog geen meldingen</li>                    
+                  </ul>
+                </div>                
+                <div class="popover-arrow popover-arrow--notifications"></div>
+              </div>              
+            </li>            
+            <li *ngIf="blnLoggedIn" class="nav-item dropdown position-relative">              
+              <a id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-alt"></i></a> <!---->
+              <div class="dropdown-menu dropdown-menu--profile" aria-labelledby="navbarDropdown">
+                <div class="popover-inner">
+                  <ul role="menu" class="list list--borderless list--short list--large">
+                    <li class="list-item" routerLink="#">Word een member</li>
+                    <li class="list-item list-item--separator"></li>
+                    <li class="list-item" routerLink="/profile">profiel</li>
+                    <li class="list-item" routerLink="/settings">settings</li>
+                    <li class="list-item" routerLink="/help">help</li>
+                    <li class="list-item" (click)="onLogout()">log uit</li>
+                  </ul>
+                </div>                
+                <div class="popover-arrow"></div>
+              </div>              
+              <!-- <a class="ml-3" (click)="onLogout()"><i class="fas fa-sign-out-alt"></i></a> -->
+            </li>            
+            <li *ngIf="!blnLoggedIn" class="nav-item">
+              <div class="header-content-getstarted">
+                <a class="cta getstarted-cta" routerLink="/create-account">Join ons!</a>            
+              </div>
+            </li>
+          </ul>          
+          <!-- <div class="header-content-logout">
+            
+          </div> -->
         </div>
       </div>
     </div>
@@ -32,6 +69,3 @@
     </div>
   </div>
 </header>
-  <!-- <section class="container-fluid">
-    
-  </section> -->

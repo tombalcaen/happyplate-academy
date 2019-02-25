@@ -36,6 +36,12 @@ import { RecipeWidgetComponent } from './recipe-widget/recipe-widget.component';
 import { ArticleWidgetComponent } from './article-widget/article-widget.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { JwtModule,JwtHelperService } from '@auth0/angular-jwt';
+import { ProfileComponent } from './profile/profile.component';
+
+export function tokenGetter() {
+  return localStorage.getItem('id_token');
+}
 
 @NgModule({
   declarations: [
@@ -58,7 +64,8 @@ import { RegisterComponent } from './register/register.component';
     RecipeWidgetComponent,
     ArticleWidgetComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +81,14 @@ import { RegisterComponent } from './register/register.component';
     MatInputModule,
     MatFormFieldModule,
     MatTooltipModule,
-    QuillModule
+    QuillModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: ['localhost:3000'],
+        blacklistedRoutes: ['localhost:3000/auth/']
+      }
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

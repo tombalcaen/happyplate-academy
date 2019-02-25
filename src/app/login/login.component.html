@@ -1,18 +1,44 @@
 <div class="container-fluid login-container">
-  <div class="container h-auto">
-    <div class="row justify-content-center inner-box">
-      <div class="col-12 col-md-4 d-relative p-4 left-box">
-        <h1>Ga aan de slag met happy plate</h1>
-        <ul class="login-offer">
-          <li>Persoonlijk voedingsadvies</li>
-          <li>Persoonlijke maaltijdplannen</li>
-          <li>Volg je vooruitgang</li>          
-        </ul>
-        <img class="login-img background-1 d-absolute">
-      </div>
-      <div class="col-12 col-md-8">
-        
+    <div class="container h-auto">
+      <div class="row justify-content-center mx-10 inner-box">
+        <div class="col-12 col-md-6 d-relative p-4 left-box">
+          <h1 class="text-center">Log in My Happy Plate</h1>          
+          <img class="login-img background-1 d-absolute">
+        </div>
+        <div class="col-12 col-md-6 p-0 right-box">
+          <div class="form-box p-4">
+            <form [formGroup]="loginForm" class="" novalidate (ngSubmit)="onLogin(loginForm.value)">            
+              <div class="form-group">
+                <label class="control-label">Email</label>
+                <input formControlName="email" #email type="text" class="form-control" aria-label="Email" aria-describedby="basic-addon1">
+                <small *ngIf="loginForm.controls['email'].hasError('required') && !loginForm.controls['email'].untouched" class="form-text" style="color: red;">Gelieve een correct email in te vullen</small>
+              </div>
+              <div class="form-group">
+                <label class="control-label">Paswoord</label>
+                <input formControlName="password" #password type="password" class="form-control" aria-label="password" aria-describedby="basic-addon1">
+                <small *ngIf="loginForm.controls['password'].hasError('required') && !loginForm.controls['password'].untouched" class="form-text" style="color: red;">Gelieve uw paswoord in te vullen</small>
+              </div>
+              <div class="form-group">
+                <div *ngIf="blnError" class="alert alert-danger" role="alert">
+                  {{errorMsg}}
+                </div>
+              </div>
+              <!-- <div class="confirmation-alert alert-danger">              						
+                <div *ngIf="loginForm.controls['email'].hasError('required') && !loginForm.controls['email'].untouched"><span>Please fill in 'Email' field! :).</span></div>
+                <div *ngIf="loginForm.controls['password'].hasError('required') && !loginForm.controls['password'].untouched"><span>Please fill in 'Password' field! :).</span></div>
+                <div *ngIf="blnError"><span>{{errorMsg}}</span></div>
+              </div> -->
+              <div class="signIn-form-actions mt-4 text-center">
+                <button type="submit" class="btn btn-started" [class.disabled]="!loginForm.valid" [disabled]="!loginForm.valid">Log in</button>
+                <!-- <a (click)="resetPassword(loginForm.value.email)">forgot your password?</a> -->
+              </div>					
+            </form>      
+          </div>
+          <div class="footer-box text-center p-3">
+            <h2>Nog geen account?</h2>
+            <a class="footer-login-link" routerLink="/create-account">Start hier</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>

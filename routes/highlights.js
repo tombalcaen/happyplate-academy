@@ -4,10 +4,8 @@ const moment = require("moment/moment");
 
 const HighlightsList = require("../models/highlights");
 
-router.get('/',(req,res,next)=>{
-    console.log("in router highlights")
-    HighlightsList.getHighlights((err, items)=>{        
-        console.log(items)
+router.get('/',(req,res,next)=>{    
+    HighlightsList.getHighlights((err, items)=>{                
     if(err){
         console.log(err.message)
         res.json({success: false, message: "failed to get chapters."})

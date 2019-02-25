@@ -37,13 +37,11 @@ module.exports.getRecipes = function(callback){
     recipes.find({},{name: 1, time_spend: 1, difficulty_index: 1, health_index: 1, images: 1, dateCreated: 1, meal_type: 1, tags: 1, rateValue: 1, rateCount: 1},callback)
 }
 
-module.exports.getRecipesFor = function(tag,callback){
-    console.log("model getrecipefor: " + tag)
+module.exports.getRecipesFor = function(tag,callback){    
     recipes.find({tags: tag},{name: 1, time_spend: 1, difficulty_index: 1, health_index: 1, images: 1, dateCreated: 1, meal_type: 1, tags: 1, rateValue: 1, rateCount: 1},callback)
 }
 
-module.exports.getRecipesById = function(_id,callback){
-    console.log('models id: ' + _id)
+module.exports.getRecipesById = function(_id,callback){    
     recipes.find({_id: mongoose.Types.ObjectId(_id)},callback)
 }
 
@@ -56,13 +54,12 @@ module.exports.createRecipes = function(recipe,callback){
 
 
 //UPDATE
-module.exports.addRating = function(recipe_rate,callback){
-    console.log("add rating")
-    console.log(recipe_rate)
+module.exports.addRating = function(recipe_rate,callback){    
     recipes.update({_id: mongoose.Types.ObjectId(recipe_rate.recipeId)},{$inc:{rateCount: 1, rateValue: recipe_rate.value}},callback)
 }
 
 module.exports.incrementView = function(recipe_id,callback){   
+    console.log("increment view")
     recipes.update({_id: mongoose.Types.ObjectId(recipe_id)},{$inc:{views: 1}},callback)
 }
 

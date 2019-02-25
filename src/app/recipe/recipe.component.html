@@ -172,25 +172,64 @@
 
 <button class="d-none" #openRateRecipeModal id="openRateRecipeModal" data-toggle="modal" data-target="#rateRecipeModal"></button>
 <div id="rateRecipeModal" #rateRecipeModal class="modal fade" role="dialog">
-    <div class="modal-dialog">
-      <!-- Modal content-->
+  <div *ngIf="blnLoggedIn && !user_recipe_rate" class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Welke beoordeling verdient dit recept?</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+        <div class="modal-body">
+          <div class="my-4">
+            <span>Klik op een ster en verstuur je beoordeling</span>
+          </div>
+          <div class="rate-content-card d-block mx-0 mt-3 mb-5">
+            <i class="fas fa-star p-2" (click)="setRate(5)"></i>
+            <i class="fas fa-star p-2" (click)="setRate(4)"></i>
+            <i class="fas fa-star p-2" (click)="setRate(3)"></i>
+            <i class="fas fa-star p-2" (click)="setRate(2)"></i>
+            <i class="fas fa-star p-2" (click)="setRate(1)"></i>                             
+          </div>
+        </div>          
+      </div>
+    </div>
+    <div *ngIf="blnLoggedIn && user_recipe_rate" class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Welke beoordeling verdient dit recept?</h4>
+          <h4 class="modal-title">Uw beoordeling voor dit recept.</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
-          <div class="modal-body">
-            <div class="my-4">
-              <span>Klik op een ster en verstuur je beoordeling</span>
-            </div>
-            <div class="rate-content-card d-block mx-0 mt-3 mb-5">
-              <i class="fas fa-star p-2" (click)="setRate(5)"></i>
-              <i class="fas fa-star p-2" (click)="setRate(4)"></i>
-              <i class="fas fa-star p-2" (click)="setRate(3)"></i>
-              <i class="fas fa-star p-2" (click)="setRate(2)"></i>
-              <i class="fas fa-star p-2" (click)="setRate(1)"></i>                             
-            </div>
+        <div class="modal-body">
+          <div class="my-4">
+            <span>U hebt al een beoording gegeven voor dit recept.</span>
+          </div>
+          <div class="content-card-review mx-0 d-block my-3">
+            <i class="fas fa-star p-2" [style.color]="user_recipe_rate?.value > 0.5?'orange':'lightgrey'"></i>
+            <i class="fas fa-star p-2" [style.color]="user_recipe_rate?.value > 1.5?'orange':'lightgrey'"></i>
+            <i class="fas fa-star p-2" [style.color]="user_recipe_rate?.value > 2.5?'orange':'lightgrey'"></i>
+            <i class="fas fa-star p-2" [style.color]="user_recipe_rate?.value > 3.5?'orange':'lightgrey'"></i>
+            <i class="fas fa-star p-2" [style.color]="user_recipe_rate?.value > 4.5?'orange':'lightgrey'"></i>
+            <div class="p-2 d-inline-block"><span>{{user_recipe_rate?.value || 0}}</span></div>
           </div>          
+        </div>
+      </div>
+    </div>
+    <div *ngIf='!blnLoggedIn' class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Log in</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body text-center">
+          <div class="m-5">
+            <label class="d-block">Login en geef dit recept uw beoordeling</label>
+            <a class="" (click)="onCallToAction('login')" style="color: darkcyan; cursor: pointer;">Login</a>
+          </div>
+          <div class="m-5">
+            <label class="d-block mb-3">Nog geen account?</label>
+            <a class="button" (click)="onCallToAction('register')">Join ons!</a>
+          </div>
+        </div>          
       </div>
     </div>    
   </div>

@@ -1,15 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse, HttpParams } from '@angular/common/http';
 
 import {environment} from "../../environments/environment";
+
+import { AuthService } from "../services/auth.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecipeService {
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient,
+              private _auth: AuthService) { }
+
+
+  // GET
 
   getRecipes(): Observable<any>{    
     return this._http.get(environment.connection_uri + "recipe");
@@ -24,12 +30,13 @@ export class RecipeService {
     return this._http.get(environment.connection_uri + 'recipe/id?_id=' + _id);
   }
 
+  // CREATE
+
   createRecipe(recipe): Observable<any>{
     return this._http.post(environment.connection_uri + "recipe/create", recipe)
   }
 
   incrementView(recipe_id): Observable<any>{
-    console.log("rec " + recipe_id)
     return this._http.post(environment.connection_uri + "recipe/increment", {_id: recipe_id});
   }
 
@@ -43,19 +50,20 @@ export class RecipeService {
 
   // RATES
 
-  getRatesForId(user_id,recipe_id): Observable<any>{
-    console.log("go")
-    return this._http.get(environment.connection_uri + "recipe/rate?Uid=" + "5c27831efe40725124bc3744") // + "?Rid=" + "5c62d2de7691feb396f01ae9"
+  getRatesForId(user_id,recipe_id): Observable<any>{  
+    return this._http.get(environment.connection_uri + 'recipe/rate',{params: {'Uid': user_id, 'Rid': recipe_id}});    
   }
 
   createRecipe_rate(rate_value,recipe_id): Observable<any>{
-    console.log(rate_value);
-
+    const user = this._auth.loadLocalUser();
+    
     let recipe_rates = {
-      userId: "5c27831efe40725124bc3744",
+      userId: user,
       recipe_id: recipe_id,
       rate_value: rate_value
     }
+
+    console.log(recipe_rates)
 
     return this._http.post(environment.connection_uri + "recipe/rate/create", recipe_rates);
   }

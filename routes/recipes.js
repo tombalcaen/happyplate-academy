@@ -5,7 +5,8 @@ const moment = require("moment/moment");
 const RecipesList = require("../models/recipes");
 const Recipe_ratesList = require("../models/recipe_rates");
 
-router.get('/',(req,res,next)=>{
+router.get('/',(req,res,next)=>{     
+    console.log("!!!!!!") 
     RecipesList.getRecipes((err, items)=>{        
     if(err){
         console.log(err.message)
@@ -16,8 +17,8 @@ router.get('/',(req,res,next)=>{
     })
 })
 
-router.get('/for',(req,res,next)=>{
-    console.log("router getrecipefor: " + req.query.tag)
+router.get('/for',(req,res,next)=>{ 
+    console.log("iiiiii")   
     RecipesList.getRecipesFor(req.query.tag,(err, items)=>{        
     if(err){
         console.log(err.message)
@@ -28,16 +29,35 @@ router.get('/for',(req,res,next)=>{
     })
 })
 
-router.get('/id',(req,res,next)=>{
-    console.log('router id: ' + req.query._id)
+router.get('/id',(req,res,next)=>{    
     RecipesList.getRecipesById(req.query._id,(err, recipe)=>{        
-    if(err){
-        console.log(err.message)
+    if(err){        
         res.json({success: false, message: "failed to get recipe."})
       } else {
           res.json(recipe);
       }
     })
+})
+
+router.get('/rate',(req,res,next)=>{
+    console.log("mqlksdfjmlqksdfj")    
+    console.log(req.query)    
+    Recipe_ratesList.getRatesForUser(req.query.Uid,req.query.Rid,(err, rates)=>{
+        if(err){            
+            res.json({success: false, message: "failed to get rates for user"});
+        } else {            
+            res.json(rates)
+        }
+    })
+    // RecipesList.getRecipesById(req.query._id,(err, recipe)=>{        
+    // if(err){
+    //     console.log(err.message)
+    //     res.json({success: false, message: "failed to get recipe."})
+    //   } else {
+    //       res.json(recipe);
+    //   }
+    // })
+    // res.json({message: "back"})
 })
 
 router.post('/create',(req,res,next)=>{
@@ -67,8 +87,7 @@ router.post('/create',(req,res,next)=>{
     })
     
     RecipesList.createRecipes(newRecipe,(err, Recipe)=>{
-        if(err){
-            console.log(err.message);
+        if(err){            
             res.json({success: false, message: "Failed to create new recipe!"})
         } else {
             res.json({success: true, message: "Recipe created!"})
@@ -109,20 +128,7 @@ router.post('/decrement_like',(req,res,next)=>{
     })
 })
 
-router.get('/rate',(req,res,next)=>{
-    console.log('router id: ' + req.query)
-    // RecipesList.getRecipesById(req.query._id,(err, recipe)=>{        
-    // if(err){
-    //     console.log(err.message)
-    //     res.json({success: false, message: "failed to get recipe."})
-    //   } else {
-    //       res.json(recipe);
-    //   }
-    // })
-})
-
-router.post('/rate/create',(req,res,next)=>{    
-    console.log("router create recipe rate")
+router.post('/rate/create',(req,res,next)=>{        
     let newRecipe_rates = new Recipe_ratesList({
         userId: req.body.userId,
         recipeId: req.body.recipe_id,

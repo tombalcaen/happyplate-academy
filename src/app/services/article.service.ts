@@ -49,4 +49,6 @@ export class ArticleService {
     return this._http.post(environment.connection_uri + "article/decrement_like", {_id: article_id});
   }
 
+// RATES
+
 }

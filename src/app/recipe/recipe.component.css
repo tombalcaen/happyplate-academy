@@ -84,3 +84,16 @@ and (orientation: portrait){
 /* .background-1{
     background-image: url("../../assets/pexels-photo-1640773.jpeg");
 } */
+
+.button{
+    width: auto!important;
+    color: #fff !important;
+    letter-spacing: 2px;
+    background-color: orangered;
+    padding: 10px 20px!important;
+    border-width: 0!important;
+    border-color: #000;
+    border-radius: 6px!important;
+    -moz-border-radius: 6px!important;
+    -webkit-border-radius: 6px!important;
+}

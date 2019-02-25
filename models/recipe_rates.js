@@ -12,9 +12,14 @@ const recipe_ratesSchema = mongoose.Schema({
 // const GroceryList = module.exports = mongoose.model('groceryList', groceryListSchema);
 const recipe_rates = module.exports = mongoose.model('recipe_rates', recipe_ratesSchema);
 
+
+// GET
+module.exports.getRatesForUser = function(user_id,recipe_id,callback){ 
+    recipe_rates.find({userId: mongoose.Types.ObjectId(user_id), recipeId: mongoose.Types.ObjectId(recipe_id)},callback)
+}
+
 //CREATE
-module.exports.createRecipeRates = function(recipe_rate,callback){
-    console.log("model create recipe rate")
+module.exports.createRecipeRates = function(recipe_rate,callback){ 
     recipe_rate.save(callback)
 }
 

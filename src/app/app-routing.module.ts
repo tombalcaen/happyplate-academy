@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { AuthService } from './services/auth.service';
+
 import {CourseComponent} from './course/course.component';
 import {CourseOverviewComponent} from './course-overview/course-overview.component';
 import {CreateLessonComponent} from './create-lesson/create-lesson.component';
@@ -15,6 +17,7 @@ import { RecipesComponent } from './recipes/recipes.component';
 import { ArticlesComponent } from './articles/articles.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'blog', pathMatch: 'full' },
@@ -32,6 +35,7 @@ const routes: Routes = [
   { path: 'create_article',  component: CreateArticleComponent },
   { path: 'login',  component: LoginComponent },
   { path: 'create-account',  component: RegisterComponent },
+  { path: 'profile',  component: ProfileComponent, canActivate: [AuthService] },
   // { path: 'login',  component: LoginComponent },
   // { path: 'emailverify',  component: EmailVerifyComponent },
   // { path: 'register',  component: RegisterComponent },

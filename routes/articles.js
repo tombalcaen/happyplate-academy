@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const ArticleList = require("../models/articles");
+const Article_ratesList = require('../models/article_rates');
+
 const moment = require("moment/moment");
 
 //GET
@@ -90,6 +92,17 @@ router.post('/decrement_like',(req,res,next)=>{
           res.json({success: false, message: "Failed to decrement like!"})
       } else {
           res.json({success: true, message: "decremented!",article: Article})
+      }
+  })
+})
+
+router.post('/append_like',(req,res,next)=>{    
+  Article_ratesList.createArticleLike(req.query.Uid,req.query.Aid,(err,Article)=>{
+      if(err){
+          console.log(err.message);
+          res.json({success: false, message: "Failed to increment like!"})
+      } else {
+          res.json({success: true, message: "incremented!",article: Article})
       }
   })
 })
