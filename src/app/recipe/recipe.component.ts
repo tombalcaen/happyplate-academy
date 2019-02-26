@@ -43,9 +43,7 @@ export class RecipeComponent implements OnInit {
     //get recipe data
     this._recipe.getRecipeById(this.recipe_id).subscribe((recipeObj)=>{      
       this.recipe = recipeObj[0];
-      this.recipe.rateAverage = this.recipe.rateValue / this.recipe.rateCount;
-      console.log(recipeObj[0])
-      // this.recipe.images[0].source = this.domSanitizer.bypassSecurityTrustUrl(this.recipe.images[0].source);      
+      this.recipe.rateAverage = this.recipe.rateValue / this.recipe.rateCount;          
     })
   }
 
@@ -69,7 +67,10 @@ export class RecipeComponent implements OnInit {
 
   setRate(rate){
     this._recipe.createRecipe_rate(rate,this.recipe_id).subscribe((res)=>{
-      //hier refresh van de puntne
+      //hier refresh van de punten      
+      this.recipe.ratevalue = +res.recipe.rateValue;
+      this.recipe.rateCount = +res.recipe.rateCount;
+      this.recipe.rateAverage = +res.recipe.rateValue / +res.recipe.rateCount;
     })
     this.rateRecipeModal.nativeElement.click();
     //bedankt om dit recept te beoordelen

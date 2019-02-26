@@ -40,8 +40,6 @@ router.get('/id',(req,res,next)=>{
 })
 
 router.get('/rate',(req,res,next)=>{
-    console.log("mqlksdfjmlqksdfj")    
-    console.log(req.query)    
     Recipe_ratesList.getRatesForUser(req.query.Uid,req.query.Rid,(err, rates)=>{
         if(err){            
             res.json({success: false, message: "failed to get rates for user"});
@@ -144,9 +142,10 @@ router.post('/rate/create',(req,res,next)=>{
             res.json({success: false, message: "Failed to create new recipe_rate!"})
         } else {
             RecipesList.addRating(newRecipe_rates,(err, recipe)=>{
-                if(err)console.log(err.messsage)
+                console.log(recipe)
+                if(err) console.log(err.messsage)
                 else {
-                    res.json({success: true, message: "Recipe_rate created!"})
+                    res.json({success: true, message: "Recipe_rate created!", recipe: recipe})
                 }
                 
             })            

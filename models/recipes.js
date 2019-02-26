@@ -55,7 +55,10 @@ module.exports.createRecipes = function(recipe,callback){
 
 //UPDATE
 module.exports.addRating = function(recipe_rate,callback){    
-    recipes.update({_id: mongoose.Types.ObjectId(recipe_rate.recipeId)},{$inc:{rateCount: 1, rateValue: recipe_rate.value}},callback)
+    recipes.findByIdAndUpdate({_id: mongoose.Types.ObjectId(recipe_rate.recipeId)},
+                    {$inc:{rateCount: 1, rateValue: recipe_rate.value}},
+                    {new: true, projection: { "rateCount" : 1, "rateValue": 1 }},
+                    callback)
 }
 
 module.exports.incrementView = function(recipe_id,callback){   

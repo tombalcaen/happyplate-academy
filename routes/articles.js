@@ -31,9 +31,7 @@ router.get('/id',(req,res,next)=>{
 })
 
 //CREATE
-router.post('/create',(req,res,next)=>{
-    console.log("in router create article")
-    console.log(req.body)
+router.post('/create',(req,res,next)=>{    
     let newArticle = new ArticleList({
       name: req.body.name,
       description: req.body.description,
@@ -76,8 +74,7 @@ router.post('/increment',(req,res,next)=>{
 
 router.post('/increment_like',(req,res,next)=>{    
   ArticleList.incrementLike(req.body._id,(err,Article)=>{
-      if(err){
-          console.log(err.message);
+      if(err){          
           res.json({success: false, message: "Failed to increment like!"})
       } else {
           res.json({success: true, message: "incremented!",article: Article})
@@ -97,13 +94,26 @@ router.post('/decrement_like',(req,res,next)=>{
 })
 
 router.post('/append_like',(req,res,next)=>{    
-  Article_ratesList.createArticleLike(req.query.Uid,req.query.Aid,(err,Article)=>{
-      if(err){
-          console.log(err.message);
-          res.json({success: false, message: "Failed to increment like!"})
-      } else {
-          res.json({success: true, message: "incremented!",article: Article})
-      }
+  let newArticle_rate = new Article_ratesList({
+    userId: req.body.Uid,
+    articleId: req.body.Aid,
+    value: 1,
+    date: +moment()
+  })
+
+  Article_ratesList.createArticleLike(newArticle_rate,(err,Article)=>{        
+    if(err){
+      res.json({success: false, message: "Failed to increment like!",article: Article})
+    } else {
+      ArticleList.incrementLike(req.body.Aid,(err,art)=>{
+        if(err){          
+            res.json({success: false, message: "Failed to increment like!"})
+        } else {
+            res.json({success: true, message: "incremented!",article: Article})
+        }
+      })        
+      // res.json({success: true, message: "incremented!",article: Article})
+    }
   })
 })
 

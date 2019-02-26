@@ -20,8 +20,24 @@ const article_rates = module.exports = mongoose.model('article_rates', article_r
 
 //CREATE
 
-module.exports.createArticleLike = function(user_id,article_id,callback){
-    article_rates.find({userId: mongoose.Types.ObjectId(user_id), articleId: mongoose.Types.ObjectId(article_id)},callback)
+module.exports.createArticleLike = function(article_rate,callback){    
+    // options = { upsert: true, new: true, setDefaultsOnInsert: true };
+    article_rates.findOne({
+        userId: mongoose.Types.ObjectId(article_rate.userId), articleId: mongoose.Types.ObjectId(article_rate.articleId)},
+                                //    {$inc: { value: 1} },
+        (err,result)=>{            
+            if(!result || result.value < 5){                
+                if(!result){
+                    article_rate.save(callback);
+                }
+                else {
+                    console.log("iiiiii")
+                    article_rates.findOneAndUpdate({_id: mongoose.Types.ObjectId(result._id)},{$inc: {value: 1}},{upsert: true, new: true, projection: { "value" : 1 }},callback);
+                }
+            } else {                
+                callback({message: "Could not increment because value exceeded 5"},result)
+            }        
+        })
 }
 
 // module.exports.createRecipeRates = function(article_rate,callback){ 

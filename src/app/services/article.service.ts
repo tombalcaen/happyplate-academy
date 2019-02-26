@@ -41,8 +41,8 @@ export class ArticleService {
     return this._http.post(environment.connection_uri + "article/increment", {_id: article_id});
   }
 
-  incrementLike(article_id): Observable<any>{    
-    return this._http.post(environment.connection_uri + "article/increment_like", {_id: article_id});
+  incrementLike(user_id,article_id): Observable<any>{    
+    return this._http.post(environment.connection_uri + 'article/append_like',{'Uid': user_id, 'Aid': article_id})
   }
 
   decrementLike(article_id): Observable<any>{    

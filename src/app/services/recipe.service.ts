@@ -63,8 +63,6 @@ export class RecipeService {
       rate_value: rate_value
     }
 
-    console.log(recipe_rates)
-
     return this._http.post(environment.connection_uri + "recipe/rate/create", recipe_rates);
   }
 
