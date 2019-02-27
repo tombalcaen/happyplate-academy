@@ -11,6 +11,15 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatListModule} from '@angular/material/list';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatIconModule} from '@angular/material/icon';
+import {MatRippleModule} from '@angular/material/core';
+import {MatCardModule} from '@angular/material/card';
+import {MatStepperModule} from '@angular/material/stepper';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -28,6 +37,7 @@ import { BlogNavbarComponent } from './blog-navbar/blog-navbar.component';
 import { BlogFooterComponent } from './blog-footer/blog-footer.component';
 import { CreateArticleComponent } from './create-article/create-article.component';
 
+
 //third party editor
 import { QuillModule } from 'ngx-quill';
 import { RecipesComponent } from './recipes/recipes.component';
@@ -38,6 +48,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { JwtModule,JwtHelperService } from '@auth0/angular-jwt';
 import { ProfileComponent } from './profile/profile.component';
+import { CreateHealthProfileComponent } from './create-health-profile/create-health-profile.component';
 
 export function tokenGetter() {
   return localStorage.getItem('id_token');
@@ -65,7 +76,8 @@ export function tokenGetter() {
     ArticleWidgetComponent,
     LoginComponent,
     RegisterComponent,
-    ProfileComponent
+    ProfileComponent,
+    CreateHealthProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -81,6 +93,15 @@ export function tokenGetter() {
     MatInputModule,
     MatFormFieldModule,
     MatTooltipModule,
+    MatSidenavModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatDividerModule,
+    MatListModule,
+    MatIconModule,
+    MatRippleModule,
+    MatCardModule,
+    MatStepperModule,
     QuillModule,
     JwtModule.forRoot({
       config: {

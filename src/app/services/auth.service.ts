@@ -48,6 +48,8 @@ export class AuthService {
   storeUserData(token,user){    
     localStorage.setItem("id_token",token);
     localStorage.setItem("user",user.id); //JSON.stringify(
+    localStorage.setItem("fullName", user.fullName);
+    localStorage.setItem("email", user.email);
     this.authToken = token;
     this.user = user;
   }
@@ -81,6 +83,14 @@ export class AuthService {
 
   loadLocalUser(){
     return localStorage.getItem('user');
+  }
+
+  loadFullName(){
+    return localStorage.getItem("fullName");
+  }
+
+  loadEmail(){
+    return localStorage.getItem('email')
   }
 
 }

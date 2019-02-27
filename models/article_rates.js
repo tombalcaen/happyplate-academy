@@ -4,7 +4,7 @@ const config = require('../config/database');
 const article_ratesSchema = mongoose.Schema({
     // _id: {type: mongoose.Types.ObjectId},
     userId: {type: mongoose.Types.ObjectId, required: true},
-    articleId: {type: mongoose.Types.ObjectId, required: true},
+    articleId: {type: mongoose.Types.ObjectId, required: true, ref:'articles'},
     value: {type: Number, required: true},
     date: {type: Date, required: true}
 });
@@ -17,6 +17,12 @@ const article_rates = module.exports = mongoose.model('article_rates', article_r
 // module.exports.getRatesForUser = function(user_id,article_id,callback){ 
 //     article_rates.find({userId: mongoose.Types.ObjectId(user_id), articleId: mongoose.Types.ObjectId(article_id)},callback)
 // }
+
+module.exports.getAllLikesForUser = function(user_id,callback){
+    console.log("in model")
+    article_rates.find({userId: mongoose.Types.ObjectId(user_id)},callback)
+    .populate("articleId", 'name')
+}
 
 //CREATE
 

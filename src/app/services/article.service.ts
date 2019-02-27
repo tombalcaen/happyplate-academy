@@ -4,12 +4,15 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 
 import {environment} from "../../environments/environment";
 
+import { AuthService } from "../services/auth.service";
+
 @Injectable({
   providedIn: 'root'
 })
 export class ArticleService {
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient,
+              private _auth: AuthService) { }
 
   // GET
   getArticles(): Observable<any>{    
@@ -18,6 +21,11 @@ export class ArticleService {
 
   getArticleById(_id): Observable<any>{
     return this._http.get(environment.connection_uri + 'article/id?_id=' + _id);
+  }
+
+  getAllLikesForId(): Observable<any>{
+    let user_id = this._auth.loadLocalUser();
+    return this._http.get(environment.connection_uri + 'article/like/all', {params: {'Uid': user_id}})
   }
 
   // CREATE

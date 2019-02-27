@@ -31,6 +31,9 @@ router.post('/',(req,res,next)=>{
   const password = req.body.password;    
 
   User.getUserByEmail(email,(err,user)=>{
+
+    console.log(user)
+
       if(err) throw(err);
       if(!user){
           return res.json({success: false, message: "user not found!"})
@@ -48,8 +51,8 @@ router.post('/',(req,res,next)=>{
               token: 'JWT ' +token, 
               user:{
                   id: user._id,
-                  name: user.name,
-                  username: user.username,
+                  fullName: user.fullName,
+                  // username: user.username,
                   email: user.email
                   }
           })

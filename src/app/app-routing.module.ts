@@ -18,6 +18,7 @@ import { ArticlesComponent } from './articles/articles.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
+import { CreateHealthProfileComponent } from './create-health-profile/create-health-profile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'blog', pathMatch: 'full' },
@@ -36,6 +37,7 @@ const routes: Routes = [
   { path: 'login',  component: LoginComponent },
   { path: 'create-account',  component: RegisterComponent },
   { path: 'profile',  component: ProfileComponent, canActivate: [AuthService] },
+  { path: 'create-health-profile',  component: CreateHealthProfileComponent },
   // { path: 'login',  component: LoginComponent },
   // { path: 'emailverify',  component: EmailVerifyComponent },
   // { path: 'register',  component: RegisterComponent },

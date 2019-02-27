@@ -30,6 +30,19 @@ router.get('/id',(req,res,next)=>{
   })
 })
 
+router.get('/like/all',(req,res,next)=>{
+  console.log('in article')
+  console.log(req.query.Uid)
+  Article_ratesList.getAllLikesForUser(req.query.Uid,(err, rates)=>{
+      if(err){
+          console.log(err.message)
+          res.json()
+      } else {
+          res.json(rates)
+      }
+  })
+})
+
 //CREATE
 router.post('/create',(req,res,next)=>{    
     let newArticle = new ArticleList({

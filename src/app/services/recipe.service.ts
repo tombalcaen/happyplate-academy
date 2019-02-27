@@ -54,6 +54,11 @@ export class RecipeService {
     return this._http.get(environment.connection_uri + 'recipe/rate',{params: {'Uid': user_id, 'Rid': recipe_id}});    
   }
 
+  getAllRatesForId(): Observable<any>{
+    let user_id = this._auth.loadLocalUser();
+    return this._http.get(environment.connection_uri + 'recipe/rate/all', {params: {'Uid': user_id}})
+  }
+
   createRecipe_rate(rate_value,recipe_id): Observable<any>{
     const user = this._auth.loadLocalUser();
     

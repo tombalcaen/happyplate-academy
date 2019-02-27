@@ -5,8 +5,7 @@ const moment = require("moment/moment");
 const RecipesList = require("../models/recipes");
 const Recipe_ratesList = require("../models/recipe_rates");
 
-router.get('/',(req,res,next)=>{     
-    console.log("!!!!!!") 
+router.get('/',(req,res,next)=>{         
     RecipesList.getRecipes((err, items)=>{        
     if(err){
         console.log(err.message)
@@ -56,6 +55,17 @@ router.get('/rate',(req,res,next)=>{
     //   }
     // })
     // res.json({message: "back"})
+})
+
+router.get('/rate/all',(req,res,next)=>{
+    Recipe_ratesList.getAllRatesForUser(req.query.Uid,(err, rates)=>{
+        if(err){
+            console.log(err.message)
+            res.json()
+        } else {
+            res.json(rates)
+        }
+    })
 })
 
 router.post('/create',(req,res,next)=>{
