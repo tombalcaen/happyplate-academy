@@ -1,0 +1,16 @@
+.mat-list-item .mat-card:hover{
+    border: 1px solid grey;
+}
+
+.mat-card--button{
+    cursor: pointer;
+}
+
+.mat-card--button:hover{
+    box-shadow: 0 2px 1px -1px darkgrey, 0 1px 1px 0 darkgrey, 0 1px 3px 0 darkgrey;
+}
+
+::ng-deep .mat-spinner{
+    margin-left: auto;
+    margin-right: auto;
+}

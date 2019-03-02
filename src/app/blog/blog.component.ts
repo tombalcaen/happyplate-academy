@@ -20,6 +20,7 @@ export class BlogComponent implements OnInit {
   articles = [];
   recipes = [];
   highlights = [];
+  myRecipes = [];
 
 
   ngOnInit() {
@@ -29,7 +30,7 @@ export class BlogComponent implements OnInit {
       this.highlights[0].articles.map((article)=>{
         article.datePublished_str = moment(article.datePublished_str).format("D MMM");
       })
-      console.log(highlights)
+      
     })
 
     this._article.getArticles().subscribe((articles)=>{      
@@ -42,7 +43,6 @@ export class BlogComponent implements OnInit {
           return b.dateCreated - a.dateCreated;
         });
       })
-
     })
 
     this._recipe.getRecipes().subscribe((recipes)=>{            
@@ -56,6 +56,11 @@ export class BlogComponent implements OnInit {
         });
       })
     })
+
+    // this._recipe.getMyRecipes().subscribe((myRecipes)=>{      
+    //   this.myRecipes = myRecipes.myrecipes[0].recipeId;      
+    // })
+
   }
 
 }

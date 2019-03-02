@@ -22,7 +22,10 @@ export class AuthService {
 
   canActivate(){
     if(!this.loggedIn()) return true;
-    else this._router.navigate(['/login']);
+    else {
+      this._router.navigate(['/login']);
+      return false;
+    }
   }
 
   loggedIn(){    
@@ -50,6 +53,7 @@ export class AuthService {
     localStorage.setItem("user",user.id); //JSON.stringify(
     localStorage.setItem("fullName", user.fullName);
     localStorage.setItem("email", user.email);
+    localStorage.setItem("admin", user.isAdmin);
     this.authToken = token;
     this.user = user;
   }
@@ -68,6 +72,7 @@ export class AuthService {
 
   logout(): Promise<any>{
     return new Promise((resolve,reject)=>{
+      this._router.navigate(['/blog']);
       this.authToken = null;
       this.user = null;
       localStorage.clear();
@@ -90,7 +95,11 @@ export class AuthService {
   }
 
   loadEmail(){
-    return localStorage.getItem('email')
+    return localStorage.getItem('email');
+  }
+
+  isAdmin(){
+    return (localStorage.getItem('admin') == 'true')?true:false;
   }
 
 }

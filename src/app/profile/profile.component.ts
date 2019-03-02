@@ -19,6 +19,7 @@ export class ProfileComponent implements OnInit {
   user = {fullName: '', email: ''};
   recipeRates = [];
   articleLikes = [];
+  myRecipes = [];
 
   ngOnInit() {
     this.getProfile()    
@@ -36,6 +37,8 @@ export class ProfileComponent implements OnInit {
       this.getRatings();
     } else if(option == 2){
       this.getLikes();
+    } else if(option == 3){
+      this.getMyRecipes();
     }
     //get beoordelingen
 
@@ -69,6 +72,14 @@ export class ProfileComponent implements OnInit {
         })
       })
     }
+  }
+
+  getMyRecipes(){
+    this._recipe.getMyRecipes().subscribe((recipes)=>{
+      console.log(recipes)
+      this.myRecipes = recipes.myrecipes[0].recipeId;
+      console.log(this.myRecipes)
+    })
   }
 
 }

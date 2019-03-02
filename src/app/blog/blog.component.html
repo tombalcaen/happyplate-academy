@@ -94,9 +94,9 @@
         </div>
       </div> -->
     </div>
-    <div class="row justify-content-center mb-4">
+    <div class="row justify-content-center m-2">
       <div class="col-12 text-center">
-        <button class="button" routerLink="/recipes" style="text-decoration: none; cursor: pointer;">Toon meer articels</button>
+        <button class="button" routerLink="/recipes" style="text-decoration: none; cursor: pointer;">Toon meer artikels</button>
       </div>
     </div>
   </div>
@@ -111,7 +111,7 @@
       <!-- RECIPES  -->
       <recipe-widget *ngFor="let recipe of recipes | slice:0:8" [recipe]="recipe" class="col-12 col-sm-6 col-md-3 pb-5 px-2 content-container-card"></recipe-widget>      
     </div>
-    <div class="row justify-content-center">
+    <div class="row justify-content-center m-2">
       <div class="col-12 text-center">
         <a class="button" routerLink="/recipes" style="text-decoration: none; cursor: pointer;">Toon meer recepten</a>
       </div>

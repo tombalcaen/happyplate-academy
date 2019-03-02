@@ -26,8 +26,8 @@
                     <li class="list-item" routerLink="#">Word een member</li>
                     <li class="list-item list-item--separator"></li>
                     <li class="list-item" routerLink="/profile">profiel</li>
-                    <li class="list-item" routerLink="/settings">settings</li>
-                    <li class="list-item" routerLink="/help">help</li>
+                    <!-- <li class="list-item" routerLink="/settings">settings</li>
+                    <li class="list-item" routerLink="/help">help</li> -->
                     <li class="list-item" (click)="onLogout()">log uit</li>
                   </ul>
                 </div>                
@@ -51,7 +51,7 @@
   <div class="container upper-menu-container" [style.padding.rem]="blnNarrow ? '0' : '0.5'">
     <div class="row p-0">
       <div class="col-12 upper-menu">
-        <ul class="d-block d-md-flex upper-menu-list m-0 mx-5" style="padding: 0px 100px 0px 100px;">
+        <ul class="d-block d-md-flex upper-menu-list m-0 mx-0 mx-md-5" style="">
           <li class="d-block d-md-inline-block upper-menu-list-item">
             <a routerLink="/recipes">gezonder recepten</a>            
           </li>

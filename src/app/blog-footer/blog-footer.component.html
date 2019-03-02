@@ -1,4 +1,4 @@
-<footer class="container-fluid py-0">
+<footer class="container-fluid p-0">
   <div class="container footer-container">
     <div class="row justify-content-center">
       <div class="col-12 text-center">
@@ -7,12 +7,12 @@
           <li class="d-inline" style="padding: 0; margin: 0;">
             FAQ
           </li>
-          <li class="d-inline mx-5">Contacteer ons</li>
-          <li class="d-inline mx-5">Feedback</li>
-          <li class="d-inline mx-5">Advertise</li>
-          <li class="d-inline mx-5">Privacy policy</li>
-          <li class="d-inline mx-5">Press</li>
-          <li class="d-inline mx-5" routerLink="/create_recipe"><i class="fas fa-carrot"></i></li>
+          <li class="d-block d-md-inline mx-5">Contacteer ons</li>
+          <li class="d-block d-md-inline mx-5">Feedback</li>
+          <li class="d-block d-md-inline mx-5">Advertise</li>
+          <li class="d-block d-md-inline mx-5">Privacy policy</li>
+          <li class="d-block d-md-inline mx-5">Press</li>
+          <li *ngIf="admin" class="d-inline mx-5" routerLink="/create_recipe"><i class="fas fa-carrot"></i></li>
         </ul>
       </div>
     </div>

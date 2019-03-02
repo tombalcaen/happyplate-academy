@@ -31,6 +31,7 @@ export class RecipeComponent implements OnInit {
   blnLoggedIn : boolean = false;
   routeState: RouterStateSnapshot;
   user_recipe_rate: any;
+  blnRecipeSaved: boolean = false;
 
   ngOnInit() {
     this.blnLoggedIn = !this._auth.loggedIn();
@@ -44,6 +45,12 @@ export class RecipeComponent implements OnInit {
     this._recipe.getRecipeById(this.recipe_id).subscribe((recipeObj)=>{      
       this.recipe = recipeObj[0];
       this.recipe.rateAverage = this.recipe.rateValue / this.recipe.rateCount;          
+    })
+
+    //check if saved
+    this._recipe.recipeSaved(this.recipe_id).subscribe((res)=>{      
+      if(res.myrecipes.length == 0) this.blnRecipeSaved = false;
+      else this.blnRecipeSaved = true;
     })
   }
 
@@ -85,6 +92,12 @@ export class RecipeComponent implements OnInit {
       
       this._router.navigate(['login'], { queryParams: { returnUrl: this.routeState.url }});
     }
+  }
+
+  saveToMyRecipes(){        
+    this._recipe.saveToMyRecipes(this.recipe._id).subscribe((res)=>{
+      if(res.success) this.blnRecipeSaved = true;      
+    })
   }
 
 }

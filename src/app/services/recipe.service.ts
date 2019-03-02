@@ -71,4 +71,25 @@ export class RecipeService {
     return this._http.post(environment.connection_uri + "recipe/rate/create", recipe_rates);
   }
 
+  // MYRECIPES
+
+  getMyRecipes(): Observable<any>{    
+    return this._http.get(environment.connection_uri + "recipe/myrecipes?user_id=" + this._auth.loadLocalUser());
+  }
+
+  recipeSaved(recipe_id): Observable<any>{
+    return this._http.get(environment.connection_uri + "recipe/myrecipes/saved",{params: {'user_id': this._auth.loadLocalUser(), 'recipe_id': recipe_id}})
+  }
+
+  saveToMyRecipes(recipe_id): Observable<any>{
+    const a = {
+      user_id: this._auth.loadLocalUser(),
+      recipe_id: recipe_id
+    }
+
+    return this._http.post(environment.connection_uri + "recipe/myrecipes/create", a);
+  }
+
+  
+
 }

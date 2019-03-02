@@ -11,7 +11,7 @@
   <div class="row justify-content-center">
     <div class="col-12">
       <form class="row" [formGroup]="recipeForm" (ngSubmit)="createRecipe(recipeForm.value)">    
-        <div class="col-6">
+        <div class="col-12 col-md-6">
           <div class="form-group">
             <label for="exampleInputEmail1">name</label>
             <input type="text" formControlName="name" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">
@@ -33,9 +33,17 @@
             <button type="button" class="btn btn-secondary" (click)="addRemoveTag('max. 5 ingr.')">max. 5 ingr.</button>
             <button type="button" class="btn btn-secondary" (click)="addRemoveTag('super gezond')">super gezond</button>
             <button type="button" class="btn btn-secondary" (click)="addRemoveTag('lage calorieën')">lage calorieën</button>
+          </div>
+          <div class="btn-group" role="group" aria-label="Basic example">
             <button type="button" class="btn btn-secondary" (click)="addRemoveTag('pikant')">pikant</button>
             <button type="button" class="btn btn-secondary" (click)="addRemoveTag('zuivel vrij')">zuivel vrij</button>
             <button type="button" class="btn btn-secondary" (click)="addRemoveTag('gluten vrij')">gluten vrij</button>
+            <button type="button" class="btn btn-secondary" (click)="addRemoveTag('ontbijt')">ontbijt</button>
+          </div>
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-secondary" (click)="addRemoveTag('lunch')">lunch</button>
+            <button type="button" class="btn btn-secondary" (click)="addRemoveTag('dinner')">dinner</button>
+            <button type="button" class="btn btn-secondary" (click)="addRemoveTag('snack')">snack</button>
           </div>
           <div class="form-group">            
             <label for="exampleInputEmail1">tags</label>
@@ -82,7 +90,7 @@
             <input type="text" formControlName="imgSource" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">
           </div>
         </div>
-        <div class="col-6">
+        <div class="col-12 col-md-6">
           <div class="form-group">
             <label for="exampleInputEmail1">calories</label>
             <input type="text" formControlName="calories" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" style="background-color: #fbfbfd;">

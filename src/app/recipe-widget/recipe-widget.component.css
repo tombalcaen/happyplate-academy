@@ -94,6 +94,24 @@
     z-index: 200;
 }
 
+.recipe_myRecipeBook{
+    position: absolute;
+    z-index: 1;
+    width: 30px;
+    height: 30px;
+    top: 10px;
+    left: 20px;
+    border-radius: 50%;
+    border: 1px solid;
+    background-color: white;
+    cursor: pointer;
+}
+
+.recipe_myRecipeBook--icon{
+    padding-top: 6px;
+    padding-left: 1px;
+}
+
 .recipe_mealtype{
     position: absolute;
     width: 30px;
@@ -294,7 +312,9 @@ button:focus {outline:none;}
     /* transition: background-color 1s ease; */
 }
 
-
+.saved{
+    color: orangered;
+}
 
 /* .chef-icon:active{
     color: red;

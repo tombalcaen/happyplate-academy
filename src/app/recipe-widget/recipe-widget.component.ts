@@ -14,6 +14,8 @@ export class RecipeWidgetComponent implements OnInit {
   
   constructor(private _recipe: RecipeService) { }
 
+  blnRecipeSave: boolean = false;
+
   ngOnInit() {
     this.recipe.rateAverage = this.recipe.rateValue / this.recipe.rateCount;    
   }
@@ -77,8 +79,10 @@ export class RecipeWidgetComponent implements OnInit {
   //   })    
   // }
 
-  saveRecipe(){
+  // saveToMyRecipes(){
+  //   this._recipe.saveToMyRecipes(this.recipe._id).subscribe(()=>{
 
-  }
+  //   })
+  // }
 
 }

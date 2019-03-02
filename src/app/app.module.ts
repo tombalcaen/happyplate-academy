@@ -20,6 +20,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatRippleModule} from '@angular/material/core';
 import {MatCardModule} from '@angular/material/card';
 import {MatStepperModule} from '@angular/material/stepper';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -102,6 +103,7 @@ export function tokenGetter() {
     MatRippleModule,
     MatCardModule,
     MatStepperModule,
+    MatProgressSpinnerModule,
     QuillModule,
     JwtModule.forRoot({
       config: {

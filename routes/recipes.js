@@ -4,6 +4,7 @@ const moment = require("moment/moment");
 
 const RecipesList = require("../models/recipes");
 const Recipe_ratesList = require("../models/recipe_rates");
+const user_recipes = require("../models/user_recipes");
 
 router.get('/',(req,res,next)=>{         
     RecipesList.getRecipes((err, items)=>{        
@@ -16,8 +17,7 @@ router.get('/',(req,res,next)=>{
     })
 })
 
-router.get('/for',(req,res,next)=>{ 
-    console.log("iiiiii")   
+router.get('/for',(req,res,next)=>{       
     RecipesList.getRecipesFor(req.query.tag,(err, items)=>{        
     if(err){
         console.log(err.message)
@@ -144,15 +144,11 @@ router.post('/rate/create',(req,res,next)=>{
         date: +moment()
     })
 
-    console.log(newRecipe_rates)
-
     Recipe_ratesList.createRecipeRates(newRecipe_rates,(err, Recipe_rate)=>{
-        if(err){
-            console.log(err.message);
+        if(err){            
             res.json({success: false, message: "Failed to create new recipe_rate!"})
         } else {
-            RecipesList.addRating(newRecipe_rates,(err, recipe)=>{
-                console.log(recipe)
+            RecipesList.addRating(newRecipe_rates,(err, recipe)=>{                
                 if(err) console.log(err.messsage)
                 else {
                     res.json({success: true, message: "Recipe_rate created!", recipe: recipe})
@@ -164,5 +160,46 @@ router.post('/rate/create',(req,res,next)=>{
 })
 
 
+// MYRECIPES
+
+router.get('/myrecipes',(req,res,next)=>{
+    console.log("in router " + req.query.user_id)
+    const user_id = req.query.user_id;
+    user_recipes.getUserRecipes(user_id,(err,userRecipes)=>{
+        if(err) console.log(err.message);
+        else {
+            res.json({success: true, myrecipes: userRecipes})
+        }
+    })
+})
+
+router.get('/myrecipes/saved',(req,res,next)=>{
+    const user_id = req.query.user_id;
+    const recipe_id = req.query.recipe_id;
+    user_recipes.checkSaved(user_id,recipe_id,(err,userRecipes)=>{
+        if(err) {
+            console.log(err.message);
+            res.json({success: false, message: err.message})
+        }
+        else {            
+            res.json({success: true, myrecipes: userRecipes})
+        }
+    })
+})
+
+
+router.post('/myrecipes/create',(req,res,next)=>{
+    const user_id = req.body.user_id;
+    const recipe_id = req.body.recipe_id;
+    user_recipes.createUserRecipe(user_id, recipe_id,(err, userRecipe)=>{
+        if(err) {            
+            console.log(err.message);
+            res.json({success: false, message: "unable to store in my recipe book"})
+        }
+        else {
+            res.json({success: true, message: "succesfully saved recipe to recipebook."});
+        }
+    })
+})
 
 module.exports = router;

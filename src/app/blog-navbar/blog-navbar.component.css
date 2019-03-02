@@ -239,6 +239,13 @@ a{
     width: 100%;
     margin: 0 32px;
     list-style: none;
+    padding: 0px 100px 0px 100px;
+}
+
+@media (max-width: 748px){
+    .upper-menu-list{
+        padding: 0px;
+    }
 }
 
 .upper-menu-list-item{

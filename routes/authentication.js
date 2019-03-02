@@ -52,6 +52,7 @@ router.post('/',(req,res,next)=>{
               user:{
                   id: user._id,
                   fullName: user.fullName,
+                  isAdmin: user.isAdmin,
                   // username: user.username,
                   email: user.email
                   }

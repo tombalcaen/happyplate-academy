@@ -1,8 +1,93 @@
 <blog-navbar></blog-navbar>
 <div class="container p-0">
+  <mat-tab-group (selectedIndexChange)="getData($event)">
+    <mat-tab label="Gezondheidsprofiel">
+      <div class="row m-0">
+        <div class="col-12 p-0 text-center">
+          <mat-card class="example-card mt-3 mx-1" style="">
+            <mat-card-header>
+              <div mat-card-avatar class="example-header-image" style="border: 1px solid grey; width: 70px; height: 70px;">
+                <i class="fas fa-user fa-3x" style="margin-top: 7px;"></i>
+              </div>
+              <mat-card-title class="text-left">{{user.fullName}}</mat-card-title>
+              <mat-card-subtitle class="text-left">{{user.email}}</mat-card-subtitle>
+            </mat-card-header>                    
+          </mat-card>  
+          <mat-card class="mat-card--button my-5 mx-1">
+            <mat-card-content routerLink="/create-health-profile" class="p-5">
+              <a class="" >Creëer gezondheidsprofiel</a>
+            </mat-card-content>
+          </mat-card>            
+            <!-- <a routerLink="/create-health-profile" class="btn btn-warning">Creëer gezondheidprofiel</a> -->
+        </div>
+      </div>
+      
+    </mat-tab>
+    <mat-tab label="Beoordelingen">          
+      <mat-list>
+        <div *ngIf="recipeRates.length == 0" class="text-center m-5">
+          <mat-spinner *ngIf="true"></mat-spinner>
+        </div>
+        <mat-list-item *ngFor="let rates of recipeRates; let i = index;" class="my-2" style="height: unset;">
+          <mat-card [routerLink]="['/recipe',rates.recipeId._id]" class="w-100" style="cursor: pointer;">                
+            <div class="d-inline mr-5">{{rates.dateStr}}</div>
+            <div class="d-inline mr-5">{{rates.recipeId.name}}</div>
+            <div class="d-inline" style="float: right;">
+              <div class="d-inline mx-0">
+                <i class="fas fa-star p-2" [style.color]="rates?.value > 0.5?'orange':'lightgrey'"></i>
+                <i class="fas fa-star p-2" [style.color]="rates?.value > 1.5?'orange':'lightgrey'"></i>
+                <i class="fas fa-star p-2" [style.color]="rates?.value > 2.5?'orange':'lightgrey'"></i>
+                <i class="fas fa-star p-2" [style.color]="rates?.value > 3.5?'orange':'lightgrey'"></i>
+                <i class="fas fa-star p-2" [style.color]="rates?.value > 4.5?'orange':'lightgrey'"></i>                    
+              </div>
+            </div>
+          </mat-card>
+        </mat-list-item>
+      </mat-list>          
+    </mat-tab>
+    <mat-tab label="Likes">
+      <mat-list>
+        <div *ngIf="articleLikes.length == 0" class="text-center m-5">
+          <mat-spinner *ngIf="true"></mat-spinner>
+        </div>
+        <mat-list-item *ngFor="let likes of articleLikes; let i = index;" class="my-2" style="height: unset;">
+          <mat-card [routerLink]="['/article',likes.articleId._id]" class="w-100" style="cursor: pointer;">                
+            <div class="d-inline mr-5">{{likes.dateStr}}</div>
+            <div class="d-inline mr-5">{{likes.articleId.name}}</div>
+            <div class="d-inline" style="float: right;">
+              {{likes.value}} keer applaus.
+            </div>
+          </mat-card>
+        </mat-list-item>
+      </mat-list>          
+    </mat-tab>
+    <mat-tab label="Mijn receptenboek">          
+      <mat-list>
+        <div *ngIf="myRecipes.length == 0" class="text-center m-5">
+          <mat-spinner *ngIf="true"></mat-spinner>
+        </div>
+        <mat-list-item *ngFor="let recipe of myRecipes; let i = index;" class="my-2" style="height: unset;">
+          <mat-card [routerLink]="['/recipe',recipe._id]" class="w-100" style="cursor: pointer;">                
+            <div mat-card-avatar class="d-inline-block example-header-image mr-5" [style.background-image]="'url(' + recipe?.images[0]?.source + ')'" style="background-size: cover; vertical-align: -webkit-baseline-middle;"></div> 
+            <div class="d-inline mr-5" style="vertical-align: sub;">{{recipe.name}}</div>            
+          </mat-card>
+        </mat-list-item>
+      </mat-list>          
+    </mat-tab>
+    <!-- <mat-tab label="opgeslaan">
+      <mat-list>
+        
+      </mat-list>          
+    </mat-tab> -->
+  </mat-tab-group>
+</div>
+
+
+
+<!--
+<div class="container p-0">
   <mat-sidenav-container layout="column" class="" style="height: calc(100vh - 125px);">
-    <mat-sidenav mode="side" opened>
-      <!-- <mat-toolbar class=""> -->
+    <mat-sidenav mode="side" opened>      
         <mat-card class="example-card" style="box-shadow: none; border-bottom: 1px solid #e0e0e0;">
           <mat-card-header>
             <div mat-card-avatar class="example-header-image">
@@ -11,23 +96,22 @@
             <mat-card-title>{{user.fullName}}</mat-card-title>
             <mat-card-subtitle>{{user.email}}</mat-card-subtitle>
           </mat-card-header>                    
-        </mat-card>        
-      <!-- </mat-toolbar> -->
+        </mat-card>              
       <mat-list role="list">
-        <mat-list-item matRipple [matRippleColor]="'lightgrey'" role="listitem">
+        <mat-list-item matRipple role="listitem">
           <a style="cursor: pointer;">
             <mat-icon mat-list-icon class="mr-3" style="color: #737373;"><i class="fas fa-address-card"></i></mat-icon>
             <span class="mr-3" style="color: #737373;">Dashboard</span>
           </a>
         </mat-list-item>
-        <mat-list-item matRipple [matRippleColor]="'lightgrey'"  role="listitem">
+        <mat-list-item matRipple  role="listitem">
           <a style="cursor: pointer;">
             <mat-icon mat-list-icon class="mr-3" style="color: #737373;"><i class="fas fa-user-friends"></i></mat-icon>
             <span class="mr-3" style="color: #737373;">Vrienden</span>
             <span class="badge badge-warning" style="color: white;">soon</span>
           </a>
         </mat-list-item>
-        <mat-list-item matRipple [matRippleColor]="'lightgrey'"  role="listitem">
+        <mat-list-item matRipple  role="listitem">
           <a style="cursor: pointer;">
             <mat-icon mat-list-icon class="mr-3" style="color: #737373;"><i class="far fa-comment-alt"></i></mat-icon>
             <span class="mr-3" style="color: #737373;">Berichten</span>
@@ -36,7 +120,7 @@
         </mat-list-item>
         <mat-divider></mat-divider>
         <h6 class="subheader m-2" style="color: lightgrey">Managment</h6>
-        <mat-list-item matRipple [matRippleColor]="'lightgrey'"  role="listitem">
+        <mat-list-item matRipple  role="listitem">
           <a style="cursor: pointer;">
             <mat-icon mat-list-icon class="mr-3" style="color: #737373;"><i class="fas fa-cog"></i></mat-icon>
             <span class="mr-3" style="color: #737373;">Settings</span>
@@ -50,8 +134,7 @@
         <mat-tab label="Gezondheidsprofiel">
           <div class="row m-0">
             <div class="col-12 p-0 text-center">
-              <h1>Profiel in ontwikkeling</h1>
-                <!-- <a routerLink="/create-health-profile" class="btn btn-warning">Creëer gezondheidprofiel</a> -->
+              <h1>Profiel in ontwikkeling</h1>                
             </div>
           </div>
           
@@ -87,16 +170,11 @@
               </mat-card>
             </mat-list-item>
           </mat-list>          
-        </mat-tab>
-        <!-- <mat-tab label="opgeslaan">
-          <mat-list>
-            
-          </mat-list>          
-        </mat-tab> -->
+        </mat-tab>        
       </mat-tab-group>
     </mat-sidenav-content>
   </mat-sidenav-container>
-</div>
+</div>-->
 <!-- <div class="container-fluid">
   <div class="container">
     <div class="row">
