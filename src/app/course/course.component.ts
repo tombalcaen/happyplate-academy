@@ -143,6 +143,16 @@ export class CourseComponent implements OnInit {
 
   }
 
+  checkNextLesson(){
+    if(this.a != this.sections.length - 1 || this.i != this.sections[this.sections.length - 1].lessons.length - 1) return false;
+    else return true;
+  }
+
+  checkPreviousLesson(){
+    if(this.a != 0 || this.i != 0) return false;
+    else return true;
+  }
+
   nextLesson(){
     if(this.sections[this.a].lessons.length - 1 == this.i){      
       this.activatePost(this.a + 1,0);

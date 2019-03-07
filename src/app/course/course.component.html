@@ -15,6 +15,18 @@
       </div>
     </div>
     <!--CONTENT-->
+    <div class="row justify-content-center m-0 p-3 lecture-controls">
+      <div class="col-6 p-0 text-center lecture-control-cta lecture-controls--previous" style="border-right: 1px solid #e0e0e0;">
+      <a class="p-3" [class.disabled]="checkPreviousLesson()" (click)="a != 0 || i != 0?previousLesson():null" >
+          <i class="fas fa-arrow-left mr-3"></i>
+          Vorige les
+      </a>
+      </div>
+      <div class="col-6 p-0 text-center lecture-control-cta lecture-controls--next" [class.disabled]="checkNextLesson()" (click)="a != sections.length - 1 || i != sections[sections.length - 1].lessons.length - 1?nextLesson():null">        
+        volgende les
+        <i class="fas fa-arrow-right ml-3"></i>
+      </div>
+    </div>
     <mat-progress-bar class="course-content-progress" mode="determinate" [value]="progress" style="position: relative;"></mat-progress-bar>
     <div #scrollcontent (scroll)="checkScrollposition($event)" class="course-content">      
       <div class="container">

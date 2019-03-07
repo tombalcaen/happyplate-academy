@@ -34,6 +34,10 @@
     }
 }
 
+.lecture-control-cta{
+    cursor: pointer;
+}
+
 .course-content-text{
     font-family: "avenir-next", "Helvetica Neue", Arial, sans-serif;
     font-size: 18px;
@@ -136,6 +140,11 @@
 
 .section-block a.viewed:not(.active) span {
     text-decoration: line-through;
+}
+
+.disabled{
+    cursor: not-allowed;
+    color: #e0e0e0 !important;
 }
 
 h1{

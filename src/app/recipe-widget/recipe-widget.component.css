@@ -39,6 +39,19 @@
     color: lightgrey;
 }
 
+.content-card-badges{
+    height: 64px;
+}
+
+@media only screen
+and (min-width: 768px){
+    .content-card-badges{
+        color: green;        
+        max-height: 64px;
+        
+    }
+}
+
 .content-card-data--recipe{
     border-top: 8px solid #c03d5a;
 }

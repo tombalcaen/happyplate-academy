@@ -41,7 +41,7 @@
     <a class="content-card-title-link" [routerLink]="['/recipe', recipe._id]">{{recipe.name}}</a>
   </div>
   <!-- BADGES -->
-  <div class="content-card-badges mb-1" style="max-height: 70px;" >
+  <div class="content-card-badges mb-1">
     <span *ngFor="let badge of recipe.tags| slice:0:4" class="badge badge-light mr-1 mb-1 p-2" style="font-weight: 300;">{{badge}}</span>
     <span *ngIf="recipe.tags.length > 4" class="badge badge-light mr-1 mb-1 p-2" style="font-weight: 300;">+</span>
   </div>
