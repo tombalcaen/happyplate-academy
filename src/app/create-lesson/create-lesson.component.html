@@ -8,7 +8,25 @@
     </div>    
   </div>
 </div>
+
+<div class="choose-create-lesson">
+  <a class="btn btn-primary" (click)="onChooseLessonType('text')">tekst</a>
+  <a class="btn btn-primary" (click)="onChooseLessonType('audio')">audio</a>
+  <a class="btn btn-primary" (click)="onChooseLessonType('film')">film</a>
+</div>
+
 <div class="create-lesson-content">
+  <div class="container">
+    <div class="row justify-content-center pt-5">
+      <div class="col-12 col-md-8">
+          bla bla bla bla bla
+          <iframe [src]='safeURL' width="560" height="315" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>  
+</div>
+
+<div *ngIf="blnShowTextType" class="create-lesson-content">
   <div class="container">
     <div class="row justify-content-center py-4">
       <!-- <div class="col-12 col-md-4">        
@@ -44,7 +62,7 @@
       </div>
     </div> 
   <div>
-</div>       
+</div>
         <!-- <div class="py-3" style="min-height: 94px;">
           <div class="container textEditor">
             <div class="row justify-content-center">

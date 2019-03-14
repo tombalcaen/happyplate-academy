@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
 import * as moment from 'moment';
 
 import { LessonService } from '../services/lesson.service';
@@ -25,15 +26,25 @@ export class CreateLessonComponent implements OnInit {
 
   constructor(private _lesson: LessonService,
               private _route: ActivatedRoute,
-              private router: Router) { }
+              private router: Router,
+              private _sanitizer: DomSanitizer) {
+                this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl("https://www.youtube.com/embed/VFBSF6ubn4o");                
+               }
 
   last_saved: any;
   blnBold: boolean = false;
   blnBoldSupport: boolean = false;
   blnItalic: boolean = false;
   blnEditor: boolean = false;
+
+  blnShowTextType: boolean = false;
+  blnShowAudioType: boolean = false;
+  blnShowVideoType: boolean = false;
+
   sel: any;
   range: any;
+
+  safeURL: any;
 
   n_regex = 0;
   n_image = 0;
@@ -51,6 +62,32 @@ export class CreateLessonComponent implements OnInit {
       });
     // document.execCommand("insertHTML", false, "<p><br></p>");
     // this.blnBoldSupport = document.queryCommandSupported('bold');
+  }
+
+  onChooseLessonType(type){
+    switch(type){
+      case 'text':{
+        this.resetView();
+        this.blnShowTextType = true;
+        break;
+      }
+      case 'audio':{
+        this.resetView();
+        this.blnShowAudioType = true;
+        break;
+      }
+      case 'film':{
+        this.resetView();
+        this.blnShowVideoType = true;
+        break;
+      }
+    }
+  }
+
+  resetView(){
+    this.blnShowTextType = false;
+    this.blnShowAudioType = false;
+    this.blnShowVideoType = false;
   }
 
   // bold(event) {

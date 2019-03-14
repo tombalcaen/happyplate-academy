@@ -3,6 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  port: 8080,
   production: false,  
   connection_uri: 'http://localhost:3000/',
 };
