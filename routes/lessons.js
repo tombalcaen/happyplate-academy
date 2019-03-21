@@ -18,6 +18,9 @@ router.get('/',(req,res,next)=>{
 
 // CREATE
 router.post('/create',(req,res,next)=>{
+
+  console.log(req.body.files)
+
   let newLesson = new LessonsList({
     chId: req.body.chId,
     name: req.body.name,
@@ -25,7 +28,7 @@ router.post('/create',(req,res,next)=>{
     files: req.body.files,
     created: +moment(),
     last_edit: +moment(),
-    type: 1,
+    type: req.body.type,
     status: req.body.status
   })
 

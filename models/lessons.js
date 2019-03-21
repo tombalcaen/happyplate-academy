@@ -8,7 +8,7 @@ const lessonsSchema = mongoose.Schema({
     uid: {type: String},
     chId: {type: String},
     name: {type: String, required: true},    
-    body: {type: String, required: true},
+    body: {type: String},
     files: {type: Array},
     created: {type: String},
     last_edit: {type: String},

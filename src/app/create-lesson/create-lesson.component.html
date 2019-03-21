@@ -9,32 +9,50 @@
   </div>
 </div>
 
-<div class="choose-create-lesson">
-  <a class="btn btn-primary" (click)="onChooseLessonType('text')">tekst</a>
-  <a class="btn btn-primary" (click)="onChooseLessonType('audio')">audio</a>
-  <a class="btn btn-primary" (click)="onChooseLessonType('film')">film</a>
+<div class="row justify-content-center choose-create-lesson">
+  <div class="text-center col-8 p-4 m-5">
+    <div class="d-inline-block m-2" style="height: 150px; width: 150px; border: 1px solid #e0e0e0;">
+      <button class="" style="height: 100%; width: 100%; background-color: #fff; text-decoration: none;" (click)="onChooseLessonType('text')">tekst</button>    
+    </div>
+    <div class="d-inline-block m-2" style="height: 150px; width: 150px; border: 1px solid #e0e0e0;">
+      <button class="" style="height: 100%; width: 100%;" (click)="onChooseLessonType('audio')">audio</button>
+    </div>
+    <div class="d-inline-block m-2" style="height: 150px; width: 150px; border: 1px solid #e0e0e0;">
+      <button class="" style="height: 100%; width: 100%;" (click)="onChooseLessonType('film')">film</button>
+    </div>    
+  </div>  
 </div>
 
-<div class="create-lesson-content">
+
+<!-- VIDEO -->
+<div *ngIf="blnShowVideoType" class="create-lesson-content">
   <div class="container">
-    <div class="row justify-content-center pt-5">
+    <div class="row justify-content-center pt-5">      
       <div class="col-12 col-md-8">
-          bla bla bla bla bla
-          <iframe [src]='safeURL' width="560" height="315" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+        <div class="py-1">
+          <div class="input-group input-group-lg">         
+            <input type="text" [(ngModel)]="title" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" placeholder="Type hier de titel van de les...">
+          </div>
+        </div>
+        
+        <div class="py-1">
+          <div class="input-group input-group-lg">
+            <input type="text" [(ngModel)]="videocode" class="form-control" aria-label="youtube video code">
+          </div>
+        </div>
+
+        <!-- This is only for testing if the video works -->
+        <iframe [src]='safeURL' width="560" height="315" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
       </div>
     </div>
   </div>  
 </div>
 
-<div *ngIf="blnShowTextType" class="create-lesson-content">
+<!-- AUDIO -->
+<div *ngIf="blnShowAudioType" class="create-lesson-content">
   <div class="container">
-    <div class="row justify-content-center py-4">
-      <!-- <div class="col-12 col-md-4">        
-        <div class="py-1">
-          <h5>Titel:</h5>
-          <div><p style="color: #e0e0e0;">De titel toont de naam van deze les.</p></div>        
-        </div>
-      </div> -->
+    <div class="row justify-content-center pt-5">
+
       <div class="col-12 col-md-8">
         <div class="py-1">
           <!-- <div><h5>Titel:</h5></div> -->
@@ -43,12 +61,37 @@
           </div>
         </div>
       </div>
-      <!-- <div class="col-12 col-md-4">
-        <div class="pt-5 py-md-5">
-          <h5>Body:</h5>
-          <div><p style="color: #e0e0e0;">Hier schrijft u de inhoud van de cursus.</p></div>        
+
+      <div class="col-12 col-md-8">
+        <!-- <audio controls>        
+          <source src="../../assets/introAudio.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+        </audio> -->
+
+        <div class="button">
+          <i class="icon-file far fa-image"></i>
+          <input class="input-file" type="file" name="file" accept=".mp3,audio/*" (change)="onAudioFileChanged($event)">
         </div>
-      </div> -->
+
+        <a class="btn btn-info" (click)="saveAudioLesson()" style="color: white;">Save</a>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TEXTLESSON -->
+<div *ngIf="blnShowTextType" class="create-lesson-content">
+  <div class="container">
+    <div class="row justify-content-center pt-5">
+      <div class="col-12 col-md-8">
+        <div class="py-1">
+          <div class="input-group input-group-lg">         
+            <input type="text" [(ngModel)]="title" class="create-lesson-title form-control" aria-label="titel" aria-describedby="inputGroup-sizing-lg" placeholder="Type hier de titel van de les...">
+          </div>
+        </div>
+      </div>
+      
       <div class="col-12 col-md-8"> 
         <quill-editor [(ngModel)]="tekst"
           placeholder="Enter Text"
@@ -56,91 +99,10 @@
           style="height: 80vh"> <!--(onSelectionChanged)="onSelectionChanged($event)" (onContentChanged)="onContentChanged($event)"-->
         </quill-editor>
         <div class="row py-3">
-          <a class="btn btn-info" (click)="save()" style="color: white;">Save</a>      
+          <a class="btn btn-info" (click)="save()" style="color: white;">Save</a>
           <span *ngIf="last_saved != '' && last_saved != null" class="px-5 pt-3">Last saved: {{last_saved}}</span>
         </div>
       </div>
     </div> 
   <div>
 </div>
-        <!-- <div class="py-3" style="min-height: 94px;">
-          <div class="container textEditor">
-            <div class="row justify-content-center">
-              <div class="textEditor-controls">
-                <ul class="textEditor-control-list">
-                  <li>
-                    <div class="textEditor-item">
-                      <button class="button fas fa-bold" [class.active]="blnBold" (click)="bold($event)" [class.disabled]="!blnBoldSupport" [disabled]="!blnBoldSupport"></button>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="textEditor-item">
-                      <button class="button fas fa-italic" (click)="italic($event)"></button>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="textEditor-item">
-                      <button class="button fas fa-underline" (click)="underline($event)"></button>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="textEditor-item">
-                      <button class="button fas fa-heading" (click)="onHeader1($event)">1</button>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="textEditor-item">
-                      <button class="button fas fa-heading" (click)="onHeader2($event)">2</button>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="textEditor-item">
-                      <button class="button fas fa-heading" (click)="onHeader3($event)">3</button>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="textEditor-item">
-                      <button class="button fas fa-highlighter" (click)="highlight($event)"></button>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="textEditor-item">
-                      <button class="button fas fa-align-center" (click)="justifyCenter($event)"></button>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="textEditor-item">
-                      <button class="button fas fa-align-left" (click)="justifyLeft($event)"></button>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="textEditor-item">
-                      <button class="button fas fa-align-right" (click)="justifyRight($event)"></button>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="textEditor-item">
-                      <button class="button fas fa-play" (click)="addYoutube($event)"></button>                      
-                    </div>
-                  </li>     
-                  <li>
-                    <div class="textEditor-item image-upload">
-                      <div class="button">
-                        <i class="icon-file far fa-image"></i>
-                        <input class="input-file" type="file" name="file" (change)="onFileChanged($event)">
-                      </div>
-                    </div>                    
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="">
-          <div #el1 class="col-12 textEditor-textArea" (blur)="onBlur(el1.innerHTML)" (focus)="onFocus()" (keydown.backspace)="onBackSpaceDown($event)" (keydown.enter)="onEnterDown($event)" contenteditable="true" style="overflow-y: scroll" placeholder="Type hier de inhoud van de les...">
-            <p>
-              <br>
-            </p>
-          </div> 
-        </div>    -->
-        

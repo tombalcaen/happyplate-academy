@@ -41,8 +41,21 @@
         <!-- BODY -->
         <div class="row" style="min-height: 50vh;">
           <div class="col-12 col-md-10 offset-md-1">
-            <div class="course-content-text">
+            <div *ngIf="lessonType === 1" class="course-content-text">
               <div #el [innerHtml]="text"></div>
+            </div>
+            <div *ngIf="lessonType === 2" class="course-content-audio">
+              <div>This is audio</div>
+              <audio controls>        
+                <source src="../../assets/introAudio.mp3" type="audio/mpeg">
+              Your browser does not support the audio element.
+              </audio>
+              2            
+            </div>
+            <div *ngIf="lessonType === 3" class="course-content-text">
+              <div>
+                <iframe [src]='safeURL' width="560" height="315" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+              </div>              
             </div>
           </div>
         </div>
@@ -69,7 +82,12 @@
           <a>{{section.name}}</a>
         </div>
         <div *ngFor="let lesson of section.lessons; let i = index;" class="section-block">
-          <a [class.active]="lesson.active" [class.viewed]="lesson.viewed" (click)="activatePost(a,i)"><i class="far fa-file-alt mr-1"></i><span>{{lesson.name}}</span></a>
+          <a [class.active]="lesson.active" [class.viewed]="lesson.viewed" (click)="activatePost(a,i)">
+            <i *ngIf='lesson.type === 1' class="far fa-file-alt mr-1"></i>
+            <i *ngIf='lesson.type === 2' class="fas fa-volume-up mr-1"></i>
+            <i *ngIf='lesson.type === 3' class="far fa-file-alt mr-1"></i>
+            <span>{{lesson.name}}</span>
+          </a>
         </div>
       </div>
     </div>

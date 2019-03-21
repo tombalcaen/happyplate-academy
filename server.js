@@ -66,12 +66,6 @@ app.use(allowCrossDomain);
 app.use(bodyParser.json({limit: '16mb'})); //,{limit: '16mb'}
 // app.use(express.bodyParser({limit: '50mb'}));
 
-//passport middleware
-// app.use(passport.initialize());
-// app.use(passport.session());
-
-// require('./config/passport')(passport);
-
 //serve static files, this is the base of our front end: aka the angular app
 var distDir = __dirname + "/dist/happyplate-academy/";
 app.use(express.static(distDir));

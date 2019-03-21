@@ -27,12 +27,18 @@ export class CourseComponent implements OnInit {
   constructor(private _courseService: CourseService,
               private _lesson: LessonService,
               private _route: ActivatedRoute,
-              private sanitizer : DomSanitizer) { }
+              private _sanitizer : DomSanitizer) {
+                this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl("https://www.youtube.com/embed/VFBSF6ubn4o");
+               }
 
   text: any;
+  audioFile: any;
+  safeURL: any;
   subject: any;
   cId: string = "";
   progress: number = 0;
+
+  lessonType: number = 1;
 
   images = [];
 
@@ -69,13 +75,13 @@ export class CourseComponent implements OnInit {
   }
 
   activatePost(a,i){    
-    if(this.sections[this.a] && this.sections[this.a].lessons){
-      
+    if(this.sections[this.a] && this.sections[this.a].lessons){      
       this.sections[this.a].lessons[this.i].active = false;
       this.a = a;
       this.i = i;
       this.sections[a].lessons[i].active = true;
       this.sections[a].lessons[i].viewed = true;
+      this.lessonType = this.sections[a].lessons[i].type;      
     }
     this.getpost(a,i);
   }
@@ -83,8 +89,7 @@ export class CourseComponent implements OnInit {
   getposts(cId){
     this.sections = [];
     let n = 0;
-    this._courseService.getChaptersForCourse(cId).subscribe((data)=>{            
-      
+    this._courseService.getChaptersForCourse(cId).subscribe((data)=>{          
       this.sections = data;      
       this.sections.map((ch)=>{
         ch.lessons.map((less)=>{
@@ -100,12 +105,25 @@ export class CourseComponent implements OnInit {
 
   getpost(a,i){
     this.subject = this.sections[a].lessons[i].name;
-    this.text = this.sections[a].lessons[i].body;
+    // this.text = this.sections[a].lessons[i].body;
     this.images = [];
     let n = 0;
-    console.log(this.text)
     
-    this.sections[a].lessons[i].files.map((file)=>{
+    if(this.lessonType === 1){
+      this.text = this.sections[a].lessons[i].body;
+    } else if(this.lessonType === 2){
+      this.audioFile = this.sections[a].lessons[i].files[0];
+      console.log(this.audioFile)
+
+      var audio = document.createElement('audio');
+      audio.src = this.audioFile.name;
+      audio.play();
+
+
+    } else if(this.lessonType === 3){
+      
+    }
+    /*this.sections[a].lessons[i].files.map((file)=>{
       this._lesson.findFile(file).subscribe((l)=>{
         this.images.push(l);
       })
@@ -134,7 +152,7 @@ export class CourseComponent implements OnInit {
 
         console.log(this.text)
       })
-    })
+    })*/
 
     
     // this._lesson.getImage(this.sections[a].lessons[i].files[0]).subscribe((img)=>{
