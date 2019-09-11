@@ -21,49 +21,50 @@ export class RecipeComponent implements OnInit {
               private domSanitizer: DomSanitizer,
               private _recipe: RecipeService,
               private _auth: AuthService) {
-                this.routeState = _router.routerState.snapshot;                
+                this.routeState = _router.routerState.snapshot;
                }
 
   recipe_id: string;
   recipe: any;
   blnShowSource: boolean = false;
   dummyRating: number = 0;
-  blnLoggedIn : boolean = false;
+  blnLoggedIn: boolean = false;
   routeState: RouterStateSnapshot;
   user_recipe_rate: any;
   blnRecipeSaved: boolean = false;
 
   ngOnInit() {
     this.blnLoggedIn = !this._auth.loggedIn();
-    
+
     this.recipe_id = this._route.snapshot.paramMap.get('_id');
 
-    //increment visits
+    // increment visits
     this._recipe.incrementView(this.recipe_id);
 
-    //get recipe data
-    this._recipe.getRecipeById(this.recipe_id).subscribe((recipeObj)=>{      
+    // get recipe data
+    this._recipe.getRecipeById(this.recipe_id).subscribe((recipeObj) => {
       this.recipe = recipeObj[0];
-      this.recipe.rateAverage = this.recipe.rateValue / this.recipe.rateCount;          
-    })
+      console.log(this.recipe)
+      this.recipe.rateAverage = this.recipe.rateValue / this.recipe.rateCount;
+    });
 
-    //check if saved
-    this._recipe.recipeSaved(this.recipe_id).subscribe((res)=>{      
-      if(res.myrecipes.length == 0) this.blnRecipeSaved = false;
-      else this.blnRecipeSaved = true;
-    })
+    // check if saved
+    // this._recipe.recipeSaved(this.recipe_id).subscribe((res)=>{      
+    //   if(res.myrecipes.length == 0) this.blnRecipeSaved = false;
+    //   else this.blnRecipeSaved = true;
+    // })
   }
 
-  showSource(){
-    this.blnShowSource? this.blnShowSource = false:this.blnShowSource = true;
+  showSource() {
+    this.blnShowSource ? this.blnShowSource = false : this.blnShowSource = true;
   }
 
   reviewRecipe(){
-    //check if user already logged in.
+    // check if user already logged in.
     this.blnLoggedIn = !this._auth.loggedIn();
 
-    if(this.blnLoggedIn){
-      //check if recipe already reviewed for user
+    if (this.blnLoggedIn) {
+      // check if recipe already reviewed for user
       this._recipe.getRatesForId(this._auth.loadLocalUser(),this.recipe_id).subscribe((rate)=>{        
         this.user_recipe_rate = rate[0];
       });

@@ -24,38 +24,36 @@ export class BlogComponent implements OnInit {
 
 
   ngOnInit() {
-    this._blog.getHighlights().subscribe((highlights)=>{
+    this._blog.getHighlights().subscribe((highlights) => {
       this.highlights = highlights;
+      console.log(this.highlights);
+      this.highlights[0].articles.map((article) => {
+        article.datePublished_str = moment(article.datePublished_str).format('D MMM');
+      });
+    });
 
-      this.highlights[0].articles.map((article)=>{
-        article.datePublished_str = moment(article.datePublished_str).format("D MMM");
-      })
-      
-    })
-
-    this._article.getArticles().subscribe((articles)=>{      
+    this._article.getArticles().subscribe((articles) => {
       this.articles = articles;
 
-      articles.map((article)=>{
+      articles.map((article) => {
         article.type = 1;
         this.trending.push(article);
-        this.trending.sort((a,b)=>{
+        this.trending.sort((a, b) => {
           return b.dateCreated - a.dateCreated;
         });
-      })
-    })
+      });
+    });
 
-    this._recipe.getRecipes().subscribe((recipes)=>{            
-      this.recipes = recipes
-
-      recipes.map((recipe)=>{
+    this._recipe.getRecipes().subscribe((recipes) => {
+      this.recipes = recipes;
+      recipes.map((recipe) => {
         recipe.type = 2;
         this.trending.push(recipe);
-        this.trending.sort((a,b)=>{
+        this.trending.sort((a, b) => {
           return b.dateCreated - a.dateCreated;
         });
-      })
-    })
+      });
+    });
 
     // this._recipe.getMyRecipes().subscribe((myRecipes)=>{      
     //   this.myRecipes = myRecipes.myrecipes[0].recipeId;      

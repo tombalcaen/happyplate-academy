@@ -11,10 +11,9 @@ export class BlogService {
 
   constructor(private _http: HttpClient) { }
 
-  //GET
-  getHighlights(): Observable<any>{    
-    console.log("heah")
-    return this._http.get(environment.connection_uri + "highlight");
+  // GET
+  getHighlights(): Observable<any> {
+    return this._http.get(environment.connection_uri + 'highlight');
   }
 
 }

@@ -1,7 +1,5 @@
 .container-fluid{
     background-color: white;
-    /* height: 86px; */
-    /* position: fixed; */
     top: 0;
     transition: all 0.3s ease-in-out;
     width: 100%;

@@ -14,8 +14,8 @@ export class RecipesComponent implements OnInit {
               private _route: ActivatedRoute) { }
 
   recipes: any;
-  searchParam: string; //from url
-  searchResult: string; //from searchbox
+  searchParam: string; // from url
+  searchResult: string; // from searchbox
   icon__default: boolean = false;
   blnPing: boolean = false;
 
@@ -24,14 +24,15 @@ export class RecipesComponent implements OnInit {
     this.searchParam = this._route.snapshot.paramMap.get('search');
     this.searchResult = this.searchParam;
 
-    if(!this.searchParam){
-      this._recipe.getRecipes().subscribe((recipes)=>{            
+    if (!this.searchParam) {
+      this._recipe.getRecipes().subscribe((recipes) => {
+        console.log(recipes)
         this.recipes = recipes;
-        this.recipes.map((res)=>{
-          if(res.meal_type == 1) res.meal_type_info = "vlees";
-          if(res.meal_type == 2) res.meal_type_info = "vis"; 
-          if(res.meal_type == 3) res.meal_type_info = "vegetarisch"; 
-          if(res.meal_type == 4) res.meal_type_info = "veganistisch"; 
+        this.recipes.map((res) => {
+          if (res.meal_type == 1) res.meal_type_info = "vlees";
+          if (res.meal_type == 2) res.meal_type_info = "vis"; 
+          if (res.meal_type == 3) res.meal_type_info = "vegetarisch"; 
+          if (res.meal_type == 4) res.meal_type_info = "veganistisch"; 
 
           res.review_score = 4;
           res.review_amount = 0;

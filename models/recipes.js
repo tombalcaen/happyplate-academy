@@ -25,6 +25,7 @@ const recipesSchema = mongoose.Schema({
     rateValue: {type: Number},
     rateAverage: {type: Number},
     source: {type: Object},
+    imgUrl: {type: String}
     // like_score: {type: Number},
     // like_n: {type: Number}
 });
@@ -34,15 +35,47 @@ const recipes = module.exports = mongoose.model('recipes', recipesSchema);
 
 //GET
 module.exports.getRecipes = function(callback){
-    recipes.find({},{name: 1, time_spend: 1, difficulty_index: 1, health_index: 1, images: 1, dateCreated: 1, meal_type: 1, tags: 1, rateValue: 1, rateCount: 1},callback)
+    recipes.find(
+        {},
+        {
+            name: 1, 
+            time_spend: 1, 
+            // difficulty_index: 1, 
+            health_index: 1,
+            dateCreated: 1, 
+            meal_type: 1,
+            nutr: 1,
+            rateValue: 1, 
+            rateCount: 1,
+            source: 1,
+            imgUrl: 1
+        },
+        callback
+        )
 }
 
 module.exports.getRecipesFor = function(tag,callback){    
-    recipes.find({tags: tag},{name: 1, time_spend: 1, difficulty_index: 1, health_index: 1, images: 1, dateCreated: 1, meal_type: 1, tags: 1, rateValue: 1, rateCount: 1},callback)
+    recipes.find({tags: tag},{name: 1, time_spend: 1, health_index: 1, images: 1, dateCreated: 1, meal_type: 1, tags: 1, rateValue: 1, rateCount: 1},callback)
 }
 
 module.exports.getRecipesById = function(_id,callback){    
-    recipes.find({_id: mongoose.Types.ObjectId(_id)},callback)
+
+    const fields = {
+        name: 1,
+        ingr: 1,
+        steps: 1,
+        nutr: 1,
+        time_spend: 1, 
+        health_index: 1, 
+        dateCreated: 1, 
+        meal_type: 1, 
+        rateValue: 1, 
+        rateCount: 1, 
+        source: 1, 
+        imgUrl: 1
+    }
+
+    recipes.find({_id: mongoose.Types.ObjectId(_id)},fields,callback)
 }
 
 //CREATE

@@ -18,26 +18,24 @@
                 <div class="popover-arrow popover-arrow--notifications"></div>
               </div>              
             </li>            
-            <li *ngIf="blnLoggedIn" class="nav-item dropdown position-relative">              
-              <a id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-alt"></i></a> <!---->
+            <!-- <li *ngIf="blnLoggedIn" class="nav-item dropdown position-relative">              
+              <a id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-alt"></i></a>
               <div class="dropdown-menu dropdown-menu--profile" aria-labelledby="navbarDropdown">
                 <div class="popover-inner">
                   <ul role="menu" class="list list--borderless list--short list--large">
                     <li class="list-item" routerLink="#">Word een member</li>
                     <li class="list-item list-item--separator"></li>
                     <li class="list-item" routerLink="/profile">profiel</li>
-                    <!-- <li class="list-item" routerLink="/settings">settings</li>
-                    <li class="list-item" routerLink="/help">help</li> -->
                     <li class="list-item" (click)="onLogout()">log uit</li>
                   </ul>
                 </div>                
                 <div class="popover-arrow"></div>
               </div>              
-              <!-- <a class="ml-3" (click)="onLogout()"><i class="fas fa-sign-out-alt"></i></a> -->
-            </li>            
+            </li> -->
             <li *ngIf="!blnLoggedIn" class="nav-item">
               <div class="header-content-getstarted">
-                <a class="cta getstarted-cta" routerLink="/create-account">Join ons!</a>            
+                <!-- <a class="cta getstarted-cta" routerLink="/create-account">Join ons!</a>             -->
+                <a class="cta getstarted-cta" href="http://localhost:4200" target="_blanck">Happy plate mealplan</a>
               </div>
             </li>
           </ul>          
@@ -51,16 +49,16 @@
   <div class="container upper-menu-container" [style.padding.rem]="blnNarrow ? '0' : '0.5'">
     <div class="row p-0">
       <div class="col-12 upper-menu">
-        <ul class="d-block d-md-flex upper-menu-list m-0 mx-0 mx-md-5" style="">
+        <ul class="d-block d-md-flex upper-menu-list m-0 mx-0 mx-md-5">
           <li class="d-block d-md-inline-block upper-menu-list-item">
             <a routerLink="/recipes">gezonder recepten</a>            
           </li>
           <li class="d-block d-md-inline-block upper-menu-list-item">
             <a routerLink="/articles">artikels</a>
           </li>
-          <li class="d-block d-md-inline-block upper-menu-list-item">
+          <!-- <li class="d-block d-md-inline-block upper-menu-list-item">
             <a routerLink="/courses">happy plate academy</a>
-          </li>
+          </li> -->
           <!-- <li class="d-block d-md-inline-block upper-menu-list-item">
             <a routerLink="/community">Community</a>
           </li>           -->

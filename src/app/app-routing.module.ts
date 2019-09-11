@@ -48,7 +48,7 @@ const routes: Routes = [
   //     { path: 'calendar/:key',  component: CalendarComponentClass, canActivate: [AuthGuardService] },
   //   ]
   // }
-]
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

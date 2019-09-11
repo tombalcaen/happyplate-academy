@@ -7,7 +7,6 @@ const moment = require("moment/moment");
 
 //GET
 router.get('/',(req,res,next)=>{
-    console.log("router get articles")
     ArticleList.getArticles((err, items)=>{        
     if(err){
         console.log(err.message)

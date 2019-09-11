@@ -17,8 +17,8 @@ export class RecipeService {
 
   // GET
 
-  getRecipes(): Observable<any>{    
-    return this._http.get(environment.connection_uri + "recipe");
+  getRecipes(): Observable<any> {
+    return this._http.get(environment.connection_uri + 'recipe');
   }
 
   getRecipesFor(recipe_tag): Observable<any>{
@@ -26,7 +26,7 @@ export class RecipeService {
     return this._http.get(environment.connection_uri + "recipe/for?tag=" + recipe_tag);
   }
 
-  getRecipeById(_id): Observable<any>{
+  getRecipeById(_id): Observable<any> {
     return this._http.get(environment.connection_uri + 'recipe/id?_id=' + _id);
   }
 
